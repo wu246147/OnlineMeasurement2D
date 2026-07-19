@@ -1,4 +1,4 @@
-﻿namespace OnlineMeasurement.IO
+namespace OnlineMeasurement.IO
 {
     partial class HslForm
     {

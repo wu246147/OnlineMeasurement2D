@@ -1,4 +1,4 @@
-﻿using HslCommunication.Core;
+using HslCommunication.Core;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

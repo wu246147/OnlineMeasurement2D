@@ -1,4 +1,4 @@
-﻿using HslCommunication;
+using HslCommunication;
 using HslCommunication.Profinet.Toyota;
 using System;
 using System.Collections.Generic;
