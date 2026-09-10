@@ -1,4 +1,4 @@
-﻿using Basler.Pylon;
+using Basler.Pylon;
 using HalconDotNet;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace OnlineMeasurement
 {
-    public class BaslerCam
+    public class BaslerCam : ICam
     {
         //相机连接的个数
         //public int CameraNumber = CameraFinder.Enumerate().Count;

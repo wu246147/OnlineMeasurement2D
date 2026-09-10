@@ -1,4 +1,4 @@
-﻿using HalconDotNet;
+using HalconDotNet;
 using HslCommunication;
 using HslCommunication.Profinet.Omron;
 using MySqlX.XDevAPI.Common;
@@ -34,7 +34,8 @@ namespace OnlineMeasurement
         List<string> 车型参数排序key = new List<string>();
 
         Cam 相机参数 = new Cam();
-        Dictionary<string, BaslerCam> 相机 = new Dictionary<string, BaslerCam>();
+        // Camera instances are created through the factory according to each camera setting.
+        Dictionary<string, ICam> 相机 = new Dictionary<string, ICam>();
         OtherSet otherSet = new OtherSet();
 
         wSql sql = null;
@@ -300,7 +301,7 @@ namespace OnlineMeasurement
                         }
                         if (!checkBox相机仿真.Checked)
                         {
-                            相机.Add(name, new BaslerCam());
+                            相机.Add(name, CameraFactory.Create(相机参数.sets[name].gSet.CameraType));
                         }
                         else
                         {

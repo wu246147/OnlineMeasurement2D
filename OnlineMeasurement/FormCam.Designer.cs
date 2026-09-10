@@ -1,4 +1,4 @@
-﻿namespace OnlineMeasurement
+namespace OnlineMeasurement
 {
     partial class FormCam
     {
@@ -40,6 +40,8 @@
             this.checkBox_Disabled = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label_Node = new System.Windows.Forms.Label();
+            this.comboBox_CameraType = new System.Windows.Forms.ComboBox();
+            this.label_CameraType = new System.Windows.Forms.Label();
             this.groupBox7.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +97,8 @@
             this.panel1.Controls.Add(this.checkBox_Disabled);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label_Node);
+            this.panel1.Controls.Add(this.comboBox_CameraType);
+            this.panel1.Controls.Add(this.label_CameraType);
             this.panel1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel1.Location = new System.Drawing.Point(6, 20);
             this.panel1.Name = "panel1";
@@ -158,6 +162,27 @@
             this.label_Node.TabIndex = 2;
             this.label_Node.Text = "--";
             // 
+            // comboBox_CameraType
+            // 
+            this.comboBox_CameraType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_CameraType.FormattingEnabled = true;
+            this.comboBox_CameraType.Items.AddRange(new object[] {
+            "Basler",
+            "海康"});
+            this.comboBox_CameraType.Location = new System.Drawing.Point(121, 82);
+            this.comboBox_CameraType.Name = "comboBox_CameraType";
+            this.comboBox_CameraType.Size = new System.Drawing.Size(105, 22);
+            this.comboBox_CameraType.TabIndex = 18;
+            // 
+            // label_CameraType
+            // 
+            this.label_CameraType.AutoSize = true;
+            this.label_CameraType.Location = new System.Drawing.Point(35, 86);
+            this.label_CameraType.Name = "label_CameraType";
+            this.label_CameraType.Size = new System.Drawing.Size(63, 14);
+            this.label_CameraType.TabIndex = 17;
+            this.label_CameraType.Text = "相机类型";
+            // 
             // FormCam
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -191,6 +216,8 @@
         private System.Windows.Forms.CheckBox checkBox_Disabled;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label_Node;
+        private System.Windows.Forms.Label label_CameraType;
+        private System.Windows.Forms.ComboBox comboBox_CameraType;
         private System.Windows.Forms.Label label_标定状态;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button_标定设置;

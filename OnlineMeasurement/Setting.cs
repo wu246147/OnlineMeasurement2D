@@ -1,4 +1,4 @@
-﻿using HalconDotNet;
+using HalconDotNet;
 using HslCommunication.Secs.Types;
 using MySqlX.XDevAPI.Common;
 using System;
@@ -1003,6 +1003,8 @@ namespace OnlineMeasurement
     public class CamGenSet
     {
         public bool Disabled = false;
+        // ???????????? CamSetting.xml ????????? Basler?
+        public CameraType CameraType = OnlineMeasurement.CameraType.Basler;
     }
 
     [Serializable]

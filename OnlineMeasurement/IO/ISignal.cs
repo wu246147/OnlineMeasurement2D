@@ -36,9 +36,6 @@ namespace OnlineMeasurement.IO
         拍照完成,
         测量可读,
         测量结果,
-        单次拍照完成,
-
-
 
         车型反馈 = 256,
         连番反馈,
@@ -56,15 +53,11 @@ namespace OnlineMeasurement.IO
         重置,
         空跑,
         车型连番OK,
-        触发,
-        检测完成,
 
         车型号 = 256,
         连番号,
         托盘号,
         控制光源信号 ,
-        相机ID,
-        点位ID,
 
         车架号 = 1280,
     }

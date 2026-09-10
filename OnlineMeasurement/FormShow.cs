@@ -1,4 +1,4 @@
-﻿using HalconDotNet;
+using HalconDotNet;
 using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;

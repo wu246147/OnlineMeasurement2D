@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,10 +34,12 @@ namespace OnlineMeasurement
         private void EnableUpData()
         {
             checkBox_Disabled.CheckedChanged += UpData;
+            comboBox_CameraType.SelectedIndexChanged += UpData;
         }
         private void DisenableUpData()
         {
             checkBox_Disabled.CheckedChanged -= UpData;
+            comboBox_CameraType.SelectedIndexChanged -= UpData;
         }
 
         private void UpData(object sender, EventArgs e)
@@ -50,6 +52,7 @@ namespace OnlineMeasurement
             var set = cam.sets[treeView1.SelectedNode.Text];
 
             set.gSet.Disabled = checkBox_Disabled.Checked;
+            set.gSet.CameraType = comboBox_CameraType.SelectedIndex == 1 ? CameraType.Hikvision : CameraType.Basler;
         }
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -62,6 +65,7 @@ namespace OnlineMeasurement
                 label_Node.Text = e.Node.Text;
 
                 checkBox_Disabled.Checked = set.gSet.Disabled;
+                comboBox_CameraType.SelectedIndex = set.gSet.CameraType == CameraType.Hikvision ? 1 : 0;
                 if (set.camparam == null)
                 {
                     label_标定状态.Text = "未标定";
