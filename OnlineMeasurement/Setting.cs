@@ -184,20 +184,36 @@ namespace OnlineMeasurement
         /// </summary>
         public Dictionary<int, HNCCModel> Models0 = new Dictionary<int, HNCCModel>();
         /// <summary>
+        /// 第二个孔的匹配识别模板
+        /// </summary>
+        public Dictionary<int, HNCCModel> Models1 = new Dictionary<int, HNCCModel>();
+        /// <summary>
         /// 匹配识别模板
         /// </summary>
         public Dictionary<int, HShapeModel> ShapeModels0 = new Dictionary<int, HShapeModel>();
+        /// <summary>
+        /// 第二个孔的匹配识别模板
+        /// </summary>
+        public Dictionary<int, HShapeModel> ShapeModels1 = new Dictionary<int, HShapeModel>();
 
         //搜索区域
         public Dictionary<int, HRegion> rectangle0 = new Dictionary<int, HRegion>();
+        //第二个孔搜索区域
+        public Dictionary<int, HRegion> rectangle1 = new Dictionary<int, HRegion>();
 
         public Dictionary<int, PointF> modeCenter0 = new Dictionary<int, PointF>();
+        //第二个孔模板中心
+        public Dictionary<int, PointF> modeCenter1 = new Dictionary<int, PointF>();
 
         /// <summary>
         /// 相机外参
         /// </summary>
         public Dictionary<int, HPose> camPose = new Dictionary<int, HPose>();
 
+        /// <summary>
+        /// 加载车型的常规参数、标定位姿、两个孔的模型、搜索区域和模板中心。
+        /// 模型文件名格式为“点位号_孔编号”，孔编号 0 为原孔，1 为第二个孔。
+        /// </summary>
         public bool Load(string basePath)
         {
             _errMsg = string.Empty;
@@ -209,50 +225,26 @@ namespace OnlineMeasurement
                 string modelBasePath = basePath + "\\Model\\";
                 if (Directory.Exists(modelBasePath))
                 {
-                    string[] shapeModelPaths = Directory.GetFiles(modelBasePath, "*.shm");
+                    string[] shapeModelPaths = Directory.GetFiles(modelBasePath, "*_*.shm");
                     if (shapeModelPaths.Length > 0)
                     {
                         for (int i = 0; i < shapeModelPaths.Length; i++)
                         {
-                            string name = Path.GetFileNameWithoutExtension(shapeModelPaths[i]);
-                            if (int.TryParse(name, out int key))
+                            if (TryParseHoleFileName(shapeModelPaths[i], out int key, out int holeIndex))
                             {
-                                if (ShapeModels0.ContainsKey(key))
-                                {
-                                    if (ShapeModels0[key] != null)
-                                    {
-                                        ShapeModels0[key].Dispose();
-                                    }
-                                    ShapeModels0[key] = new HShapeModel(shapeModelPaths[i]);
-                                }
-                                else
-                                {
-                                    ShapeModels0.Add(key, new HShapeModel(shapeModelPaths[i]));
-                                }
+                                LoadShapeModel(shapeModelPaths[i], key, holeIndex);
                             }
                         }
                     }
 
-                    string[] modelPaths = Directory.GetFiles(modelBasePath, "*.ncc");
+                    string[] modelPaths = Directory.GetFiles(modelBasePath, "*_*.ncc");
                     if (modelPaths.Length > 0)
                     {
                         for (int i = 0; i < modelPaths.Length; i++)
                         {
-                            string name = Path.GetFileNameWithoutExtension(modelPaths[i]);
-                            if (int.TryParse(name, out int key))
+                            if (TryParseHoleFileName(modelPaths[i], out int key, out int holeIndex))
                             {
-                                if (Models0.ContainsKey(key))
-                                {
-                                    if (Models0[key] != null)
-                                    {
-                                        Models0[key].Dispose();
-                                    }
-                                    Models0[key] = new HNCCModel(modelPaths[i]);
-                                }
-                                else
-                                {
-                                    Models0.Add(key, new HNCCModel(modelPaths[i]));
-                                }
+                                LoadNccModel(modelPaths[i], key, holeIndex);
                             }
                         }
                     }
@@ -263,13 +255,12 @@ namespace OnlineMeasurement
                         _errMsg += $"\r\n{modelBasePath}文件夹下不存在shm或ncc文件";
                     }
 
-                    string[] txtPaths = Directory.GetFiles(modelBasePath, "*.txt");
+                    string[] txtPaths = Directory.GetFiles(modelBasePath, "*_*.txt");
                     if (txtPaths.Length > 0)
                     {
                         for (int i = 0; i < txtPaths.Length; i++)
                         {
-                            string name = Path.GetFileNameWithoutExtension(txtPaths[i]);
-                            if (int.TryParse(name, out int key))
+                            if (TryParseHoleFileName(txtPaths[i], out int key, out int holeIndex))
                             {
                                 using (StreamReader reader = new StreamReader(txtPaths[i], Encoding.UTF8))
                                 {
@@ -278,27 +269,13 @@ namespace OnlineMeasurement
                                         && double.TryParse(strings[2], out double row2) && double.TryParse(strings[3], out double column2))
                                     {
                                         new HImage("byte", (int)(column2 + 1), (int)(row2 + 1)).Dispose();//类似于画布，要能覆盖下面创建的区域
-                                        if (rectangle0.ContainsKey(key))
-                                        {
-                                            rectangle0[key] = new HRegion(row1, column1, row2, column2);
-                                        }
-                                        else
-                                        {
-                                            rectangle0.Add(key, new HRegion(row1, column1, row2, column2));
-                                        }
+                                        SetRectangle(key, holeIndex, new HRegion(row1, column1, row2, column2));
                                     }
 
                                     string[] printFs = reader.ReadLine().Split(',');
                                     if (printFs.Length == 2 && double.TryParse(printFs[0], out double row) && double.TryParse(printFs[1], out double column))
                                     {
-                                        if (modeCenter0.ContainsKey(key))
-                                        {
-                                            modeCenter0[key] = new PointF((float)column, (float)row);
-                                        }
-                                        else
-                                        {
-                                            modeCenter0.Add(key, new PointF((float)column, (float)row));
-                                        }
+                                        SetModeCenter(key, holeIndex, new PointF((float)column, (float)row));
                                     }
                                 }
                             }
@@ -323,6 +300,86 @@ namespace OnlineMeasurement
             }
 
             return result2 && result5;
+        }
+
+        /// <summary>
+        /// 解析模型、区域和中心点文件名，文件名格式为“点位号_孔编号”。
+        /// </summary>
+        private bool TryParseHoleFileName(string filePath, out int key, out int holeIndex)
+        {
+            key = 0;
+            holeIndex = 0;
+            string name = Path.GetFileNameWithoutExtension(filePath);
+            int separatorIndex = name.LastIndexOf('_');
+            if (separatorIndex <= 0 || separatorIndex >= name.Length - 1)
+            {
+                return false;
+            }
+
+            return int.TryParse(name.Substring(0, separatorIndex), out key)
+                && int.TryParse(name.Substring(separatorIndex + 1), out holeIndex)
+                && (holeIndex == 0 || holeIndex == 1);
+        }
+
+        /// <summary>
+        /// 按孔编号保存形状模型，并释放同一位置已经加载的旧模型。
+        /// </summary>
+        private void LoadShapeModel(string filePath, int key, int holeIndex)
+        {
+            Dictionary<int, HShapeModel> models = holeIndex == 0 ? ShapeModels0 : ShapeModels1;
+            if (models.ContainsKey(key) && models[key] != null)
+            {
+                models[key].Dispose();
+            }
+            models[key] = new HShapeModel(filePath);
+        }
+
+        /// <summary>
+        /// 按孔编号保存 NCC 模型，并释放同一位置已经加载的旧模型。
+        /// </summary>
+        private void LoadNccModel(string filePath, int key, int holeIndex)
+        {
+            Dictionary<int, HNCCModel> models = holeIndex == 0 ? Models0 : Models1;
+            if (models.ContainsKey(key) && models[key] != null)
+            {
+                models[key].Dispose();
+            }
+            models[key] = new HNCCModel(filePath);
+        }
+
+        /// <summary>
+        /// 按孔编号保存搜索区域。
+        /// </summary>
+        private void SetRectangle(int key, int holeIndex, HRegion region)
+        {
+            Dictionary<int, HRegion> rectangles = holeIndex == 0 ? rectangle0 : rectangle1;
+            if (rectangles.ContainsKey(key) && rectangles[key] != null)
+            {
+                rectangles[key].Dispose();
+            }
+            rectangles[key] = region;
+        }
+
+        /// <summary>
+        /// 按孔编号保存模板中心。
+        /// </summary>
+        private void SetModeCenter(int key, int holeIndex, PointF center)
+        {
+            Dictionary<int, PointF> centers = holeIndex == 0 ? modeCenter0 : modeCenter1;
+            centers[key] = center;
+        }
+
+        /// <summary>
+        /// 判断指定测点和孔编号是否已经具备模型、搜索区域和模板中心。
+        /// </summary>
+        public bool HasDetectionData(int key, int holeIndex)
+        {
+            Dictionary<int, HNCCModel> nccModels = holeIndex == 0 ? Models0 : Models1;
+            Dictionary<int, HShapeModel> shapeModels = holeIndex == 0 ? ShapeModels0 : ShapeModels1;
+            Dictionary<int, HRegion> rectangles = holeIndex == 0 ? rectangle0 : rectangle1;
+            Dictionary<int, PointF> centers = holeIndex == 0 ? modeCenter0 : modeCenter1;
+            return rectangles.ContainsKey(key) && centers.ContainsKey(key)
+                && (nccModels.ContainsKey(key) || shapeModels.ContainsKey(key));
         }
 
         public bool LoadGeneralSet(string basePath)
@@ -552,6 +609,33 @@ namespace OnlineMeasurement
             outScore = 0;
             return false;
         }
+
+        /// <summary>
+        /// 使用指定测点和孔编号对应的模型、搜索区域完成定位。
+        /// </summary>
+        public bool FindPxPy(HImage map, int key, int holeIndex, bool sharpenProcess, double inScore, ref float Px, ref float Py, out double dx, out double dy, out double outScore)
+        {
+            if (!HasDetectionData(key, holeIndex))
+            {
+                dx = 0;
+                dy = 0;
+                outScore = 0;
+                return false;
+            }
+
+            Dictionary<int, HNCCModel> nccModels = holeIndex == 0 ? Models0 : Models1;
+            Dictionary<int, HShapeModel> shapeModels = holeIndex == 0 ? ShapeModels0 : ShapeModels1;
+            Dictionary<int, HRegion> rectangles = holeIndex == 0 ? rectangle0 : rectangle1;
+            Dictionary<int, PointF> centers = holeIndex == 0 ? modeCenter0 : modeCenter1;
+            if (shapeModels.ContainsKey(key))
+            {
+                return FindPxPy(map, rectangles[key], shapeModels[key], sharpenProcess, inScore,
+                    centers[key].X, centers[key].Y, ref Px, ref Py, out dx, out dy, out outScore);
+            }
+
+            return FindPxPy(map, rectangles[key], nccModels[key], inScore,
+                centers[key].X, centers[key].Y, ref Px, ref Py, out dx, out dy, out outScore);
+        }
         public HImage GetShowHIamge(HImage hImage, HRegion hRegion, double modeCenterX, double modeCenterY, double px, double py, HShapeModel hShapeModel)
         {
             double w = 1;
@@ -712,6 +796,18 @@ namespace OnlineMeasurement
         //二级黄色公差
         public float minNewDX_2 = -1.5f, minNewDY_2 = -1.5f, minNewDZ_2 = -1.5f;//下限
         public float maxNewDX_2 = 1.5f, maxNewDY_2 = 1.5f, maxNewDZ_2 = 1.5f;//上限
+
+        /// <summary>
+        /// 是否启用第二个孔以及两孔相对距离检测，旧配置默认关闭。
+        /// </summary>
+        public bool enablePoints = false;
+        // 两孔相对距离一级绿色阈值
+        public float minPointsDX_1 = -1.0f, minPointsDY_1 = -1.0f, minPointsDZ_1 = -1.0f, minPointsDD_1 = -1.0f;//下限
+        public float maxPointsDX_1 = 1.0f, maxPointsDY_1 = 1.0f, maxPointsDZ_1 = 1.0f, maxPointsDD_1 = 1.0f;//上限
+        // 两孔相对距离二级黄色阈值
+        public float minPointsDX_2 = -1.5f, minPointsDY_2 = -1.5f, minPointsDZ_2 = -1.5f, minPointsDD_2 = -1.5f;//下限
+        public float maxPointsDX_2 = 1.5f, maxPointsDY_2 = 1.5f, maxPointsDZ_2 = 1.5f, maxPointsDD_2 = 1.5f;//上限
+
         public int ledExposure = 4000;//曝光
 
         public double score0 = 0.5;//匹配分数

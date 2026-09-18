@@ -75,6 +75,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="MvCameraControl.Net">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\MvCameraControl.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
@@ -89,6 +94,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSet.Designer.cs">
+      <DependentUpon>FormSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ICam.cs" />
+    <Compile Include="HikCam.cs" />
     <Compile Include="BaslerCam.cs" />
     <Compile Include="FormCam.cs">
       <SubType>Form</SubType>
@@ -107,12 +120,6 @@
     </Compile>
     <Compile Include="FormName.Designer.cs">
       <DependentUpon>FormName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormSet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormSet.Designer.cs">
-      <DependentUpon>FormSet.cs</DependentUpon>
     </Compile>
     <Compile Include="FormTool.cs" />
     <Compile Include="FormShow.cs">

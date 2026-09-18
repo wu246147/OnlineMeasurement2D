@@ -741,6 +741,9 @@ namespace OnlineMeasurement
                     Dictionary<int, Point3D> point3d给PLC = new Dictionary<int, Point3D>();//测点数据
                     Dictionary<int, Point3D> point3d原数据 = new Dictionary<int, Point3D>();//测点数据
                     Dictionary<int, Point3DColor> point3d原颜色 = new Dictionary<int, Point3DColor>();//测点数据颜色
+                    // 保存两孔间距结果，供数模界面首次显示、重建显示和调零显示复用。
+                    Dictionary<int, Point3D> points3dData = new Dictionary<int, Point3D>();
+                    Dictionary<int, Point3DColor> points3dColors = new Dictionary<int, Point3DColor>();
                     Dictionary<int, Dictionary<string, string>> sqlValuePairs = new Dictionary<int, Dictionary<string, string>>();//存数据库的数据
                     List<float> 重建L = new List<float>();
                     List<float> 重建W = new List<float>();
@@ -777,8 +780,10 @@ namespace OnlineMeasurement
                                     {
                                         if (!相机参数.sets[camName].gSet.Disabled && !set.keepOK)
                                         {
-                                            float Px0 = 0, Py0 = 0;
+                                            float Px0 = 0, Py0 = 0, Px1 = 0, Py1 = 0;
                                             bool 匹配成功 = false;
+                                            // 第二孔未启用时视为不需要进行第二次定位。
+                                            bool Points匹配成功 = !set.enablePoints;
                                             HImage hImage2D = null;
                                             HImage hImage2D匹配 = null;
 
@@ -888,7 +893,38 @@ namespace OnlineMeasurement
                                                                 formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
                                                                 无异常 = false;
                                                             }
-                                                            hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0, carSetting.ShapeModels0[pointNum]);
+                                                            // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
+                                                            if (set.enablePoints && 匹配成功)
+                                                            {
+                                                                if (!carSetting.HasDetectionData(pointNum, 1))
+                                                                {
+                                                                    ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
+                                                                    formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
+                                                                    无异常 = false;
+                                                                }
+                                                                else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
+                                                                    carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
+                                                                {
+                                                                    Points匹配成功 = true;
+                                                                    ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
+                                                                }
+                                                                else
+                                                                {
+                                                                    ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
+                                                                    formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
+                                                                    无异常 = false;
+                                                                }
+                                                            }
+                                                            if (set.enablePoints && Points匹配成功)
+                                                            {
+                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage,
+                                                                    carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
+                                                                    carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
+                                                            }
+                                                            else
+                                                            {
+                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0, carSetting.ShapeModels0[pointNum]);
+                                                            }
                                                             formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
                                                             hImage.Dispose();
                                                         }
@@ -924,7 +960,38 @@ namespace OnlineMeasurement
                                                                 formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
                                                                 无异常 = false;
                                                             }
-                                                            hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0);
+                                                            // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
+                                                            if (set.enablePoints && 匹配成功)
+                                                            {
+                                                                if (!carSetting.HasDetectionData(pointNum, 1))
+                                                                {
+                                                                    ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
+                                                                    formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
+                                                                    无异常 = false;
+                                                                }
+                                                                else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
+                                                                    carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
+                                                                {
+                                                                    Points匹配成功 = true;
+                                                                    ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
+                                                                }
+                                                                else
+                                                                {
+                                                                    ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
+                                                                    formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
+                                                                    无异常 = false;
+                                                                }
+                                                            }
+                                                            if (set.enablePoints && Points匹配成功)
+                                                            {
+                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage,
+                                                                    carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
+                                                                    carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
+                                                            }
+                                                            else
+                                                            {
+                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0);
+                                                            }
                                                             formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
                                                         }
                                                         else
@@ -942,6 +1009,50 @@ namespace OnlineMeasurement
                                                                 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out float ox, out float oy);
                                                                 float dx = (float)Math.Round(nx - ox, 2);
                                                                 float dy = (float)Math.Round(ny - oy, 2);
+
+                                                                // 两孔距离默认显示为红色，只有第二孔定位、坐标转换和阈值判断全部完成后才更新颜色。
+                                                                float PointsDX = 0, PointsDY = 0, PointsDZ = 0, PointsDD = 0;
+                                                                Color PointsColorX = set.enablePoints ? Color.Red : Color.White;
+                                                                Color PointsColorY = set.enablePoints ? Color.Red : Color.White;
+                                                                Color PointsColorZ = set.enablePoints ? Color.Red : Color.White;
+                                                                Color PointsColorD = set.enablePoints ? Color.Red : Color.White;
+                                                                bool pointsDistanceOK = !set.enablePoints;
+                                                                if (set.enablePoints && Points匹配成功)
+                                                                {
+                                                                    float actual0X = 0, actual0Y = 0, actual1X = 0, actual1Y = 0;
+                                                                    float nominal0X = 0, nominal0Y = 0, nominal1X = 0, nominal1Y = 0;
+                                                                    bool pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out actual0X, out actual0Y);
+                                                                    pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px1, Py1, out actual1X, out actual1Y) && pointsCoordinateOK;
+                                                                    pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out nominal0X, out nominal0Y) && pointsCoordinateOK;
+                                                                    pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, out nominal1X, out nominal1Y) && pointsCoordinateOK;
+                                                                    if (pointsCoordinateOK)
+                                                                    {
+                                                                        Point3D actualPoint0 = ConvertXYToAxes(set, actual0X, actual0Y);
+                                                                        Point3D actualPoint1 = ConvertXYToAxes(set, actual1X, actual1Y);
+                                                                        Point3D nominalPoint0 = ConvertXYToAxes(set, nominal0X, nominal0Y);
+                                                                        Point3D nominalPoint1 = ConvertXYToAxes(set, nominal1X, nominal1Y);
+                                                                        // 先按定义计算误差向量，再对显示值和阈值值保留两位小数。
+                                                                        double pointsErrorX = Math.Abs(actualPoint1.X - actualPoint0.X) - Math.Abs(nominalPoint1.X - nominalPoint0.X);
+                                                                        double pointsErrorY = Math.Abs(actualPoint1.Y - actualPoint0.Y) - Math.Abs(nominalPoint1.Y - nominalPoint0.Y);
+                                                                        double pointsErrorZ = Math.Abs(actualPoint1.Z - actualPoint0.Z) - Math.Abs(nominalPoint1.Z - nominalPoint0.Z);
+                                                                        PointsDX = (float)Math.Round(pointsErrorX, 2);
+                                                                        PointsDY = (float)Math.Round(pointsErrorY, 2);
+                                                                        PointsDZ = (float)Math.Round(pointsErrorZ, 2);
+                                                                        PointsDD = (float)Math.Round(Math.Sqrt(pointsErrorX * pointsErrorX + pointsErrorY * pointsErrorY + pointsErrorZ * pointsErrorZ), 2);
+                                                                        pointsDistanceOK = EvaluatePointsDistance(set, PointsDX, PointsDY, PointsDZ, PointsDD,
+                                                                            out PointsColorX, out PointsColorY, out PointsColorZ, out PointsColorD);
+                                                                        if (!pointsDistanceOK)
+                                                                        {
+                                                                            无超差 = false;
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        ShowMessage($"{camName}_{pointNum} 两孔坐标转换失败", Color.Red);
+                                                                        formShow?.UpDataMessage("两孔坐标转换失败", pointNum.ToString(), set.name);
+                                                                        无异常 = false;
+                                                                    }
+                                                                }
 
                                                                 float DX = float.NaN, DY = float.NaN, DZ = float.NaN;//没测的方向显示白色
                                                                 switch (carSetting.gSets[pointNum].convertX)
@@ -976,6 +1087,10 @@ namespace OnlineMeasurement
                                                                     {
                                                                         测点结果.Add(pointNum, true);
                                                                     }
+                                                                }
+                                                                if (set.enablePoints && !pointsDistanceOK)
+                                                                {
+                                                                    测点结果[pointNum] = false;
                                                                 }
                                                                 float L = 0, W = 0, H = 0;
                                                                 Color colorX = Color.White, colorY = Color.White, colorZ = Color.White;
@@ -1061,6 +1176,14 @@ namespace OnlineMeasurement
                                                                 测点数据表.Add("DY", W.ToString("0.00"));
                                                                 测点数据表.Add("DZ", H.ToString("0.00"));
                                                                 测点数据表.Add("DD", dd.ToString("0.00"));
+                                                                if (set.enablePoints)
+                                                                {
+                                                                    // 两孔相对距离误差写入数据库；PLC仍只接收原有单孔测量数据。
+                                                                    测点数据表.Add("PointsDX", PointsDX.ToString("0.00"));
+                                                                    测点数据表.Add("PointsDY", PointsDY.ToString("0.00"));
+                                                                    测点数据表.Add("PointsDZ", PointsDZ.ToString("0.00"));
+                                                                    测点数据表.Add("PointsDD", PointsDD.ToString("0.00"));
+                                                                }
 
                                                                 lock (olock_Dict)
                                                                 {
@@ -1069,6 +1192,11 @@ namespace OnlineMeasurement
                                                                         point3d给PLC.Add(pointNum, new Point3D(L, W, H));
                                                                         point3d原数据.Add(pointNum, new Point3D(DX, DY, DZ));
                                                                         point3d原颜色.Add(pointNum, new Point3DColor(colorX, colorY, colorZ));
+                                                                        if (set.enablePoints)
+                                                                        {
+                                                                            points3dData.Add(pointNum, new Point3D(PointsDX, PointsDY, PointsDZ));
+                                                                            points3dColors.Add(pointNum, new Point3DColor(PointsColorX, PointsColorY, PointsColorZ));
+                                                                        }
                                                                         sqlValuePairs.Add(pointNum, 测点数据表);
                                                                     }
                                                                     else
@@ -1093,9 +1221,26 @@ namespace OnlineMeasurement
                                                                     dataGridViewShow.Rows[index].Cells["dx"].Style.BackColor = colorX;
                                                                     dataGridViewShow.Rows[index].Cells["dy"].Style.BackColor = colorY;
                                                                     dataGridViewShow.Rows[index].Cells["dz"].Style.BackColor = colorZ;
+                                                                    if (set.enablePoints)
+                                                                    {
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDX"].Value = PointsDX.ToString("0.00");
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDY"].Value = PointsDY.ToString("0.00");
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDZ"].Value = PointsDZ.ToString("0.00");
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDD"].Value = PointsDD.ToString("0.00");
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDX"].Style.BackColor = PointsColorX;
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDY"].Style.BackColor = PointsColorY;
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDZ"].Style.BackColor = PointsColorZ;
+                                                                        dataGridViewShow.Rows[index].Cells["PointsDD"].Style.BackColor = PointsColorD;
+                                                                    }
                                                                 }));
 
-                                                                formShow?.UpDataXYZ(point3d给PLC[pointNum], point3d原颜色[pointNum], pointNum.ToString(), carSetting.gSets[pointNum].name);////////////////////////////////////
+                                                                formShow?.UpDataXYZ(
+                                                                    point3d给PLC[pointNum],
+                                                                    point3d原颜色[pointNum],
+                                                                    pointNum.ToString(),
+                                                                    carSetting.gSets[pointNum].name,
+                                                                    set.enablePoints ? new Point3D(PointsDX, PointsDY, PointsDZ) : null,
+                                                                    set.enablePoints ? new Point3DColor(PointsColorX, PointsColorY, PointsColorZ) : null);////////////////////////////////////
                                                             }
                                                             else
                                                             {
@@ -1373,7 +1518,14 @@ namespace OnlineMeasurement
                             //formShow?.UpDataXYZ新(point3d重建数据[pointNum], new Point3DColor(colorX, colorY, colorZ), pointNum.ToString());////////////////////////////////////
                             //formShow?.UpDataXYZ2(point3d给PLC[pointNum], point3d原颜色[pointNum], point3d重建数据[pointNum], new Point3DColor(colorX, colorY, colorZ), pointNum.ToString(), carSetting.gSets[pointNum].name);
                             ///客户需求：只要统一只显示一个结果
-                            formShow?.UpDataXYZ(point3d重建数据[pointNum], point3d原颜色[pointNum],pointNum.ToString(), carSetting.gSets[pointNum].name);
+                            bool showPoints = carSetting.gSets[pointNum].enablePoints && points3dData.ContainsKey(pointNum);
+                            formShow?.UpDataXYZ(
+                                point3d重建数据[pointNum],
+                                point3d原颜色[pointNum],
+                                pointNum.ToString(),
+                                carSetting.gSets[pointNum].name,
+                                showPoints ? points3dData[pointNum] : null,
+                                showPoints ? points3dColors[pointNum] : null);
                         }
                     }
 
@@ -1582,7 +1734,14 @@ namespace OnlineMeasurement
                                         dataGridViewShow.Rows[index].Cells["dy"].Value = form.dataPoint3D[pointNum].Y.ToString("0.00");
                                         dataGridViewShow.Rows[index].Cells["dz"].Value = form.dataPoint3D[pointNum].Z.ToString("0.00");
                                     }));
-                                    formShow?.UpDataXYZ(form.dataPoint3D[pointNum], new Point3DColor(Color.Gray, Color.Gray, Color.Gray), pointNum.ToString(), carSetting.gSets[pointNum].name);////////////////////////////////////
+                                    bool showPoints = carSetting.gSets[pointNum].enablePoints && points3dData.ContainsKey(pointNum);
+                                    formShow?.UpDataXYZ(
+                                        form.dataPoint3D[pointNum],
+                                        new Point3DColor(Color.Gray, Color.Gray, Color.Gray),
+                                        pointNum.ToString(),
+                                        carSetting.gSets[pointNum].name,
+                                        showPoints ? points3dData[pointNum] : null,
+                                        showPoints ? points3dColors[pointNum] : null);////////////////////////////////////
                                 }
                             }
 
@@ -1694,6 +1853,82 @@ namespace OnlineMeasurement
             }
         }
 
+        /// <summary>
+        /// 将标定后的XY坐标按照测点的轴向配置转换为XYZ坐标。
+        /// 未配置到的方向保持为0。
+        /// </summary>
+        /// <param name="set">当前测点的参数。</param>
+        /// <param name="x">GetXY返回的X坐标。</param>
+        /// <param name="y">GetXY返回的Y坐标。</param>
+        /// <returns>完成轴向转换后的三维坐标。</returns>
+        private Point3D ConvertXYToAxes(GeneralSet set, float x, float y)
+        {
+            Point3D point = new Point3D(0, 0, 0);
+            switch (set.convertX)
+            {
+                case "X": point.X = x; break;
+                case "-X": point.X = -x; break;
+                case "Y": point.Y = x; break;
+                case "-Y": point.Y = -x; break;
+                case "Z": point.Z = x; break;
+                case "-Z": point.Z = -x; break;
+            }
+            switch (set.convertY)
+            {
+                case "X": point.X = y; break;
+                case "-X": point.X = -y; break;
+                case "Y": point.Y = y; break;
+                case "-Y": point.Y = -y; break;
+                case "Z": point.Z = y; break;
+                case "-Z": point.Z = -y; break;
+            }
+            return point;
+        }
+
+        /// <summary>
+        /// 按两孔相对距离的绿色、黄色阈值判断四个结果，并返回各字段颜色。
+        /// </summary>
+        /// <param name="set">当前测点的参数。</param>
+        /// <param name="pointsDX">两孔X轴相对距离误差。</param>
+        /// <param name="pointsDY">两孔Y轴相对距离误差。</param>
+        /// <param name="pointsDZ">两孔Z轴相对距离误差。</param>
+        /// <param name="pointsDD">两孔相对距离误差向量的模长。</param>
+        /// <param name="colorX">X轴结果颜色。</param>
+        /// <param name="colorY">Y轴结果颜色。</param>
+        /// <param name="colorZ">Z轴结果颜色。</param>
+        /// <param name="colorD">模长结果颜色。</param>
+        /// <returns>四个结果均未超出黄色阈值时返回true。</returns>
+        private bool EvaluatePointsDistance(GeneralSet set, float pointsDX, float pointsDY, float pointsDZ, float pointsDD,
+            out Color colorX, out Color colorY, out Color colorZ, out Color colorD)
+        {
+            bool result = true;
+            colorX = GetPointsColor(pointsDX, set.minPointsDX_1, set.maxPointsDX_1, set.minPointsDX_2, set.maxPointsDX_2, ref result);
+            colorY = GetPointsColor(pointsDY, set.minPointsDY_1, set.maxPointsDY_1, set.minPointsDY_2, set.maxPointsDY_2, ref result);
+            colorZ = GetPointsColor(pointsDZ, set.minPointsDZ_1, set.maxPointsDZ_1, set.minPointsDZ_2, set.maxPointsDZ_2, ref result);
+            colorD = GetPointsColor(pointsDD, set.minPointsDD_1, set.maxPointsDD_1, set.minPointsDD_2, set.maxPointsDD_2, ref result);
+            return result;
+        }
+
+        /// <summary>
+        /// 判断单个两孔距离字段的阈值颜色；超出黄色阈值时将整体结果置为NG。
+        /// </summary>
+        private Color GetPointsColor(float value, float minGreen, float maxGreen, float minYellow, float maxYellow, ref bool result)
+        {
+            if (value < minYellow || value > maxYellow)
+            {
+                result = false;
+                return Color.Red;
+            }
+            if (value < minGreen || value > maxGreen)
+            {
+                return Color.Yellow;
+            }
+            return Color.Green;
+        }
+
+        /// <summary>
+        /// 将测点浮点结果转换为PLC使用的整数编码。
+        /// </summary>
         int Float2Int(float value)
         {
             if (value.Equals(float.NaN)) return 0;

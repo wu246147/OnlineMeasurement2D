@@ -55,6 +55,10 @@ namespace OnlineMeasurement
             this.新dy = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.新dz = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.新dd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PointsDX = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PointsDY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PointsDZ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PointsDD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBoxTestNum = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonCam = new System.Windows.Forms.Button();
@@ -245,7 +249,11 @@ namespace OnlineMeasurement
             this.新dx,
             this.新dy,
             this.新dz,
-            this.新dd});
+            this.新dd,
+            this.PointsDX,
+            this.PointsDY,
+            this.PointsDZ,
+            this.PointsDD});
             this.dataGridViewShow.Location = new System.Drawing.Point(16, 152);
             this.dataGridViewShow.Name = "dataGridViewShow";
             this.dataGridViewShow.ReadOnly = true;
@@ -340,6 +348,38 @@ namespace OnlineMeasurement
             this.新dd.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.新dd.Width = 43;
             // 
+            // PointsDX
+            // 
+            this.PointsDX.HeaderText = "PointsDX";
+            this.PointsDX.Name = "PointsDX";
+            this.PointsDX.ReadOnly = true;
+            this.PointsDX.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.PointsDX.Width = 62;
+            // 
+            // PointsDY
+            // 
+            this.PointsDY.HeaderText = "PointsDY";
+            this.PointsDY.Name = "PointsDY";
+            this.PointsDY.ReadOnly = true;
+            this.PointsDY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.PointsDY.Width = 62;
+            // 
+            // PointsDZ
+            // 
+            this.PointsDZ.HeaderText = "PointsDZ";
+            this.PointsDZ.Name = "PointsDZ";
+            this.PointsDZ.ReadOnly = true;
+            this.PointsDZ.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.PointsDZ.Width = 62;
+            // 
+            // PointsDD
+            // 
+            this.PointsDD.HeaderText = "PointsDD";
+            this.PointsDD.Name = "PointsDD";
+            this.PointsDD.ReadOnly = true;
+            this.PointsDD.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.PointsDD.Width = 62;
+            // 
             // textBoxTestNum
             // 
             this.textBoxTestNum.Location = new System.Drawing.Point(54, 20);
@@ -413,7 +453,7 @@ namespace OnlineMeasurement
             this.checkBoxPLC仿真.Name = "checkBoxPLC仿真";
             this.checkBoxPLC仿真.Size = new System.Drawing.Size(66, 16);
             this.checkBoxPLC仿真.TabIndex = 12;
-            this.checkBoxPLC仿真.Text = "plc仿真";
+            this.checkBoxPLC仿真.Text = "PLC仿真";
             this.checkBoxPLC仿真.UseVisualStyleBackColor = true;
             // 
             // checkBoxZero
@@ -619,6 +659,10 @@ namespace OnlineMeasurement
         private System.Windows.Forms.DataGridViewTextBoxColumn 新dy;
         private System.Windows.Forms.DataGridViewTextBoxColumn 新dz;
         private System.Windows.Forms.DataGridViewTextBoxColumn 新dd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PointsDX;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PointsDY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PointsDZ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PointsDD;
     }
 }
 

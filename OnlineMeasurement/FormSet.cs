@@ -18,6 +18,7 @@ namespace OnlineMeasurement
         Car 车型参数 = new Car();
         OtherSet otherSet = new OtherSet();
         public bool IsSave = false;
+
         public FormSet()
         {
             InitializeComponent();
@@ -43,12 +44,69 @@ namespace OnlineMeasurement
             {
                 构建右键菜单((ContextMenuStrip)s, Copy新黄色范围值);
             };
+            groupBoxPointsGreenThreshold.ContextMenuStrip = new ContextMenuStrip();
+            groupBoxPointsGreenThreshold.ContextMenuStrip.Opening += (s, e) =>
+            {
+                构建右键菜单((ContextMenuStrip)s, CopyPoints绿色范围值);
+            };
+            groupBoxPointsYellowThreshold.ContextMenuStrip = new ContextMenuStrip();
+            groupBoxPointsYellowThreshold.ContextMenuStrip.Opening += (s, e) =>
+            {
+                构建右键菜单((ContextMenuStrip)s, CopyPoints黄色范围值);
+            };
 
             checkBoxKeepOK.ContextMenuStrip = new ContextMenuStrip();
             checkBoxKeepOK.ContextMenuStrip.Opening += (s, e) =>
             {
                 构建右键菜单((ContextMenuStrip)s, Copy屏蔽);
             };
+        }
+
+        /// <summary>
+        /// 为两孔相对距离控件统一绑定或解除参数更新事件。
+        /// </summary>
+        private void SetPointsControlsEvent(EventHandler handler, bool add)
+        {
+            if (add)
+            {
+                checkBoxEnablePoints.CheckedChanged += handler;
+                numericUpDown_minPointsDX_1.ValueChanged += handler;
+                numericUpDown_minPointsDY_1.ValueChanged += handler;
+                numericUpDown_minPointsDZ_1.ValueChanged += handler;
+                numericUpDown_minPointsDD_1.ValueChanged += handler;
+                numericUpDown_maxPointsDX_1.ValueChanged += handler;
+                numericUpDown_maxPointsDY_1.ValueChanged += handler;
+                numericUpDown_maxPointsDZ_1.ValueChanged += handler;
+                numericUpDown_maxPointsDD_1.ValueChanged += handler;
+                numericUpDown_minPointsDX_2.ValueChanged += handler;
+                numericUpDown_minPointsDY_2.ValueChanged += handler;
+                numericUpDown_minPointsDZ_2.ValueChanged += handler;
+                numericUpDown_minPointsDD_2.ValueChanged += handler;
+                numericUpDown_maxPointsDX_2.ValueChanged += handler;
+                numericUpDown_maxPointsDY_2.ValueChanged += handler;
+                numericUpDown_maxPointsDZ_2.ValueChanged += handler;
+                numericUpDown_maxPointsDD_2.ValueChanged += handler;
+            }
+            else
+            {
+                checkBoxEnablePoints.CheckedChanged -= handler;
+                numericUpDown_minPointsDX_1.ValueChanged -= handler;
+                numericUpDown_minPointsDY_1.ValueChanged -= handler;
+                numericUpDown_minPointsDZ_1.ValueChanged -= handler;
+                numericUpDown_minPointsDD_1.ValueChanged -= handler;
+                numericUpDown_maxPointsDX_1.ValueChanged -= handler;
+                numericUpDown_maxPointsDY_1.ValueChanged -= handler;
+                numericUpDown_maxPointsDZ_1.ValueChanged -= handler;
+                numericUpDown_maxPointsDD_1.ValueChanged -= handler;
+                numericUpDown_minPointsDX_2.ValueChanged -= handler;
+                numericUpDown_minPointsDY_2.ValueChanged -= handler;
+                numericUpDown_minPointsDZ_2.ValueChanged -= handler;
+                numericUpDown_minPointsDD_2.ValueChanged -= handler;
+                numericUpDown_maxPointsDX_2.ValueChanged -= handler;
+                numericUpDown_maxPointsDY_2.ValueChanged -= handler;
+                numericUpDown_maxPointsDZ_2.ValueChanged -= handler;
+                numericUpDown_maxPointsDD_2.ValueChanged -= handler;
+            }
         }
 
         private void 构建右键菜单(ContextMenuStrip contextMenuStrip, Action<GeneralSet> action)
@@ -146,6 +204,37 @@ namespace OnlineMeasurement
             set.keepOK = checkBoxKeepOK.Checked;
             isAlter = true;
         }
+        /// <summary>
+        /// 将当前测点的两孔相对距离绿色阈值复制到选定测点。
+        /// </summary>
+        private void CopyPoints绿色范围值(GeneralSet set)
+        {
+            set.minPointsDX_1 = (float)numericUpDown_minPointsDX_1.Value;
+            set.minPointsDY_1 = (float)numericUpDown_minPointsDY_1.Value;
+            set.minPointsDZ_1 = (float)numericUpDown_minPointsDZ_1.Value;
+            set.minPointsDD_1 = (float)numericUpDown_minPointsDD_1.Value;
+            set.maxPointsDX_1 = (float)numericUpDown_maxPointsDX_1.Value;
+            set.maxPointsDY_1 = (float)numericUpDown_maxPointsDY_1.Value;
+            set.maxPointsDZ_1 = (float)numericUpDown_maxPointsDZ_1.Value;
+            set.maxPointsDD_1 = (float)numericUpDown_maxPointsDD_1.Value;
+            isAlter = true;
+        }
+
+        /// <summary>
+        /// 将当前测点的两孔相对距离黄色阈值复制到选定测点。
+        /// </summary>
+        private void CopyPoints黄色范围值(GeneralSet set)
+        {
+            set.minPointsDX_2 = (float)numericUpDown_minPointsDX_2.Value;
+            set.minPointsDY_2 = (float)numericUpDown_minPointsDY_2.Value;
+            set.minPointsDZ_2 = (float)numericUpDown_minPointsDZ_2.Value;
+            set.minPointsDD_2 = (float)numericUpDown_minPointsDD_2.Value;
+            set.maxPointsDX_2 = (float)numericUpDown_maxPointsDX_2.Value;
+            set.maxPointsDY_2 = (float)numericUpDown_maxPointsDY_2.Value;
+            set.maxPointsDZ_2 = (float)numericUpDown_maxPointsDZ_2.Value;
+            set.maxPointsDD_2 = (float)numericUpDown_maxPointsDD_2.Value;
+            isAlter = true;
+        }
         #endregion
 
         private void FormSet_Load(object sender, EventArgs e)
@@ -163,6 +252,21 @@ namespace OnlineMeasurement
                 {
                     var node4 = node2.Nodes.Add(key3.ToString());//1、2、3、...
                 }
+            }
+
+            // 默认选中第一个测点，使测点参数面板（包括两孔相对距离设置）打开后直接可见。
+            TreeNode firstPointNode = null;
+            foreach (TreeNode carNode in node1.Nodes)
+            {
+                if (carNode.Nodes.Count > 0)
+                {
+                    firstPointNode = carNode.Nodes[0];
+                    break;
+                }
+            }
+            if (firstPointNode != null)
+            {
+                treeView1.SelectedNode = firstPointNode;
             }
 
             Cam cam = new Cam();
@@ -188,6 +292,7 @@ namespace OnlineMeasurement
             comboBox_X.SelectedIndexChanged += UpData;
             comboBox_Y.SelectedIndexChanged += UpData;
             checkBoxKeepOK.CheckedChanged += UpData;
+            SetPointsControlsEvent(UpData, true);
             checkBox_相对基准点.CheckedChanged += UpData;
             checkBox_增强对比度.CheckedChanged += UpData;
             checkBox_sharpenProcess.CheckedChanged += UpData;
@@ -228,6 +333,7 @@ namespace OnlineMeasurement
             comboBox_X.SelectedIndexChanged -= UpData;
             comboBox_Y.SelectedIndexChanged -= UpData;
             checkBoxKeepOK.CheckedChanged -= UpData;
+            SetPointsControlsEvent(UpData, false);
             checkBox_相对基准点.CheckedChanged -= UpData;
             checkBox_增强对比度.CheckedChanged -= UpData;
             numericUpDown_ledExposure.ValueChanged -= UpData;
@@ -281,6 +387,23 @@ namespace OnlineMeasurement
             gSet.sharpenProcess = checkBox_sharpenProcess.Checked; 
             gSet.ledExposure = (int)numericUpDown_ledExposure.Value;
             gSet.score0 = (double)numericUpDown_score0.Value;
+            gSet.enablePoints = checkBoxEnablePoints.Checked;
+            gSet.minPointsDX_1 = (float)numericUpDown_minPointsDX_1.Value;
+            gSet.minPointsDY_1 = (float)numericUpDown_minPointsDY_1.Value;
+            gSet.minPointsDZ_1 = (float)numericUpDown_minPointsDZ_1.Value;
+            gSet.minPointsDD_1 = (float)numericUpDown_minPointsDD_1.Value;
+            gSet.maxPointsDX_1 = (float)numericUpDown_maxPointsDX_1.Value;
+            gSet.maxPointsDY_1 = (float)numericUpDown_maxPointsDY_1.Value;
+            gSet.maxPointsDZ_1 = (float)numericUpDown_maxPointsDZ_1.Value;
+            gSet.maxPointsDD_1 = (float)numericUpDown_maxPointsDD_1.Value;
+            gSet.minPointsDX_2 = (float)numericUpDown_minPointsDX_2.Value;
+            gSet.minPointsDY_2 = (float)numericUpDown_minPointsDY_2.Value;
+            gSet.minPointsDZ_2 = (float)numericUpDown_minPointsDZ_2.Value;
+            gSet.minPointsDD_2 = (float)numericUpDown_minPointsDD_2.Value;
+            gSet.maxPointsDX_2 = (float)numericUpDown_maxPointsDX_2.Value;
+            gSet.maxPointsDY_2 = (float)numericUpDown_maxPointsDY_2.Value;
+            gSet.maxPointsDZ_2 = (float)numericUpDown_maxPointsDZ_2.Value;
+            gSet.maxPointsDD_2 = (float)numericUpDown_maxPointsDD_2.Value;
             gSet.minDX_1 = (float)numericUpDown_minDX_1.Value;
             gSet.minDY_1 = (float)numericUpDown_minDY_1.Value;
             gSet.minDZ_1 = (float)numericUpDown_minDZ_1.Value;
@@ -330,6 +453,23 @@ namespace OnlineMeasurement
                 checkBox_sharpenProcess.Checked = gSet.sharpenProcess;
                 numericUpDown_ledExposure.Value = gSet.ledExposure;
                 numericUpDown_score0.Value = (decimal)gSet.score0;
+                checkBoxEnablePoints.Checked = gSet.enablePoints;
+                numericUpDown_minPointsDX_1.Value = (decimal)gSet.minPointsDX_1;
+                numericUpDown_minPointsDY_1.Value = (decimal)gSet.minPointsDY_1;
+                numericUpDown_minPointsDZ_1.Value = (decimal)gSet.minPointsDZ_1;
+                numericUpDown_minPointsDD_1.Value = (decimal)gSet.minPointsDD_1;
+                numericUpDown_maxPointsDX_1.Value = (decimal)gSet.maxPointsDX_1;
+                numericUpDown_maxPointsDY_1.Value = (decimal)gSet.maxPointsDY_1;
+                numericUpDown_maxPointsDZ_1.Value = (decimal)gSet.maxPointsDZ_1;
+                numericUpDown_maxPointsDD_1.Value = (decimal)gSet.maxPointsDD_1;
+                numericUpDown_minPointsDX_2.Value = (decimal)gSet.minPointsDX_2;
+                numericUpDown_minPointsDY_2.Value = (decimal)gSet.minPointsDY_2;
+                numericUpDown_minPointsDZ_2.Value = (decimal)gSet.minPointsDZ_2;
+                numericUpDown_minPointsDD_2.Value = (decimal)gSet.minPointsDD_2;
+                numericUpDown_maxPointsDX_2.Value = (decimal)gSet.maxPointsDX_2;
+                numericUpDown_maxPointsDY_2.Value = (decimal)gSet.maxPointsDY_2;
+                numericUpDown_maxPointsDZ_2.Value = (decimal)gSet.maxPointsDZ_2;
+                numericUpDown_maxPointsDD_2.Value = (decimal)gSet.maxPointsDD_2;
                 numericUpDown_minDX_1.Value = (decimal)gSet.minDX_1;
                 numericUpDown_minDY_1.Value = (decimal)gSet.minDY_1;
                 numericUpDown_minDZ_1.Value = (decimal)gSet.minDZ_1;

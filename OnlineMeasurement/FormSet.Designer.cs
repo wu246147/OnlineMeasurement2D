@@ -122,6 +122,41 @@ namespace OnlineMeasurement
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupBoxPointsYellowThreshold = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_maxPointsDX_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDXSeparator_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDX_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDX_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_maxPointsDY_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDYSeparator_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDY_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDY_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_maxPointsDZ_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDZSeparator_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDZ_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDZ_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_maxPointsDD_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDDSeparator_2 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDD_2 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDD_2 = new System.Windows.Forms.Label();
+            this.groupBoxPointsGreenThreshold = new System.Windows.Forms.GroupBox();
+            this.numericUpDown_maxPointsDX_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDXSeparator_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDX_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDX_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_maxPointsDY_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDYSeparator_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDY_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDY_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_maxPointsDZ_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDZSeparator_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDZ_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDZ_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_maxPointsDD_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDDSeparator_1 = new System.Windows.Forms.Label();
+            this.numericUpDown_minPointsDD_1 = new System.Windows.Forms.NumericUpDown();
+            this.labelPointsDD_1 = new System.Windows.Forms.Label();
+            this.checkBoxEnablePoints = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_offsetZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_offsetY)).BeginInit();
@@ -159,6 +194,24 @@ namespace OnlineMeasurement
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxDY_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxDX_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minDX_2)).BeginInit();
+            this.groupBoxPointsYellowThreshold.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDX_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDX_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDY_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDY_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDZ_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDZ_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDD_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDD_2)).BeginInit();
+            this.groupBoxPointsGreenThreshold.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDX_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDX_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDY_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDY_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDZ_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDZ_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDD_1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDD_1)).BeginInit();
             this.SuspendLayout();
             // 
             // treeView1
@@ -166,7 +219,7 @@ namespace OnlineMeasurement
             this.treeView1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.Location = new System.Drawing.Point(12, 66);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(215, 485);
+            this.treeView1.Size = new System.Drawing.Size(215, 645);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
@@ -455,7 +508,7 @@ namespace OnlineMeasurement
             this.groupBox7.Controls.Add(this.panel1);
             this.groupBox7.Location = new System.Drawing.Point(234, 66);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(696, 485);
+            this.groupBox7.Size = new System.Drawing.Size(900, 645);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "测点设定";
@@ -489,10 +542,13 @@ namespace OnlineMeasurement
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.numericUpDown_ledExposure);
+            this.panel1.Controls.Add(this.groupBoxPointsYellowThreshold);
+            this.panel1.Controls.Add(this.groupBoxPointsGreenThreshold);
+            this.panel1.Controls.Add(this.checkBoxEnablePoints);
             this.panel1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel1.Location = new System.Drawing.Point(6, 20);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(684, 459);
+            this.panel1.Size = new System.Drawing.Size(888, 619);
             this.panel1.TabIndex = 8;
             this.panel1.Visible = false;
             // 
@@ -1619,11 +1675,583 @@ namespace OnlineMeasurement
             this.label5.TabIndex = 2;
             this.label5.Text = "名称：";
             // 
+            // groupBoxPointsYellowThreshold
+            // 
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_maxPointsDX_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDXSeparator_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_minPointsDX_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDX_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_maxPointsDY_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDYSeparator_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_minPointsDY_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDY_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_maxPointsDZ_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDZSeparator_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_minPointsDZ_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDZ_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_maxPointsDD_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDDSeparator_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.numericUpDown_minPointsDD_2);
+            this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDD_2);
+            this.groupBoxPointsYellowThreshold.Location = new System.Drawing.Point(503, 450);
+            this.groupBoxPointsYellowThreshold.Name = "groupBoxPointsYellowThreshold";
+            this.groupBoxPointsYellowThreshold.Size = new System.Drawing.Size(235, 125);
+            this.groupBoxPointsYellowThreshold.TabIndex = 32;
+            this.groupBoxPointsYellowThreshold.TabStop = false;
+            this.groupBoxPointsYellowThreshold.Text = "两点间距黄色阈值";
+            // 
+            // numericUpDown_maxPointsDX_2
+            // 
+            this.numericUpDown_maxPointsDX_2.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDX_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDX_2.Location = new System.Drawing.Point(166, 20);
+            this.numericUpDown_maxPointsDX_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDX_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDX_2.Name = "numericUpDown_maxPointsDX_2";
+            this.numericUpDown_maxPointsDX_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDX_2.TabIndex = 3;
+            // 
+            // labelPointsDXSeparator_2
+            // 
+            this.labelPointsDXSeparator_2.AutoSize = true;
+            this.labelPointsDXSeparator_2.Location = new System.Drawing.Point(152, 24);
+            this.labelPointsDXSeparator_2.Name = "labelPointsDXSeparator_2";
+            this.labelPointsDXSeparator_2.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDXSeparator_2.TabIndex = 2;
+            this.labelPointsDXSeparator_2.Text = "~";
+            // 
+            // numericUpDown_minPointsDX_2
+            // 
+            this.numericUpDown_minPointsDX_2.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDX_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDX_2.Location = new System.Drawing.Point(90, 20);
+            this.numericUpDown_minPointsDX_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDX_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDX_2.Name = "numericUpDown_minPointsDX_2";
+            this.numericUpDown_minPointsDX_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDX_2.TabIndex = 1;
+            // 
+            // labelPointsDX_2
+            // 
+            this.labelPointsDX_2.AutoSize = true;
+            this.labelPointsDX_2.Location = new System.Drawing.Point(7, 24);
+            this.labelPointsDX_2.Name = "labelPointsDX_2";
+            this.labelPointsDX_2.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDX_2.TabIndex = 0;
+            this.labelPointsDX_2.Text = "PointsDX：";
+            // 
+            // numericUpDown_maxPointsDY_2
+            // 
+            this.numericUpDown_maxPointsDY_2.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDY_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDY_2.Location = new System.Drawing.Point(166, 45);
+            this.numericUpDown_maxPointsDY_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDY_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDY_2.Name = "numericUpDown_maxPointsDY_2";
+            this.numericUpDown_maxPointsDY_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDY_2.TabIndex = 7;
+            // 
+            // labelPointsDYSeparator_2
+            // 
+            this.labelPointsDYSeparator_2.AutoSize = true;
+            this.labelPointsDYSeparator_2.Location = new System.Drawing.Point(152, 49);
+            this.labelPointsDYSeparator_2.Name = "labelPointsDYSeparator_2";
+            this.labelPointsDYSeparator_2.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDYSeparator_2.TabIndex = 6;
+            this.labelPointsDYSeparator_2.Text = "~";
+            // 
+            // numericUpDown_minPointsDY_2
+            // 
+            this.numericUpDown_minPointsDY_2.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDY_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDY_2.Location = new System.Drawing.Point(90, 45);
+            this.numericUpDown_minPointsDY_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDY_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDY_2.Name = "numericUpDown_minPointsDY_2";
+            this.numericUpDown_minPointsDY_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDY_2.TabIndex = 5;
+            // 
+            // labelPointsDY_2
+            // 
+            this.labelPointsDY_2.AutoSize = true;
+            this.labelPointsDY_2.Location = new System.Drawing.Point(7, 49);
+            this.labelPointsDY_2.Name = "labelPointsDY_2";
+            this.labelPointsDY_2.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDY_2.TabIndex = 4;
+            this.labelPointsDY_2.Text = "PointsDY：";
+            // 
+            // numericUpDown_maxPointsDZ_2
+            // 
+            this.numericUpDown_maxPointsDZ_2.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDZ_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDZ_2.Location = new System.Drawing.Point(166, 70);
+            this.numericUpDown_maxPointsDZ_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDZ_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDZ_2.Name = "numericUpDown_maxPointsDZ_2";
+            this.numericUpDown_maxPointsDZ_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDZ_2.TabIndex = 11;
+            // 
+            // labelPointsDZSeparator_2
+            // 
+            this.labelPointsDZSeparator_2.AutoSize = true;
+            this.labelPointsDZSeparator_2.Location = new System.Drawing.Point(152, 74);
+            this.labelPointsDZSeparator_2.Name = "labelPointsDZSeparator_2";
+            this.labelPointsDZSeparator_2.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDZSeparator_2.TabIndex = 10;
+            this.labelPointsDZSeparator_2.Text = "~";
+            // 
+            // numericUpDown_minPointsDZ_2
+            // 
+            this.numericUpDown_minPointsDZ_2.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDZ_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDZ_2.Location = new System.Drawing.Point(90, 70);
+            this.numericUpDown_minPointsDZ_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDZ_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDZ_2.Name = "numericUpDown_minPointsDZ_2";
+            this.numericUpDown_minPointsDZ_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDZ_2.TabIndex = 9;
+            // 
+            // labelPointsDZ_2
+            // 
+            this.labelPointsDZ_2.AutoSize = true;
+            this.labelPointsDZ_2.Location = new System.Drawing.Point(7, 74);
+            this.labelPointsDZ_2.Name = "labelPointsDZ_2";
+            this.labelPointsDZ_2.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDZ_2.TabIndex = 8;
+            this.labelPointsDZ_2.Text = "PointsDZ：";
+            // 
+            // numericUpDown_maxPointsDD_2
+            // 
+            this.numericUpDown_maxPointsDD_2.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDD_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDD_2.Location = new System.Drawing.Point(166, 95);
+            this.numericUpDown_maxPointsDD_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDD_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDD_2.Name = "numericUpDown_maxPointsDD_2";
+            this.numericUpDown_maxPointsDD_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDD_2.TabIndex = 15;
+            // 
+            // labelPointsDDSeparator_2
+            // 
+            this.labelPointsDDSeparator_2.AutoSize = true;
+            this.labelPointsDDSeparator_2.Location = new System.Drawing.Point(152, 99);
+            this.labelPointsDDSeparator_2.Name = "labelPointsDDSeparator_2";
+            this.labelPointsDDSeparator_2.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDDSeparator_2.TabIndex = 14;
+            this.labelPointsDDSeparator_2.Text = "~";
+            // 
+            // numericUpDown_minPointsDD_2
+            // 
+            this.numericUpDown_minPointsDD_2.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDD_2.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDD_2.Location = new System.Drawing.Point(90, 95);
+            this.numericUpDown_minPointsDD_2.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDD_2.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDD_2.Name = "numericUpDown_minPointsDD_2";
+            this.numericUpDown_minPointsDD_2.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDD_2.TabIndex = 13;
+            // 
+            // labelPointsDD_2
+            // 
+            this.labelPointsDD_2.AutoSize = true;
+            this.labelPointsDD_2.Location = new System.Drawing.Point(7, 99);
+            this.labelPointsDD_2.Name = "labelPointsDD_2";
+            this.labelPointsDD_2.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDD_2.TabIndex = 12;
+            this.labelPointsDD_2.Text = "PointsDD：";
+            // 
+            // groupBoxPointsGreenThreshold
+            // 
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_maxPointsDX_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDXSeparator_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_minPointsDX_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDX_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_maxPointsDY_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDYSeparator_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_minPointsDY_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDY_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_maxPointsDZ_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDZSeparator_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_minPointsDZ_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDZ_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_maxPointsDD_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDDSeparator_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.numericUpDown_minPointsDD_1);
+            this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDD_1);
+            this.groupBoxPointsGreenThreshold.Location = new System.Drawing.Point(263, 450);
+            this.groupBoxPointsGreenThreshold.Name = "groupBoxPointsGreenThreshold";
+            this.groupBoxPointsGreenThreshold.Size = new System.Drawing.Size(235, 125);
+            this.groupBoxPointsGreenThreshold.TabIndex = 31;
+            this.groupBoxPointsGreenThreshold.TabStop = false;
+            this.groupBoxPointsGreenThreshold.Text = "两点间距绿色阈值";
+            // 
+            // numericUpDown_maxPointsDX_1
+            // 
+            this.numericUpDown_maxPointsDX_1.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDX_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDX_1.Location = new System.Drawing.Point(166, 20);
+            this.numericUpDown_maxPointsDX_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDX_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDX_1.Name = "numericUpDown_maxPointsDX_1";
+            this.numericUpDown_maxPointsDX_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDX_1.TabIndex = 3;
+            // 
+            // labelPointsDXSeparator_1
+            // 
+            this.labelPointsDXSeparator_1.AutoSize = true;
+            this.labelPointsDXSeparator_1.Location = new System.Drawing.Point(152, 24);
+            this.labelPointsDXSeparator_1.Name = "labelPointsDXSeparator_1";
+            this.labelPointsDXSeparator_1.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDXSeparator_1.TabIndex = 2;
+            this.labelPointsDXSeparator_1.Text = "~";
+            // 
+            // numericUpDown_minPointsDX_1
+            // 
+            this.numericUpDown_minPointsDX_1.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDX_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDX_1.Location = new System.Drawing.Point(90, 20);
+            this.numericUpDown_minPointsDX_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDX_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDX_1.Name = "numericUpDown_minPointsDX_1";
+            this.numericUpDown_minPointsDX_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDX_1.TabIndex = 1;
+            // 
+            // labelPointsDX_1
+            // 
+            this.labelPointsDX_1.AutoSize = true;
+            this.labelPointsDX_1.Location = new System.Drawing.Point(7, 24);
+            this.labelPointsDX_1.Name = "labelPointsDX_1";
+            this.labelPointsDX_1.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDX_1.TabIndex = 0;
+            this.labelPointsDX_1.Text = "PointsDX：";
+            // 
+            // numericUpDown_maxPointsDY_1
+            // 
+            this.numericUpDown_maxPointsDY_1.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDY_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDY_1.Location = new System.Drawing.Point(166, 45);
+            this.numericUpDown_maxPointsDY_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDY_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDY_1.Name = "numericUpDown_maxPointsDY_1";
+            this.numericUpDown_maxPointsDY_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDY_1.TabIndex = 7;
+            // 
+            // labelPointsDYSeparator_1
+            // 
+            this.labelPointsDYSeparator_1.AutoSize = true;
+            this.labelPointsDYSeparator_1.Location = new System.Drawing.Point(152, 49);
+            this.labelPointsDYSeparator_1.Name = "labelPointsDYSeparator_1";
+            this.labelPointsDYSeparator_1.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDYSeparator_1.TabIndex = 6;
+            this.labelPointsDYSeparator_1.Text = "~";
+            // 
+            // numericUpDown_minPointsDY_1
+            // 
+            this.numericUpDown_minPointsDY_1.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDY_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDY_1.Location = new System.Drawing.Point(90, 45);
+            this.numericUpDown_minPointsDY_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDY_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDY_1.Name = "numericUpDown_minPointsDY_1";
+            this.numericUpDown_minPointsDY_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDY_1.TabIndex = 5;
+            // 
+            // labelPointsDY_1
+            // 
+            this.labelPointsDY_1.AutoSize = true;
+            this.labelPointsDY_1.Location = new System.Drawing.Point(7, 49);
+            this.labelPointsDY_1.Name = "labelPointsDY_1";
+            this.labelPointsDY_1.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDY_1.TabIndex = 4;
+            this.labelPointsDY_1.Text = "PointsDY：";
+            // 
+            // numericUpDown_maxPointsDZ_1
+            // 
+            this.numericUpDown_maxPointsDZ_1.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDZ_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDZ_1.Location = new System.Drawing.Point(166, 70);
+            this.numericUpDown_maxPointsDZ_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDZ_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDZ_1.Name = "numericUpDown_maxPointsDZ_1";
+            this.numericUpDown_maxPointsDZ_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDZ_1.TabIndex = 11;
+            // 
+            // labelPointsDZSeparator_1
+            // 
+            this.labelPointsDZSeparator_1.AutoSize = true;
+            this.labelPointsDZSeparator_1.Location = new System.Drawing.Point(152, 74);
+            this.labelPointsDZSeparator_1.Name = "labelPointsDZSeparator_1";
+            this.labelPointsDZSeparator_1.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDZSeparator_1.TabIndex = 10;
+            this.labelPointsDZSeparator_1.Text = "~";
+            // 
+            // numericUpDown_minPointsDZ_1
+            // 
+            this.numericUpDown_minPointsDZ_1.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDZ_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDZ_1.Location = new System.Drawing.Point(90, 70);
+            this.numericUpDown_minPointsDZ_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDZ_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDZ_1.Name = "numericUpDown_minPointsDZ_1";
+            this.numericUpDown_minPointsDZ_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDZ_1.TabIndex = 9;
+            // 
+            // labelPointsDZ_1
+            // 
+            this.labelPointsDZ_1.AutoSize = true;
+            this.labelPointsDZ_1.Location = new System.Drawing.Point(7, 74);
+            this.labelPointsDZ_1.Name = "labelPointsDZ_1";
+            this.labelPointsDZ_1.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDZ_1.TabIndex = 8;
+            this.labelPointsDZ_1.Text = "PointsDZ：";
+            // 
+            // numericUpDown_maxPointsDD_1
+            // 
+            this.numericUpDown_maxPointsDD_1.DecimalPlaces = 2;
+            this.numericUpDown_maxPointsDD_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_maxPointsDD_1.Location = new System.Drawing.Point(166, 95);
+            this.numericUpDown_maxPointsDD_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_maxPointsDD_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_maxPointsDD_1.Name = "numericUpDown_maxPointsDD_1";
+            this.numericUpDown_maxPointsDD_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_maxPointsDD_1.TabIndex = 15;
+            // 
+            // labelPointsDDSeparator_1
+            // 
+            this.labelPointsDDSeparator_1.AutoSize = true;
+            this.labelPointsDDSeparator_1.Location = new System.Drawing.Point(152, 99);
+            this.labelPointsDDSeparator_1.Name = "labelPointsDDSeparator_1";
+            this.labelPointsDDSeparator_1.Size = new System.Drawing.Size(14, 14);
+            this.labelPointsDDSeparator_1.TabIndex = 14;
+            this.labelPointsDDSeparator_1.Text = "~";
+            // 
+            // numericUpDown_minPointsDD_1
+            // 
+            this.numericUpDown_minPointsDD_1.DecimalPlaces = 2;
+            this.numericUpDown_minPointsDD_1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDown_minPointsDD_1.Location = new System.Drawing.Point(90, 95);
+            this.numericUpDown_minPointsDD_1.Maximum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            0});
+            this.numericUpDown_minPointsDD_1.Minimum = new decimal(new int[] {
+            9999999,
+            0,
+            0,
+            -2147483648});
+            this.numericUpDown_minPointsDD_1.Name = "numericUpDown_minPointsDD_1";
+            this.numericUpDown_minPointsDD_1.Size = new System.Drawing.Size(58, 23);
+            this.numericUpDown_minPointsDD_1.TabIndex = 13;
+            // 
+            // labelPointsDD_1
+            // 
+            this.labelPointsDD_1.AutoSize = true;
+            this.labelPointsDD_1.Location = new System.Drawing.Point(7, 99);
+            this.labelPointsDD_1.Name = "labelPointsDD_1";
+            this.labelPointsDD_1.Size = new System.Drawing.Size(77, 14);
+            this.labelPointsDD_1.TabIndex = 12;
+            this.labelPointsDD_1.Text = "PointsDD：";
+            // 
+            // checkBoxEnablePoints
+            // 
+            this.checkBoxEnablePoints.AutoSize = true;
+            this.checkBoxEnablePoints.Location = new System.Drawing.Point(52, 467);
+            this.checkBoxEnablePoints.Name = "checkBoxEnablePoints";
+            this.checkBoxEnablePoints.Size = new System.Drawing.Size(138, 18);
+            this.checkBoxEnablePoints.TabIndex = 30;
+            this.checkBoxEnablePoints.Text = "启用两孔相对距离";
+            this.checkBoxEnablePoints.UseVisualStyleBackColor = true;
+            // 
             // FormSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 566);
+            this.ClientSize = new System.Drawing.Size(1150, 726);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.buttonAdd);
@@ -1681,6 +2309,26 @@ namespace OnlineMeasurement
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxDY_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxDX_2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minDX_2)).EndInit();
+            this.groupBoxPointsYellowThreshold.ResumeLayout(false);
+            this.groupBoxPointsYellowThreshold.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDX_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDX_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDY_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDY_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDZ_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDZ_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDD_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDD_2)).EndInit();
+            this.groupBoxPointsGreenThreshold.ResumeLayout(false);
+            this.groupBoxPointsGreenThreshold.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDX_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDX_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDY_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDY_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDZ_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDZ_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maxPointsDD_1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_minPointsDD_1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1780,5 +2428,42 @@ namespace OnlineMeasurement
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.CheckBox checkBox_增强对比度;
         private System.Windows.Forms.CheckBox checkBox_sharpenProcess;
+        // 两孔相对距离设置控件；这些控件由WinForms Designer统一声明。
+        private System.Windows.Forms.CheckBox checkBoxEnablePoints;
+        private System.Windows.Forms.GroupBox groupBoxPointsGreenThreshold;
+        private System.Windows.Forms.GroupBox groupBoxPointsYellowThreshold;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDX_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDY_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDZ_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDD_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDX_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDY_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDZ_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDD_1;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDX_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDY_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDZ_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_minPointsDD_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDX_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDY_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDZ_2;
+        private System.Windows.Forms.NumericUpDown numericUpDown_maxPointsDD_2;
+        private System.Windows.Forms.Label labelPointsDX_1;
+        private System.Windows.Forms.Label labelPointsDXSeparator_1;
+        private System.Windows.Forms.Label labelPointsDY_1;
+        private System.Windows.Forms.Label labelPointsDYSeparator_1;
+        private System.Windows.Forms.Label labelPointsDZ_1;
+        private System.Windows.Forms.Label labelPointsDZSeparator_1;
+        private System.Windows.Forms.Label labelPointsDD_1;
+        private System.Windows.Forms.Label labelPointsDDSeparator_1;
+        private System.Windows.Forms.Label labelPointsDX_2;
+        private System.Windows.Forms.Label labelPointsDXSeparator_2;
+        private System.Windows.Forms.Label labelPointsDY_2;
+        private System.Windows.Forms.Label labelPointsDYSeparator_2;
+        private System.Windows.Forms.Label labelPointsDZ_2;
+        private System.Windows.Forms.Label labelPointsDZSeparator_2;
+        private System.Windows.Forms.Label labelPointsDD_2;
+        private System.Windows.Forms.Label labelPointsDDSeparator_2;
+
     }
 }

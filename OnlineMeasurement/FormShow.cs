@@ -557,7 +557,17 @@ namespace OnlineMeasurement
                 catch { }
             }));
         }
-        public void UpDataXYZ(Point3D point3D, Point3DColor point3DColor, string pointKey, string pointName = "")
+        /// <summary>
+        /// 在车型示意图上显示测点的DX、DY、DZ；启用两孔间距时，同时显示PointsDX、PointsDY、PointsDZ。
+        /// </summary>
+        /// <param name="point3D">普通测点偏差。</param>
+        /// <param name="point3DColor">普通测点各轴判断颜色。</param>
+        /// <param name="pointKey">测点编号。</param>
+        /// <param name="pointName">测点名称。</param>
+        /// <param name="pointsPoint3D">两孔间距偏差；为null时不显示。</param>
+        /// <param name="pointsPoint3DColor">两孔间距各轴判断颜色；为null时不显示。</param>
+        public void UpDataXYZ(Point3D point3D, Point3DColor point3DColor, string pointKey, string pointName = "",
+            Point3D pointsPoint3D = null, Point3DColor pointsPoint3DColor = null)
         {
             BeginInvoke(new Action(() =>
             {
@@ -567,11 +577,14 @@ namespace OnlineMeasurement
                     //GC.WaitForPendingFinalizers();
                     if (pictureBox11.Image == null) return;
                     if (!ShowCarXYZs.ContainsKey(CarNameNow) || !ShowCarXYZs[CarNameNow].Points.ContainsKey(pointKey)) return;
+                    bool showPoints = pointsPoint3D != null && pointsPoint3DColor != null;
                     Image image = (Image)pictureBox11.Image.Clone();
                     using (Graphics g = Graphics.FromImage(image))
                     {
                         g.SmoothingMode = SmoothingMode.AntiAlias;//抗锯齿
-                        Rectangle rectangle = new Rectangle(ShowCarXYZs[CarNameNow].Points[pointKey].Location.X, ShowCarXYZs[CarNameNow].Points[pointKey].Location.Y, 120, 96);
+                        // 两孔间距启用时增加右侧显示区域，左侧原DX/DY/DZ布局保持不变。
+                        int rectangleWidth = showPoints ? 300 : 120;
+                        Rectangle rectangle = new Rectangle(ShowCarXYZs[CarNameNow].Points[pointKey].Location.X, ShowCarXYZs[CarNameNow].Points[pointKey].Location.Y, rectangleWidth, 96);
                         //背景
                         g.FillRectangle(new SolidBrush(Color.LightBlue), rectangle);
                         PointF connection = new PointF();
@@ -623,20 +636,45 @@ namespace OnlineMeasurement
                         int 行数 = 4;
                         int 减径 = 2;
                         int WH = rectangle.Height / 行数 - 减径 * 2;
-                        int Left = rectangle.Right - rectangle.Height / 行数 - 减径;
+                        int Left = rectangle.Left + 120 - rectangle.Height / 行数 - 减径;
+                        int PointsLeft = rectangle.Right - rectangle.Height / 行数 - 减径;
                         Rectangle[] rectangles = new Rectangle[行数];
+                        Rectangle[] pointsRectangles = showPoints ? new Rectangle[行数] : null;
                         for (int i = 0; i < rectangles.Length; i++)
                         {
                             rectangles[i] = new Rectangle(Left, rectangle.Top + rectangle.Height * i / 行数 + 减径, WH, WH);
+                            if (showPoints)
+                            {
+                                pointsRectangles[i] = new Rectangle(PointsLeft, rectangle.Top + rectangle.Height * i / 行数 + 减径, WH, WH);
+                            }
                         }
                         g.FillEllipse(new SolidBrush(point3DColor.ColorX), rectangles[1]);
                         g.FillEllipse(new SolidBrush(point3DColor.ColorY), rectangles[2]);
                         g.FillEllipse(new SolidBrush(point3DColor.ColorZ), rectangles[3]);
+                        if (showPoints)
+                        {
+                            g.FillEllipse(new SolidBrush(pointsPoint3DColor.ColorX), pointsRectangles[1]);
+                            g.FillEllipse(new SolidBrush(pointsPoint3DColor.ColorY), pointsRectangles[2]);
+                            g.FillEllipse(new SolidBrush(pointsPoint3DColor.ColorZ), pointsRectangles[3]);
+                        }
 
-                        g.DrawString($"{pointKey}:{pointName}", new Font(new FontFamily("微软雅黑"), 16, FontStyle.Underline), new SolidBrush(Color.Black), rectangle.Left, rectangles[0].Top - 4, StringFormat.GenericDefault);
-                        g.DrawString($"X:{point3D.X:0.00}", new Font(new FontFamily("微软雅黑"), 16, FontStyle.Italic), new SolidBrush(Color.Black), rectangle.Left, rectangles[1].Top - 4, StringFormat.GenericDefault);
-                        g.DrawString($"Y:{point3D.Y:0.00}", new Font(new FontFamily("微软雅黑"), 16, FontStyle.Italic), new SolidBrush(Color.Black), rectangle.Left, rectangles[2].Top - 4, StringFormat.GenericDefault);
-                        g.DrawString($"Z:{point3D.Z:0.00}", new Font(new FontFamily("微软雅黑"), 16, FontStyle.Italic), new SolidBrush(Color.Black), rectangle.Left, rectangles[3].Top - 4, StringFormat.GenericDefault);
+                        float fontSize = showPoints ? 12F : 16F;
+                        using (Font titleFont = new Font(new FontFamily("微软雅黑"), fontSize, FontStyle.Underline))
+                        using (Font valueFont = new Font(new FontFamily("微软雅黑"), fontSize, FontStyle.Italic))
+                        using (SolidBrush textBrush = new SolidBrush(Color.Black))
+                        {
+                            g.DrawString($"{pointKey}:{pointName}", titleFont, textBrush, rectangle.Left, rectangles[0].Top - 4, StringFormat.GenericDefault);
+                            g.DrawString($"X:{point3D.X:0.00}", valueFont, textBrush, rectangle.Left, rectangles[1].Top - 4, StringFormat.GenericDefault);
+                            g.DrawString($"Y:{point3D.Y:0.00}", valueFont, textBrush, rectangle.Left, rectangles[2].Top - 4, StringFormat.GenericDefault);
+                            g.DrawString($"Z:{point3D.Z:0.00}", valueFont, textBrush, rectangle.Left, rectangles[3].Top - 4, StringFormat.GenericDefault);
+                            if (showPoints)
+                            {
+                                int pointsTextLeft = rectangle.Left + 120;
+                                g.DrawString($"PointsDX:{pointsPoint3D.X:0.00}", valueFont, textBrush, pointsTextLeft, pointsRectangles[1].Top - 4, StringFormat.GenericDefault);
+                                g.DrawString($"PointsDY:{pointsPoint3D.Y:0.00}", valueFont, textBrush, pointsTextLeft, pointsRectangles[2].Top - 4, StringFormat.GenericDefault);
+                                g.DrawString($"PointsDZ:{pointsPoint3D.Z:0.00}", valueFont, textBrush, pointsTextLeft, pointsRectangles[3].Top - 4, StringFormat.GenericDefault);
+                            }
+                        }
                     }
 
                     if (pictureBox11.Image != null)
