@@ -22,6 +22,7 @@ namespace OnlineMeasurement
         public FormSet()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
 
             groupBox绿色范围值.ContextMenuStrip = new ContextMenuStrip();
             groupBox绿色范围值.ContextMenuStrip.Opening += (s, e) =>
@@ -60,6 +61,13 @@ namespace OnlineMeasurement
             {
                 构建右键菜单((ContextMenuStrip)s, Copy屏蔽);
             };
+            AppTheme.ApplyToolStrip(groupBox绿色范围值.ContextMenuStrip);
+            AppTheme.ApplyToolStrip(groupBox新绿色范围值.ContextMenuStrip);
+            AppTheme.ApplyToolStrip(groupBox黄色范围值.ContextMenuStrip);
+            AppTheme.ApplyToolStrip(groupBox新黄色范围值.ContextMenuStrip);
+            AppTheme.ApplyToolStrip(groupBoxPointsGreenThreshold.ContextMenuStrip);
+            AppTheme.ApplyToolStrip(groupBoxPointsYellowThreshold.ContextMenuStrip);
+            AppTheme.ApplyToolStrip(checkBoxKeepOK.ContextMenuStrip);
         }
 
         /// <summary>
@@ -156,6 +164,7 @@ namespace OnlineMeasurement
                 tool0.DropDownItems.Add(tool1);
             }
             contextMenuStrip.Items.Add(tool0);
+            AppTheme.ApplyToolStrip(contextMenuStrip);
         }
 
         #region Copy
@@ -621,7 +630,7 @@ namespace OnlineMeasurement
             if (control.ClientRectangle.Width > 0 && control.ClientRectangle.Height > 0)
             {
                 graphicsPath.AddRectangle(control.ClientRectangle);
-                LinearGradientBrush brush = new LinearGradientBrush(control.ClientRectangle, Color.FromArgb(100, 212, 225), Color.FromArgb(100, 162, 225), LinearGradientMode.BackwardDiagonal);
+                LinearGradientBrush brush = new LinearGradientBrush(control.ClientRectangle, AppTheme.RaisedSurface, AppTheme.Window, LinearGradientMode.BackwardDiagonal);
                 g.FillPath(brush, graphicsPath);
             }
         }

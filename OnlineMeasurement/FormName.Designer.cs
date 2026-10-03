@@ -39,6 +39,9 @@ namespace OnlineMeasurement
             // 
             this.textBox_Name.Location = new System.Drawing.Point(77, 34);
             this.textBox_Name.Name = "textBox_Name";
+            this.textBox_Name.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_Name.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.textBox_Name.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.textBox_Name.Size = new System.Drawing.Size(198, 21);
             this.textBox_Name.TabIndex = 0;
             // 
@@ -46,10 +49,14 @@ namespace OnlineMeasurement
             // 
             this.buttonIn.Location = new System.Drawing.Point(102, 96);
             this.buttonIn.Name = "buttonIn";
+            this.buttonIn.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonIn.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonIn.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonIn.Size = new System.Drawing.Size(75, 23);
             this.buttonIn.TabIndex = 1;
             this.buttonIn.Text = "确定";
-            this.buttonIn.UseVisualStyleBackColor = true;
+            this.buttonIn.UseVisualStyleBackColor = false;
             this.buttonIn.Click += new System.EventHandler(this.buttonIn_Click);
             // 
             // buttonOut
@@ -57,10 +64,14 @@ namespace OnlineMeasurement
             this.buttonOut.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonOut.Location = new System.Drawing.Point(200, 96);
             this.buttonOut.Name = "buttonOut";
+            this.buttonOut.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonOut.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonOut.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOut.Size = new System.Drawing.Size(75, 23);
             this.buttonOut.TabIndex = 1;
             this.buttonOut.Text = "取消";
-            this.buttonOut.UseVisualStyleBackColor = true;
+            this.buttonOut.UseVisualStyleBackColor = false;
             this.buttonOut.Click += new System.EventHandler(this.buttonOut_Click);
             // 
             // label1
@@ -69,6 +80,8 @@ namespace OnlineMeasurement
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Location = new System.Drawing.Point(30, 37);
             this.label1.Name = "label1";
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 2;
             this.label1.Text = "名称：";
@@ -88,6 +101,9 @@ namespace OnlineMeasurement
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormName";
+            this.BackColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormName";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormName_Paint);

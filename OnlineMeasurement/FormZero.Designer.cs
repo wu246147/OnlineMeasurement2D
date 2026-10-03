@@ -49,13 +49,16 @@ namespace OnlineMeasurement
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOK.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonOK.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonOK.Location = new System.Drawing.Point(238, 347);
             this.buttonOK.Name = "buttonOK";
+            this.buttonOK.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonOK.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonOK.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonOK.Size = new System.Drawing.Size(75, 37);
             this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "确定";
-            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.UseVisualStyleBackColor = false;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // dataGridView
@@ -82,6 +85,12 @@ namespace OnlineMeasurement
             this.dz});
             this.dataGridView.Location = new System.Drawing.Point(25, 23);
             this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridView.BackgroundColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.dataGridView.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView.GridColor = System.Drawing.Color.FromArgb(63, 75, 92);
+            this.dataGridView.EnableHeadersVisualStyles = false;
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.RowTemplate.Height = 23;
             this.dataGridView.Size = new System.Drawing.Size(369, 307);
@@ -91,13 +100,16 @@ namespace OnlineMeasurement
             // buttonNG
             // 
             this.buttonNG.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNG.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonNG.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonNG.Location = new System.Drawing.Point(319, 347);
             this.buttonNG.Name = "buttonNG";
+            this.buttonNG.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonNG.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonNG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonNG.Size = new System.Drawing.Size(75, 37);
             this.buttonNG.TabIndex = 7;
             this.buttonNG.Text = "取消";
-            this.buttonNG.UseVisualStyleBackColor = true;
+            this.buttonNG.UseVisualStyleBackColor = false;
             this.buttonNG.Click += new System.EventHandler(this.buttonNG_Click);
             // 
             // button_0
@@ -105,10 +117,14 @@ namespace OnlineMeasurement
             this.button_0.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_0.Location = new System.Drawing.Point(25, 355);
             this.button_0.Name = "button_0";
+            this.button_0.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_0.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.button_0.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.button_0.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_0.Size = new System.Drawing.Size(75, 23);
             this.button_0.TabIndex = 9;
             this.button_0.Text = "归零";
-            this.button_0.UseVisualStyleBackColor = true;
+            this.button_0.UseVisualStyleBackColor = false;
             this.button_0.Click += new System.EventHandler(this.button_0_Click);
             // 
             // pointNum
@@ -163,6 +179,9 @@ namespace OnlineMeasurement
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormZero";
+            this.BackColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "请输入三坐标测量值";
             this.Load += new System.EventHandler(this.FormZero_Load);

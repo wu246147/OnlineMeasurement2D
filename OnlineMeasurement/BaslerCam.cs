@@ -21,7 +21,7 @@ namespace OnlineMeasurement
         Camera camera = null;
 
         //basler里用于将相机采集的图像转换成位图
-        PixelDataConverter pxConvert = new PixelDataConverter();
+        //PixelDataConverter pxConvert = new PixelDataConverter();
 
         public BaslerParam Param = new BaslerParam();
 

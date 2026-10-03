@@ -19,6 +19,7 @@ namespace OnlineMeasurement
         public FormImage(HObject image,string text = "查看图片")
         {
             InitializeComponent();
+            AppTheme.Apply(this);
             HOperatorSet.SetWindowAttr("background_color", "black");
             HOperatorSet.OpenWindow(-1, -1, hWindowControl1.Width - 4, hWindowControl1.Height - 4, hWindowControl1.HalconWindow, "", "", out hv_WindowHandle);
             this.Text = text;

@@ -27,6 +27,8 @@ namespace OnlineMeasurement
         public FormShow()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
+            panel_Title.BackColor = BackColor;
         }
 
         private void PictureBox_DoubleClick(object sender, EventArgs e)
@@ -178,7 +180,7 @@ namespace OnlineMeasurement
                         graphicsPath.AddEllipse(rectangle);
                         using (PathGradientBrush pathGradientBrush = new PathGradientBrush(graphicsPath))
                         {
-                            pathGradientBrush.CenterColor = Color.FromArgb(0, 100, 251);
+                            pathGradientBrush.CenterColor = Color.FromArgb(38, 53, 72);
                             pathGradientBrush.CenterPoint = new PointF(control.Width / 2, control.Height / 2);
                             pathGradientBrush.SurroundColors = new Color[] { control.BackColor };
                             g.FillPath(pathGradientBrush, graphicsPath);
@@ -200,31 +202,42 @@ namespace OnlineMeasurement
         private void panel_Title_Paint(object sender, PaintEventArgs e)
         {
             Control control = (Control)sender;
+            if (control.ClientSize.Width <= 1 || control.ClientSize.Height <= 1) return;
+
             Graphics g = e.Graphics;
-            g.SmoothingMode = SmoothingMode.AntiAlias;//抗锯齿
-            float f = 3;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            float width = control.ClientSize.Width - 1F;
+            float height = control.ClientSize.Height - 1F;
+            Rectangle gradientBounds = new Rectangle(0, 0, control.ClientSize.Width, control.ClientSize.Height);
 
-            using (GraphicsPath graphicsPath = new GraphicsPath())
+            using (GraphicsPath frame = new GraphicsPath())
             {
-                graphicsPath.AddLines(new PointF[] { new PointF(0, 0), new PointF(control.Width * 0.05f, control.Height), new PointF(control.Width * 0.95f, control.Height), new PointF(control.Width, 0) });
-                graphicsPath.AddLines(new PointF[] { new PointF(f, 0), new PointF(control.Width * 0.05f + f, control.Height - f), new PointF(control.Width * 0.95f - f, control.Height - f), new PointF(control.Width - f, 0) });
-                using (LinearGradientBrush brush = new LinearGradientBrush(new PointF(0, 0), new PointF(f, 0), Color.FromArgb(0, 77, 191), control.BackColor))
+                frame.AddPolygon(new PointF[]
                 {
-                    g.FillPath(brush, graphicsPath);
+                    new PointF(0, 0), new PointF(width * 0.05F, height),
+                    new PointF(width * 0.95F, height), new PointF(width, 0)
+                });
+                using (LinearGradientBrush brush = new LinearGradientBrush(
+                    gradientBounds, AppTheme.Surface,
+                    Color.FromArgb(53, 61, 70), LinearGradientMode.Vertical))
+                {
+                    g.FillPath(brush, frame);
                 }
             }
-
-            using (GraphicsPath graphicsPath2 = new GraphicsPath())
+            using (GraphicsPath face = new GraphicsPath())
             {
-                graphicsPath2.AddLines(new PointF[] { new PointF(control.Width * 0.1f, 0), new PointF(control.Width * 0.05f, control.Height - f), new PointF(control.Width * 0.95f, control.Height - f), new PointF(control.Width * 0.9f, 0) });
-                using (LinearGradientBrush brush2 = new LinearGradientBrush(new PointF(0, control.Height * 0.8f), new PointF(0, 0), Color.FromArgb(0, 77, 191), control.BackColor))
+                face.AddPolygon(new PointF[]
                 {
-                    brush2.WrapMode = WrapMode.TileFlipX;
-                    g.FillPath(brush2, graphicsPath2);
+                    new PointF(width * 0.1F, 0), new PointF(width * 0.05F + 3F, height - 3F),
+                    new PointF(width * 0.95F - 3F, height - 3F), new PointF(width * 0.9F, 0)
+                });
+                using (LinearGradientBrush brush = new LinearGradientBrush(
+                    gradientBounds, Color.FromArgb(47, 54, 62),
+                    Color.FromArgb(72, 78, 85), LinearGradientMode.Vertical))
+                {
+                    g.FillPath(brush, face);
                 }
             }
-
-            //GC.Collect();
         }
         bool isMove = true;
         private void panel10_MouseDown(object sender, MouseEventArgs e)
@@ -377,7 +390,7 @@ namespace OnlineMeasurement
             using (GraphicsPath graphicsPath = new GraphicsPath())
             {
                 graphicsPath.AddRectangle(control.ClientRectangle);
-                using (LinearGradientBrush brush = new LinearGradientBrush(control.ClientRectangle, control.BackColor, Color.FromArgb(0, 50, 125), LinearGradientMode.BackwardDiagonal))
+                using (LinearGradientBrush brush = new LinearGradientBrush(control.ClientRectangle, control.BackColor, AppTheme.RaisedSurface, LinearGradientMode.BackwardDiagonal))
                 {
                     g.FillPath(brush, graphicsPath);
                 }
@@ -394,7 +407,7 @@ namespace OnlineMeasurement
                 graphicsPath2.AddCurve(new PointF[] { new PointF(x2 - f, control.Height), new PointF(x1 - f, control.Height), new PointF(x0 - f, -1), new PointF(x_1 - f, -1) });
                 graphicsPath2.AddCurve(new PointF[] { new PointF(x_1, -1), new PointF(x0, -1), new PointF(x1, control.Height), new PointF(x2, control.Height) });
                 graphicsPath2.CloseFigure();
-                using (LinearGradientBrush brush2 = new LinearGradientBrush(new PointF(0, 0), new PointF(f, 0), Color.FromArgb(0, 50, 125), Color.FromArgb(0, 50, 125)))
+                using (LinearGradientBrush brush2 = new LinearGradientBrush(new PointF(0, 0), new PointF(f, 0), AppTheme.RaisedSurface, AppTheme.RaisedSurface))
                 {
                     g.FillPath(brush2, graphicsPath2);
                 }
@@ -989,7 +1002,7 @@ namespace OnlineMeasurement
                 graphicsPath.AddRectangle(control.ClientRectangle);
                 using (PathGradientBrush pathGradientBrush = new PathGradientBrush(graphicsPath))
                 {
-                    pathGradientBrush.CenterColor = Color.FromArgb(0, 100, 251);
+                    pathGradientBrush.CenterColor = Color.FromArgb(38, 53, 72);
                     pathGradientBrush.CenterPoint = new PointF(control.Width / 2, control.Height / 2);
                     pathGradientBrush.SurroundColors = new Color[] { control.BackColor };
                     g.FillPath(pathGradientBrush, graphicsPath);

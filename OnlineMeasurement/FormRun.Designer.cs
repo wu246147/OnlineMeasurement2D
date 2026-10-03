@@ -85,33 +85,40 @@ namespace OnlineMeasurement
             // 
             // buttonRun
             // 
-            this.buttonRun.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonRun.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonRun.Location = new System.Drawing.Point(943, 32);
             this.buttonRun.Name = "buttonRun";
+            this.buttonRun.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonRun.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRun.Size = new System.Drawing.Size(84, 35);
             this.buttonRun.TabIndex = 0;
             this.buttonRun.Text = "启动流程";
-            this.buttonRun.UseVisualStyleBackColor = true;
+            this.buttonRun.UseVisualStyleBackColor = false;
             this.buttonRun.Click += new System.EventHandler(this.buttonRun_Click);
             // 
             // buttonStop
             // 
-            this.buttonStop.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonStop.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonStop.Location = new System.Drawing.Point(943, 82);
             this.buttonStop.Name = "buttonStop";
+            this.buttonStop.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonStop.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonStop.Size = new System.Drawing.Size(84, 35);
             this.buttonStop.TabIndex = 0;
             this.buttonStop.Text = "退出流程";
-            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.UseVisualStyleBackColor = false;
             this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(28, 35);
             this.label1.Name = "label1";
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label1.Size = new System.Drawing.Size(66, 19);
             this.label1.TabIndex = 1;
             this.label1.Text = "车型：";
@@ -120,9 +127,10 @@ namespace OnlineMeasurement
             // 
             this.labelCarKind.AutoSize = true;
             this.labelCarKind.BackColor = System.Drawing.Color.Transparent;
-            this.labelCarKind.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelCarKind.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelCarKind.Location = new System.Drawing.Point(28, 84);
             this.labelCarKind.Name = "labelCarKind";
+            this.labelCarKind.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelCarKind.Size = new System.Drawing.Size(34, 21);
             this.labelCarKind.TabIndex = 1;
             this.labelCarKind.Text = "--";
@@ -131,9 +139,10 @@ namespace OnlineMeasurement
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.Transparent;
-            this.label3.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(221, 35);
             this.label3.Name = "label3";
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label3.Size = new System.Drawing.Size(66, 19);
             this.label3.TabIndex = 1;
             this.label3.Text = "连番：";
@@ -142,9 +151,10 @@ namespace OnlineMeasurement
             // 
             this.label连番.AutoSize = true;
             this.label连番.BackColor = System.Drawing.Color.Transparent;
-            this.label连番.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label连番.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label连番.Location = new System.Drawing.Point(221, 84);
             this.label连番.Name = "label连番";
+            this.label连番.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label连番.Size = new System.Drawing.Size(46, 21);
             this.label连番.TabIndex = 1;
             this.label连番.Text = "---";
@@ -161,6 +171,12 @@ namespace OnlineMeasurement
             this.Column2});
             this.dataGridViewLog.Location = new System.Drawing.Point(560, 152);
             this.dataGridViewLog.Name = "dataGridViewLog";
+            this.dataGridViewLog.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridViewLog.BackgroundColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.dataGridViewLog.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.dataGridViewLog.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewLog.GridColor = System.Drawing.Color.FromArgb(63, 75, 92);
+            this.dataGridViewLog.EnableHeadersVisualStyles = false;
             this.dataGridViewLog.ReadOnly = true;
             this.dataGridViewLog.RowHeadersVisible = false;
             this.dataGridViewLog.RowHeadersWidth = 51;
@@ -193,9 +209,10 @@ namespace OnlineMeasurement
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(426, 35);
             this.label2.Name = "label2";
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label2.Size = new System.Drawing.Size(66, 19);
             this.label2.TabIndex = 3;
             this.label2.Text = "状态：";
@@ -204,9 +221,10 @@ namespace OnlineMeasurement
             // 
             this.lblSysStatus.AutoSize = true;
             this.lblSysStatus.BackColor = System.Drawing.Color.Transparent;
-            this.lblSysStatus.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblSysStatus.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblSysStatus.Location = new System.Drawing.Point(426, 84);
             this.lblSysStatus.Name = "lblSysStatus";
+            this.lblSysStatus.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.lblSysStatus.Size = new System.Drawing.Size(58, 21);
             this.lblSysStatus.TabIndex = 1;
             this.lblSysStatus.Text = "----";
@@ -215,9 +233,10 @@ namespace OnlineMeasurement
             // 
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label4.Location = new System.Drawing.Point(119, 35);
             this.label4.Name = "label4";
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label4.Size = new System.Drawing.Size(66, 19);
             this.label4.TabIndex = 1;
             this.label4.Text = "名称：";
@@ -226,9 +245,10 @@ namespace OnlineMeasurement
             // 
             this.labelCarName.AutoSize = true;
             this.labelCarName.BackColor = System.Drawing.Color.Transparent;
-            this.labelCarName.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelCarName.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelCarName.Location = new System.Drawing.Point(119, 84);
             this.labelCarName.Name = "labelCarName";
+            this.labelCarName.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelCarName.Size = new System.Drawing.Size(70, 21);
             this.labelCarName.TabIndex = 1;
             this.labelCarName.Text = "-----";
@@ -256,6 +276,12 @@ namespace OnlineMeasurement
             this.PointsDD});
             this.dataGridViewShow.Location = new System.Drawing.Point(16, 152);
             this.dataGridViewShow.Name = "dataGridViewShow";
+            this.dataGridViewShow.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.dataGridViewShow.BackgroundColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.dataGridViewShow.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.dataGridViewShow.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewShow.GridColor = System.Drawing.Color.FromArgb(63, 75, 92);
+            this.dataGridViewShow.EnableHeadersVisualStyles = false;
             this.dataGridViewShow.ReadOnly = true;
             this.dataGridViewShow.RowHeadersVisible = false;
             this.dataGridViewShow.RowTemplate.Height = 23;
@@ -384,12 +410,15 @@ namespace OnlineMeasurement
             // 
             this.textBoxTestNum.Location = new System.Drawing.Point(54, 20);
             this.textBoxTestNum.Name = "textBoxTestNum";
+            this.textBoxTestNum.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBoxTestNum.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.textBoxTestNum.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.textBoxTestNum.Size = new System.Drawing.Size(66, 21);
             this.textBoxTestNum.TabIndex = 6;
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
             this.groupBox1.Controls.Add(this.buttonCam);
             this.groupBox1.Controls.Add(this.button_Led);
             this.groupBox1.Controls.Add(this.buttonSave);
@@ -401,6 +430,8 @@ namespace OnlineMeasurement
             this.groupBox1.Controls.Add(this.textBoxTestNum);
             this.groupBox1.Location = new System.Drawing.Point(591, 12);
             this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox1.Size = new System.Drawing.Size(238, 130);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
@@ -410,30 +441,42 @@ namespace OnlineMeasurement
             // 
             this.buttonCam.Location = new System.Drawing.Point(144, 71);
             this.buttonCam.Name = "buttonCam";
+            this.buttonCam.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonCam.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonCam.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonCam.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonCam.Size = new System.Drawing.Size(75, 23);
             this.buttonCam.TabIndex = 15;
             this.buttonCam.Text = "相机设置";
-            this.buttonCam.UseVisualStyleBackColor = true;
+            this.buttonCam.UseVisualStyleBackColor = false;
             this.buttonCam.Click += new System.EventHandler(this.buttonCam_Click);
             // 
             // button_Led
             // 
             this.button_Led.Location = new System.Drawing.Point(144, 42);
             this.button_Led.Name = "button_Led";
+            this.button_Led.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_Led.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.button_Led.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.button_Led.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Led.Size = new System.Drawing.Size(75, 23);
             this.button_Led.TabIndex = 14;
             this.button_Led.Text = "光源";
-            this.button_Led.UseVisualStyleBackColor = true;
+            this.button_Led.UseVisualStyleBackColor = false;
             this.button_Led.Click += new System.EventHandler(this.button_Led_Click);
             // 
             // buttonSave
             // 
             this.buttonSave.Location = new System.Drawing.Point(144, 100);
             this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonSave.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonSave.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 13;
             this.buttonSave.Text = "保存校准";
-            this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.UseVisualStyleBackColor = false;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // checkBox相机仿真
@@ -441,36 +484,48 @@ namespace OnlineMeasurement
             this.checkBox相机仿真.AutoSize = true;
             this.checkBox相机仿真.Location = new System.Drawing.Point(36, 75);
             this.checkBox相机仿真.Name = "checkBox相机仿真";
+            this.checkBox相机仿真.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox相机仿真.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBox相机仿真.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBox相机仿真.Size = new System.Drawing.Size(72, 16);
             this.checkBox相机仿真.TabIndex = 12;
             this.checkBox相机仿真.Text = "相机仿真";
-            this.checkBox相机仿真.UseVisualStyleBackColor = true;
+            this.checkBox相机仿真.UseVisualStyleBackColor = false;
             // 
             // checkBoxPLC仿真
             // 
             this.checkBoxPLC仿真.AutoSize = true;
             this.checkBoxPLC仿真.Location = new System.Drawing.Point(36, 50);
             this.checkBoxPLC仿真.Name = "checkBoxPLC仿真";
+            this.checkBoxPLC仿真.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBoxPLC仿真.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBoxPLC仿真.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBoxPLC仿真.Size = new System.Drawing.Size(66, 16);
             this.checkBoxPLC仿真.TabIndex = 12;
             this.checkBoxPLC仿真.Text = "PLC仿真";
-            this.checkBoxPLC仿真.UseVisualStyleBackColor = true;
+            this.checkBoxPLC仿真.UseVisualStyleBackColor = false;
             // 
             // checkBoxZero
             // 
             this.checkBoxZero.AutoSize = true;
             this.checkBoxZero.Location = new System.Drawing.Point(36, 100);
             this.checkBoxZero.Name = "checkBoxZero";
+            this.checkBoxZero.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBoxZero.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBoxZero.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBoxZero.Size = new System.Drawing.Size(72, 16);
             this.checkBoxZero.TabIndex = 12;
             this.checkBoxZero.Text = "补偿校准";
-            this.checkBoxZero.UseVisualStyleBackColor = true;
+            this.checkBoxZero.UseVisualStyleBackColor = false;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 24);
             this.label6.Name = "label6";
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label6.Size = new System.Drawing.Size(41, 12);
             this.label6.TabIndex = 9;
             this.label6.Text = "车型号";
@@ -479,26 +534,34 @@ namespace OnlineMeasurement
             // 
             this.buttonPLC.Location = new System.Drawing.Point(144, 13);
             this.buttonPLC.Name = "buttonPLC";
+            this.buttonPLC.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonPLC.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonPLC.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonPLC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonPLC.Size = new System.Drawing.Size(75, 23);
             this.buttonPLC.TabIndex = 11;
             this.buttonPLC.Text = "PLC设置";
-            this.buttonPLC.UseVisualStyleBackColor = true;
+            this.buttonPLC.UseVisualStyleBackColor = false;
             this.buttonPLC.Click += new System.EventHandler(this.buttonPLC_Click);
             // 
             // buttonSetting
             // 
             this.buttonSetting.Location = new System.Drawing.Point(844, 64);
             this.buttonSetting.Name = "buttonSetting";
+            this.buttonSetting.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonSetting.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonSetting.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonSetting.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSetting.Size = new System.Drawing.Size(75, 23);
             this.buttonSetting.TabIndex = 11;
             this.buttonSetting.Text = "测点设置";
-            this.buttonSetting.UseVisualStyleBackColor = true;
+            this.buttonSetting.UseVisualStyleBackColor = false;
             this.buttonSetting.Click += new System.EventHandler(this.buttonSetting_Click);
             // 
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.buttonClear);
             this.panel1.Controls.Add(this.buttonSkipStart);
@@ -522,6 +585,8 @@ namespace OnlineMeasurement
             this.panel1.Controls.Add(this.label3);
             this.panel1.Location = new System.Drawing.Point(-1, -1);
             this.panel1.Name = "panel1";
+            this.panel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.panel1.Size = new System.Drawing.Size(1053, 567);
             this.panel1.TabIndex = 10;
             // 
@@ -530,29 +595,38 @@ namespace OnlineMeasurement
             this.buttonClear.Enabled = false;
             this.buttonClear.Location = new System.Drawing.Point(844, 98);
             this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonClear.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonClear.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 12;
             this.buttonClear.Text = "重载参数";
-            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.UseVisualStyleBackColor = false;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // buttonSkipStart
             // 
             this.buttonSkipStart.Location = new System.Drawing.Point(844, 30);
             this.buttonSkipStart.Name = "buttonSkipStart";
+            this.buttonSkipStart.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonSkipStart.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonSkipStart.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonSkipStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonSkipStart.Size = new System.Drawing.Size(75, 23);
             this.buttonSkipStart.TabIndex = 10;
             this.buttonSkipStart.Text = "强制开始";
-            this.buttonSkipStart.UseVisualStyleBackColor = true;
+            this.buttonSkipStart.UseVisualStyleBackColor = false;
             this.buttonSkipStart.Click += new System.EventHandler(this.buttonSkipStart_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label7.Location = new System.Drawing.Point(519, 36);
             this.label7.Name = "label7";
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label7.Size = new System.Drawing.Size(66, 19);
             this.label7.TabIndex = 3;
             this.label7.Text = "结果：";
@@ -561,9 +635,10 @@ namespace OnlineMeasurement
             // 
             this.labelResult.AutoSize = true;
             this.labelResult.BackColor = System.Drawing.Color.Transparent;
-            this.labelResult.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelResult.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelResult.Location = new System.Drawing.Point(519, 85);
             this.labelResult.Name = "labelResult";
+            this.labelResult.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelResult.Size = new System.Drawing.Size(58, 21);
             this.labelResult.TabIndex = 1;
             this.labelResult.Text = "----";
@@ -572,9 +647,10 @@ namespace OnlineMeasurement
             // 
             this.label托盘.AutoSize = true;
             this.label托盘.BackColor = System.Drawing.Color.Transparent;
-            this.label托盘.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label托盘.Font = new System.Drawing.Font("Microsoft YaHei UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label托盘.Location = new System.Drawing.Point(308, 82);
             this.label托盘.Name = "label托盘";
+            this.label托盘.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label托盘.Size = new System.Drawing.Size(46, 21);
             this.label托盘.TabIndex = 1;
             this.label托盘.Text = "---";
@@ -583,9 +659,10 @@ namespace OnlineMeasurement
             // 
             this.label5.AutoSize = true;
             this.label5.BackColor = System.Drawing.Color.Transparent;
-            this.label5.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(308, 33);
             this.label5.Name = "label5";
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label5.Size = new System.Drawing.Size(85, 19);
             this.label5.TabIndex = 1;
             this.label5.Text = "托盘号：";
@@ -599,6 +676,9 @@ namespace OnlineMeasurement
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormRun";
+            this.BackColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OnlineMeasurement(v1.17.1.0)";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormRun_FormClosing);

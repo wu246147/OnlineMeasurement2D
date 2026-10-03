@@ -56,6 +56,9 @@ namespace OnlineMeasurement
             this.Controls.Add(this.hWindowControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormImage";
+            this.BackColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "查看图片";
             this.ResumeLayout(false);

@@ -216,33 +216,41 @@ namespace OnlineMeasurement
             // 
             // treeView1
             // 
-            this.treeView1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.treeView1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.Location = new System.Drawing.Point(12, 66);
             this.treeView1.Name = "treeView1";
+            this.treeView1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.treeView1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.treeView1.Size = new System.Drawing.Size(215, 645);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
             // 
             // buttonRemove
             // 
-            this.buttonRemove.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonRemove.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonRemove.Location = new System.Drawing.Point(12, 20);
             this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonRemove.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonRemove.Size = new System.Drawing.Size(75, 30);
             this.buttonRemove.TabIndex = 1;
             this.buttonRemove.Text = "删除";
-            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.UseVisualStyleBackColor = false;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonAdd.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonAdd.Location = new System.Drawing.Point(152, 20);
             this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.buttonAdd.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.buttonAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAdd.Size = new System.Drawing.Size(75, 30);
             this.buttonAdd.TabIndex = 1;
             this.buttonAdd.Text = "添加";
-            this.buttonAdd.UseVisualStyleBackColor = true;
+            this.buttonAdd.UseVisualStyleBackColor = false;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
             // label1
@@ -250,6 +258,9 @@ namespace OnlineMeasurement
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(10, 9);
             this.label1.Name = "label1";
+            this.label1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label1.Size = new System.Drawing.Size(105, 14);
             this.label1.TabIndex = 2;
             this.label1.Text = "当前选中点位：";
@@ -267,6 +278,9 @@ namespace OnlineMeasurement
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Location = new System.Drawing.Point(263, 34);
             this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox2.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox2.Size = new System.Drawing.Size(243, 124);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
@@ -276,30 +290,42 @@ namespace OnlineMeasurement
             // 
             this.button_offsetZAdd.Location = new System.Drawing.Point(183, 81);
             this.button_offsetZAdd.Name = "button_offsetZAdd";
+            this.button_offsetZAdd.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_offsetZAdd.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.button_offsetZAdd.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.button_offsetZAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_offsetZAdd.Size = new System.Drawing.Size(19, 23);
             this.button_offsetZAdd.TabIndex = 8;
             this.button_offsetZAdd.Text = "+";
-            this.button_offsetZAdd.UseVisualStyleBackColor = true;
+            this.button_offsetZAdd.UseVisualStyleBackColor = false;
             this.button_offsetZAdd.Click += new System.EventHandler(this.button_offsetZAdd_Click);
             // 
             // button_offsetYAdd
             // 
             this.button_offsetYAdd.Location = new System.Drawing.Point(183, 54);
             this.button_offsetYAdd.Name = "button_offsetYAdd";
+            this.button_offsetYAdd.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_offsetYAdd.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.button_offsetYAdd.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.button_offsetYAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_offsetYAdd.Size = new System.Drawing.Size(19, 23);
             this.button_offsetYAdd.TabIndex = 8;
             this.button_offsetYAdd.Text = "+";
-            this.button_offsetYAdd.UseVisualStyleBackColor = true;
+            this.button_offsetYAdd.UseVisualStyleBackColor = false;
             this.button_offsetYAdd.Click += new System.EventHandler(this.button_offsetYAdd_Click);
             // 
             // button_offsetXAdd
             // 
             this.button_offsetXAdd.Location = new System.Drawing.Point(183, 27);
             this.button_offsetXAdd.Name = "button_offsetXAdd";
+            this.button_offsetXAdd.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_offsetXAdd.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.button_offsetXAdd.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.button_offsetXAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_offsetXAdd.Size = new System.Drawing.Size(19, 23);
             this.button_offsetXAdd.TabIndex = 8;
             this.button_offsetXAdd.Text = "+";
-            this.button_offsetXAdd.UseVisualStyleBackColor = true;
+            this.button_offsetXAdd.UseVisualStyleBackColor = false;
             this.button_offsetXAdd.Click += new System.EventHandler(this.button_offsetXAdd_Click);
             // 
             // numericUpDown_offsetZ
@@ -317,6 +343,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_offsetZ.Name = "numericUpDown_offsetZ";
+            this.numericUpDown_offsetZ.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_offsetZ.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_offsetZ.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_offsetZ.Size = new System.Drawing.Size(101, 23);
             this.numericUpDown_offsetZ.TabIndex = 3;
             // 
@@ -325,6 +354,9 @@ namespace OnlineMeasurement
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(37, 85);
             this.label6.Name = "label6";
+            this.label6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label6.BackColor = System.Drawing.Color.Transparent;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label6.Size = new System.Drawing.Size(28, 14);
             this.label6.TabIndex = 2;
             this.label6.Text = "Z：";
@@ -344,6 +376,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_offsetY.Name = "numericUpDown_offsetY";
+            this.numericUpDown_offsetY.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_offsetY.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_offsetY.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_offsetY.Size = new System.Drawing.Size(101, 23);
             this.numericUpDown_offsetY.TabIndex = 3;
             // 
@@ -352,6 +387,9 @@ namespace OnlineMeasurement
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(37, 58);
             this.label7.Name = "label7";
+            this.label7.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label7.Size = new System.Drawing.Size(28, 14);
             this.label7.TabIndex = 2;
             this.label7.Text = "Y：";
@@ -371,6 +409,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_offsetX.Name = "numericUpDown_offsetX";
+            this.numericUpDown_offsetX.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_offsetX.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_offsetX.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_offsetX.Size = new System.Drawing.Size(101, 23);
             this.numericUpDown_offsetX.TabIndex = 3;
             // 
@@ -379,6 +420,9 @@ namespace OnlineMeasurement
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(37, 31);
             this.label8.Name = "label8";
+            this.label8.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label8.BackColor = System.Drawing.Color.Transparent;
+            this.label8.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label8.Size = new System.Drawing.Size(28, 14);
             this.label8.TabIndex = 2;
             this.label8.Text = "X：";
@@ -388,6 +432,9 @@ namespace OnlineMeasurement
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(52, 248);
             this.label15.Name = "label15";
+            this.label15.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label15.BackColor = System.Drawing.Color.Transparent;
+            this.label15.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label15.Size = new System.Drawing.Size(63, 14);
             this.label15.TabIndex = 2;
             this.label15.Text = "曝光值：";
@@ -401,6 +448,9 @@ namespace OnlineMeasurement
             0,
             0});
             this.numericUpDown_ledExposure.Name = "numericUpDown_ledExposure";
+            this.numericUpDown_ledExposure.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_ledExposure.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_ledExposure.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_ledExposure.Size = new System.Drawing.Size(85, 23);
             this.numericUpDown_ledExposure.TabIndex = 3;
             this.numericUpDown_ledExposure.Value = new decimal(new int[] {
@@ -424,6 +474,9 @@ namespace OnlineMeasurement
             0,
             0});
             this.numericUpDown_score0.Name = "numericUpDown_score0";
+            this.numericUpDown_score0.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_score0.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_score0.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_score0.Size = new System.Drawing.Size(71, 23);
             this.numericUpDown_score0.TabIndex = 3;
             this.numericUpDown_score0.Value = new decimal(new int[] {
@@ -437,6 +490,9 @@ namespace OnlineMeasurement
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(52, 283);
             this.label17.Name = "label17";
+            this.label17.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label17.BackColor = System.Drawing.Color.Transparent;
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label17.Size = new System.Drawing.Size(77, 14);
             this.label17.TabIndex = 2;
             this.label17.Text = "模板分数：";
@@ -446,6 +502,9 @@ namespace OnlineMeasurement
             this.label_Node.AutoSize = true;
             this.label_Node.Location = new System.Drawing.Point(121, 9);
             this.label_Node.Name = "label_Node";
+            this.label_Node.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_Node.BackColor = System.Drawing.Color.Transparent;
+            this.label_Node.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label_Node.Size = new System.Drawing.Size(21, 14);
             this.label_Node.TabIndex = 2;
             this.label_Node.Text = "--";
@@ -453,9 +512,11 @@ namespace OnlineMeasurement
             // checkBox_isSaveImage
             // 
             this.checkBox_isSaveImage.AutoSize = true;
-            this.checkBox_isSaveImage.BackColor = System.Drawing.Color.Transparent;
+            this.checkBox_isSaveImage.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
             this.checkBox_isSaveImage.Location = new System.Drawing.Point(58, 18);
             this.checkBox_isSaveImage.Name = "checkBox_isSaveImage";
+            this.checkBox_isSaveImage.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox_isSaveImage.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBox_isSaveImage.Size = new System.Drawing.Size(72, 16);
             this.checkBox_isSaveImage.TabIndex = 9;
             this.checkBox_isSaveImage.Text = "保存图片";
@@ -465,6 +526,9 @@ namespace OnlineMeasurement
             // 
             this.textBox_imagePath.Location = new System.Drawing.Point(204, 16);
             this.textBox_imagePath.Name = "textBox_imagePath";
+            this.textBox_imagePath.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_imagePath.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.textBox_imagePath.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.textBox_imagePath.Size = new System.Drawing.Size(129, 21);
             this.textBox_imagePath.TabIndex = 10;
             // 
@@ -474,19 +538,23 @@ namespace OnlineMeasurement
             this.label26.BackColor = System.Drawing.Color.Transparent;
             this.label26.Location = new System.Drawing.Point(142, 20);
             this.label26.Name = "label26";
+            this.label26.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label26.Size = new System.Drawing.Size(59, 12);
             this.label26.TabIndex = 11;
             this.label26.Text = "保存位置:";
             // 
             // groupBox6
             // 
-            this.groupBox6.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox6.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
             this.groupBox6.Controls.Add(this.checkBox_TRnum);
             this.groupBox6.Controls.Add(this.checkBox_isSaveImage);
             this.groupBox6.Controls.Add(this.label26);
             this.groupBox6.Controls.Add(this.textBox_imagePath);
             this.groupBox6.Location = new System.Drawing.Point(234, 12);
             this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox6.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox6.Size = new System.Drawing.Size(696, 48);
             this.groupBox6.TabIndex = 12;
             this.groupBox6.TabStop = false;
@@ -497,17 +565,22 @@ namespace OnlineMeasurement
             this.checkBox_TRnum.AutoSize = true;
             this.checkBox_TRnum.Location = new System.Drawing.Point(408, 20);
             this.checkBox_TRnum.Name = "checkBox_TRnum";
+            this.checkBox_TRnum.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox_TRnum.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBox_TRnum.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBox_TRnum.Size = new System.Drawing.Size(84, 16);
             this.checkBox_TRnum.TabIndex = 12;
             this.checkBox_TRnum.Text = "区分托盘号";
-            this.checkBox_TRnum.UseVisualStyleBackColor = true;
+            this.checkBox_TRnum.UseVisualStyleBackColor = false;
             // 
             // groupBox7
             // 
-            this.groupBox7.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox7.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
             this.groupBox7.Controls.Add(this.panel1);
             this.groupBox7.Location = new System.Drawing.Point(234, 66);
             this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox7.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox7.Size = new System.Drawing.Size(900, 645);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
@@ -515,7 +588,7 @@ namespace OnlineMeasurement
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.Transparent;
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
             this.panel1.Controls.Add(this.checkBox_sharpenProcess);
             this.panel1.Controls.Add(this.checkBox_增强对比度);
             this.panel1.Controls.Add(this.groupBox新黄色范围值);
@@ -545,9 +618,10 @@ namespace OnlineMeasurement
             this.panel1.Controls.Add(this.groupBoxPointsYellowThreshold);
             this.panel1.Controls.Add(this.groupBoxPointsGreenThreshold);
             this.panel1.Controls.Add(this.checkBoxEnablePoints);
-            this.panel1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.panel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel1.Location = new System.Drawing.Point(6, 20);
             this.panel1.Name = "panel1";
+            this.panel1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.panel1.Size = new System.Drawing.Size(888, 619);
             this.panel1.TabIndex = 8;
             this.panel1.Visible = false;
@@ -557,20 +631,26 @@ namespace OnlineMeasurement
             this.checkBox_sharpenProcess.AutoSize = true;
             this.checkBox_sharpenProcess.Location = new System.Drawing.Point(52, 140);
             this.checkBox_sharpenProcess.Name = "checkBox_sharpenProcess";
+            this.checkBox_sharpenProcess.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox_sharpenProcess.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBox_sharpenProcess.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBox_sharpenProcess.Size = new System.Drawing.Size(110, 18);
             this.checkBox_sharpenProcess.TabIndex = 22;
             this.checkBox_sharpenProcess.Text = "定位锐化处理";
-            this.checkBox_sharpenProcess.UseVisualStyleBackColor = true;
+            this.checkBox_sharpenProcess.UseVisualStyleBackColor = false;
             // 
             // checkBox_增强对比度
             // 
             this.checkBox_增强对比度.AutoSize = true;
             this.checkBox_增强对比度.Location = new System.Drawing.Point(52, 107);
             this.checkBox_增强对比度.Name = "checkBox_增强对比度";
+            this.checkBox_增强对比度.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox_增强对比度.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBox_增强对比度.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBox_增强对比度.Size = new System.Drawing.Size(96, 18);
             this.checkBox_增强对比度.TabIndex = 22;
             this.checkBox_增强对比度.Text = "增强对比度";
-            this.checkBox_增强对比度.UseVisualStyleBackColor = true;
+            this.checkBox_增强对比度.UseVisualStyleBackColor = false;
             // 
             // groupBox新黄色范围值
             // 
@@ -588,6 +668,9 @@ namespace OnlineMeasurement
             this.groupBox新黄色范围值.Controls.Add(this.label30);
             this.groupBox新黄色范围值.Location = new System.Drawing.Point(463, 302);
             this.groupBox新黄色范围值.Name = "groupBox新黄色范围值";
+            this.groupBox新黄色范围值.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox新黄色范围值.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBox新黄色范围值.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox新黄色范围值.Size = new System.Drawing.Size(194, 116);
             this.groupBox新黄色范围值.TabIndex = 21;
             this.groupBox新黄色范围值.TabStop = false;
@@ -613,6 +696,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minNewDZ_2.Name = "numericUpDown_minNewDZ_2";
+            this.numericUpDown_minNewDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minNewDZ_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minNewDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minNewDZ_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minNewDZ_2.TabIndex = 3;
             this.numericUpDown_minNewDZ_2.Value = new decimal(new int[] {
@@ -626,6 +712,9 @@ namespace OnlineMeasurement
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(9, 84);
             this.label24.Name = "label24";
+            this.label24.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label24.BackColor = System.Drawing.Color.Transparent;
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label24.Size = new System.Drawing.Size(35, 14);
             this.label24.TabIndex = 2;
             this.label24.Text = "DZ：";
@@ -650,6 +739,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minNewDY_2.Name = "numericUpDown_minNewDY_2";
+            this.numericUpDown_minNewDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minNewDY_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minNewDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minNewDY_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minNewDY_2.TabIndex = 3;
             this.numericUpDown_minNewDY_2.Value = new decimal(new int[] {
@@ -663,6 +755,9 @@ namespace OnlineMeasurement
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(9, 57);
             this.label25.Name = "label25";
+            this.label25.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label25.BackColor = System.Drawing.Color.Transparent;
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label25.Size = new System.Drawing.Size(35, 14);
             this.label25.TabIndex = 2;
             this.label25.Text = "DY：";
@@ -687,6 +782,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxNewDZ_2.Name = "numericUpDown_maxNewDZ_2";
+            this.numericUpDown_maxNewDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxNewDZ_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxNewDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxNewDZ_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxNewDZ_2.TabIndex = 3;
             this.numericUpDown_maxNewDZ_2.Value = new decimal(new int[] {
@@ -715,6 +813,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxNewDY_2.Name = "numericUpDown_maxNewDY_2";
+            this.numericUpDown_maxNewDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxNewDY_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxNewDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxNewDY_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxNewDY_2.TabIndex = 3;
             this.numericUpDown_maxNewDY_2.Value = new decimal(new int[] {
@@ -728,6 +829,9 @@ namespace OnlineMeasurement
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(107, 84);
             this.label27.Name = "label27";
+            this.label27.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label27.BackColor = System.Drawing.Color.Transparent;
+            this.label27.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label27.Size = new System.Drawing.Size(14, 14);
             this.label27.TabIndex = 2;
             this.label27.Text = "~";
@@ -752,6 +856,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxNewDX_2.Name = "numericUpDown_maxNewDX_2";
+            this.numericUpDown_maxNewDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxNewDX_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxNewDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxNewDX_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxNewDX_2.TabIndex = 3;
             this.numericUpDown_maxNewDX_2.Value = new decimal(new int[] {
@@ -765,6 +872,9 @@ namespace OnlineMeasurement
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(107, 57);
             this.label28.Name = "label28";
+            this.label28.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label28.BackColor = System.Drawing.Color.Transparent;
+            this.label28.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label28.Size = new System.Drawing.Size(14, 14);
             this.label28.TabIndex = 2;
             this.label28.Text = "~";
@@ -789,6 +899,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minNewDX_2.Name = "numericUpDown_minNewDX_2";
+            this.numericUpDown_minNewDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minNewDX_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minNewDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minNewDX_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minNewDX_2.TabIndex = 3;
             this.numericUpDown_minNewDX_2.Value = new decimal(new int[] {
@@ -802,6 +915,9 @@ namespace OnlineMeasurement
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(107, 30);
             this.label29.Name = "label29";
+            this.label29.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label29.BackColor = System.Drawing.Color.Transparent;
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label29.Size = new System.Drawing.Size(14, 14);
             this.label29.TabIndex = 2;
             this.label29.Text = "~";
@@ -811,6 +927,9 @@ namespace OnlineMeasurement
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(9, 30);
             this.label30.Name = "label30";
+            this.label30.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label30.BackColor = System.Drawing.Color.Transparent;
+            this.label30.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label30.Size = new System.Drawing.Size(35, 14);
             this.label30.TabIndex = 2;
             this.label30.Text = "DX：";
@@ -831,6 +950,9 @@ namespace OnlineMeasurement
             this.groupBox新绿色范围值.Controls.Add(this.label36);
             this.groupBox新绿色范围值.Location = new System.Drawing.Point(263, 302);
             this.groupBox新绿色范围值.Name = "groupBox新绿色范围值";
+            this.groupBox新绿色范围值.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox新绿色范围值.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBox新绿色范围值.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox新绿色范围值.Size = new System.Drawing.Size(194, 116);
             this.groupBox新绿色范围值.TabIndex = 20;
             this.groupBox新绿色范围值.TabStop = false;
@@ -856,6 +978,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minNewDZ_1.Name = "numericUpDown_minNewDZ_1";
+            this.numericUpDown_minNewDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minNewDZ_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minNewDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minNewDZ_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minNewDZ_1.TabIndex = 3;
             this.numericUpDown_minNewDZ_1.Value = new decimal(new int[] {
@@ -869,6 +994,9 @@ namespace OnlineMeasurement
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(9, 84);
             this.label31.Name = "label31";
+            this.label31.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label31.BackColor = System.Drawing.Color.Transparent;
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label31.Size = new System.Drawing.Size(35, 14);
             this.label31.TabIndex = 2;
             this.label31.Text = "DZ：";
@@ -893,6 +1021,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minNewDY_1.Name = "numericUpDown_minNewDY_1";
+            this.numericUpDown_minNewDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minNewDY_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minNewDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minNewDY_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minNewDY_1.TabIndex = 3;
             this.numericUpDown_minNewDY_1.Value = new decimal(new int[] {
@@ -906,6 +1037,9 @@ namespace OnlineMeasurement
             this.label32.AutoSize = true;
             this.label32.Location = new System.Drawing.Point(9, 57);
             this.label32.Name = "label32";
+            this.label32.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label32.BackColor = System.Drawing.Color.Transparent;
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label32.Size = new System.Drawing.Size(35, 14);
             this.label32.TabIndex = 2;
             this.label32.Text = "DY：";
@@ -930,6 +1064,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxNewDZ_1.Name = "numericUpDown_maxNewDZ_1";
+            this.numericUpDown_maxNewDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxNewDZ_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxNewDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxNewDZ_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxNewDZ_1.TabIndex = 3;
             this.numericUpDown_maxNewDZ_1.Value = new decimal(new int[] {
@@ -958,6 +1095,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxNewDY_1.Name = "numericUpDown_maxNewDY_1";
+            this.numericUpDown_maxNewDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxNewDY_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxNewDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxNewDY_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxNewDY_1.TabIndex = 3;
             this.numericUpDown_maxNewDY_1.Value = new decimal(new int[] {
@@ -971,6 +1111,9 @@ namespace OnlineMeasurement
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(107, 84);
             this.label33.Name = "label33";
+            this.label33.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label33.BackColor = System.Drawing.Color.Transparent;
+            this.label33.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label33.Size = new System.Drawing.Size(14, 14);
             this.label33.TabIndex = 2;
             this.label33.Text = "~";
@@ -995,6 +1138,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxNewDX_1.Name = "numericUpDown_maxNewDX_1";
+            this.numericUpDown_maxNewDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxNewDX_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxNewDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxNewDX_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxNewDX_1.TabIndex = 3;
             this.numericUpDown_maxNewDX_1.Value = new decimal(new int[] {
@@ -1008,6 +1154,9 @@ namespace OnlineMeasurement
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(107, 57);
             this.label34.Name = "label34";
+            this.label34.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label34.BackColor = System.Drawing.Color.Transparent;
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label34.Size = new System.Drawing.Size(14, 14);
             this.label34.TabIndex = 2;
             this.label34.Text = "~";
@@ -1032,6 +1181,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minNewDX_1.Name = "numericUpDown_minNewDX_1";
+            this.numericUpDown_minNewDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minNewDX_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minNewDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minNewDX_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minNewDX_1.TabIndex = 3;
             this.numericUpDown_minNewDX_1.Value = new decimal(new int[] {
@@ -1045,6 +1197,9 @@ namespace OnlineMeasurement
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(107, 30);
             this.label35.Name = "label35";
+            this.label35.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label35.BackColor = System.Drawing.Color.Transparent;
+            this.label35.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label35.Size = new System.Drawing.Size(14, 14);
             this.label35.TabIndex = 2;
             this.label35.Text = "~";
@@ -1054,6 +1209,9 @@ namespace OnlineMeasurement
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(9, 30);
             this.label36.Name = "label36";
+            this.label36.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label36.BackColor = System.Drawing.Color.Transparent;
+            this.label36.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label36.Size = new System.Drawing.Size(35, 14);
             this.label36.TabIndex = 2;
             this.label36.Text = "DX：";
@@ -1062,10 +1220,14 @@ namespace OnlineMeasurement
             // 
             this.button_设置位姿.Location = new System.Drawing.Point(121, 426);
             this.button_设置位姿.Name = "button_设置位姿";
+            this.button_设置位姿.Font = new System.Drawing.Font("Microsoft YaHei UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_设置位姿.BackColor = System.Drawing.Color.FromArgb(49, 61, 77);
+            this.button_设置位姿.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.button_设置位姿.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_设置位姿.Size = new System.Drawing.Size(75, 23);
             this.button_设置位姿.TabIndex = 19;
             this.button_设置位姿.Text = "设置位姿";
-            this.button_设置位姿.UseVisualStyleBackColor = true;
+            this.button_设置位姿.UseVisualStyleBackColor = false;
             this.button_设置位姿.Visible = false;
             // 
             // label_位姿状态
@@ -1073,6 +1235,9 @@ namespace OnlineMeasurement
             this.label_位姿状态.AutoSize = true;
             this.label_位姿状态.Location = new System.Drawing.Point(135, 388);
             this.label_位姿状态.Name = "label_位姿状态";
+            this.label_位姿状态.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_位姿状态.BackColor = System.Drawing.Color.Transparent;
+            this.label_位姿状态.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label_位姿状态.Size = new System.Drawing.Size(21, 14);
             this.label_位姿状态.TabIndex = 18;
             this.label_位姿状态.Text = "--";
@@ -1082,6 +1247,9 @@ namespace OnlineMeasurement
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(52, 388);
             this.label23.Name = "label23";
+            this.label23.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label23.Size = new System.Drawing.Size(77, 14);
             this.label23.TabIndex = 18;
             this.label23.Text = "位姿状态：";
@@ -1091,6 +1259,10 @@ namespace OnlineMeasurement
             this.comboBox_CamName.FormattingEnabled = true;
             this.comboBox_CamName.Location = new System.Drawing.Point(107, 209);
             this.comboBox_CamName.Name = "comboBox_CamName";
+            this.comboBox_CamName.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox_CamName.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.comboBox_CamName.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.comboBox_CamName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox_CamName.Size = new System.Drawing.Size(99, 22);
             this.comboBox_CamName.TabIndex = 17;
             // 
@@ -1099,6 +1271,9 @@ namespace OnlineMeasurement
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(52, 213);
             this.label22.Name = "label22";
+            this.label22.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.BackColor = System.Drawing.Color.Transparent;
+            this.label22.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label22.Size = new System.Drawing.Size(49, 14);
             this.label22.TabIndex = 16;
             this.label22.Text = "相机：";
@@ -1116,6 +1291,10 @@ namespace OnlineMeasurement
             "-Z"});
             this.comboBox_Y.Location = new System.Drawing.Point(129, 349);
             this.comboBox_Y.Name = "comboBox_Y";
+            this.comboBox_Y.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox_Y.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.comboBox_Y.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.comboBox_Y.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox_Y.Size = new System.Drawing.Size(77, 22);
             this.comboBox_Y.TabIndex = 15;
             // 
@@ -1132,6 +1311,10 @@ namespace OnlineMeasurement
             "-Z"});
             this.comboBox_X.Location = new System.Drawing.Point(129, 314);
             this.comboBox_X.Name = "comboBox_X";
+            this.comboBox_X.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox_X.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.comboBox_X.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.comboBox_X.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.comboBox_X.Size = new System.Drawing.Size(77, 22);
             this.comboBox_X.TabIndex = 15;
             // 
@@ -1139,6 +1322,9 @@ namespace OnlineMeasurement
             // 
             this.textBox_name.Location = new System.Drawing.Point(107, 174);
             this.textBox_name.Name = "textBox_name";
+            this.textBox_name.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_name.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.textBox_name.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.textBox_name.Size = new System.Drawing.Size(99, 23);
             this.textBox_name.TabIndex = 14;
             // 
@@ -1147,6 +1333,9 @@ namespace OnlineMeasurement
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(52, 353);
             this.label21.Name = "label21";
+            this.label21.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label21.BackColor = System.Drawing.Color.Transparent;
+            this.label21.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label21.Size = new System.Drawing.Size(70, 14);
             this.label21.TabIndex = 2;
             this.label21.Text = "Y转换为：";
@@ -1156,26 +1345,35 @@ namespace OnlineMeasurement
             this.checkBox_相对基准点.AutoSize = true;
             this.checkBox_相对基准点.Location = new System.Drawing.Point(52, 74);
             this.checkBox_相对基准点.Name = "checkBox_相对基准点";
+            this.checkBox_相对基准点.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox_相对基准点.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBox_相对基准点.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBox_相对基准点.Size = new System.Drawing.Size(96, 18);
             this.checkBox_相对基准点.TabIndex = 13;
             this.checkBox_相对基准点.Text = "相对基准点";
-            this.checkBox_相对基准点.UseVisualStyleBackColor = true;
+            this.checkBox_相对基准点.UseVisualStyleBackColor = false;
             // 
             // checkBoxKeepOK
             // 
             this.checkBoxKeepOK.AutoSize = true;
             this.checkBoxKeepOK.Location = new System.Drawing.Point(52, 46);
             this.checkBoxKeepOK.Name = "checkBoxKeepOK";
+            this.checkBoxKeepOK.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBoxKeepOK.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBoxKeepOK.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBoxKeepOK.Size = new System.Drawing.Size(110, 18);
             this.checkBoxKeepOK.TabIndex = 13;
             this.checkBoxKeepOK.Text = "屏蔽当前点位";
-            this.checkBoxKeepOK.UseVisualStyleBackColor = true;
+            this.checkBoxKeepOK.UseVisualStyleBackColor = false;
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(52, 318);
             this.label20.Name = "label20";
+            this.label20.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label20.BackColor = System.Drawing.Color.Transparent;
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label20.Size = new System.Drawing.Size(70, 14);
             this.label20.TabIndex = 2;
             this.label20.Text = "X转换为：";
@@ -1196,6 +1394,9 @@ namespace OnlineMeasurement
             this.groupBox绿色范围值.Controls.Add(this.label19);
             this.groupBox绿色范围值.Location = new System.Drawing.Point(263, 172);
             this.groupBox绿色范围值.Name = "groupBox绿色范围值";
+            this.groupBox绿色范围值.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox绿色范围值.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBox绿色范围值.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox绿色范围值.Size = new System.Drawing.Size(194, 116);
             this.groupBox绿色范围值.TabIndex = 12;
             this.groupBox绿色范围值.TabStop = false;
@@ -1221,6 +1422,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minDZ_1.Name = "numericUpDown_minDZ_1";
+            this.numericUpDown_minDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minDZ_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minDZ_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minDZ_1.TabIndex = 3;
             this.numericUpDown_minDZ_1.Value = new decimal(new int[] {
@@ -1234,6 +1438,9 @@ namespace OnlineMeasurement
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(9, 84);
             this.label2.Name = "label2";
+            this.label2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label2.Size = new System.Drawing.Size(35, 14);
             this.label2.TabIndex = 2;
             this.label2.Text = "DZ：";
@@ -1258,6 +1465,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minDY_1.Name = "numericUpDown_minDY_1";
+            this.numericUpDown_minDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minDY_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minDY_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minDY_1.TabIndex = 3;
             this.numericUpDown_minDY_1.Value = new decimal(new int[] {
@@ -1271,6 +1481,9 @@ namespace OnlineMeasurement
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(9, 57);
             this.label3.Name = "label3";
+            this.label3.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label3.Size = new System.Drawing.Size(35, 14);
             this.label3.TabIndex = 2;
             this.label3.Text = "DY：";
@@ -1295,6 +1508,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxDZ_1.Name = "numericUpDown_maxDZ_1";
+            this.numericUpDown_maxDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxDZ_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxDZ_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxDZ_1.TabIndex = 3;
             this.numericUpDown_maxDZ_1.Value = new decimal(new int[] {
@@ -1323,6 +1539,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxDY_1.Name = "numericUpDown_maxDY_1";
+            this.numericUpDown_maxDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxDY_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxDY_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxDY_1.TabIndex = 3;
             this.numericUpDown_maxDY_1.Value = new decimal(new int[] {
@@ -1336,6 +1555,9 @@ namespace OnlineMeasurement
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(107, 84);
             this.label16.Name = "label16";
+            this.label16.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.BackColor = System.Drawing.Color.Transparent;
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label16.Size = new System.Drawing.Size(14, 14);
             this.label16.TabIndex = 2;
             this.label16.Text = "~";
@@ -1360,6 +1582,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxDX_1.Name = "numericUpDown_maxDX_1";
+            this.numericUpDown_maxDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxDX_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxDX_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxDX_1.TabIndex = 3;
             this.numericUpDown_maxDX_1.Value = new decimal(new int[] {
@@ -1373,6 +1598,9 @@ namespace OnlineMeasurement
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(107, 57);
             this.label4.Name = "label4";
+            this.label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label4.Size = new System.Drawing.Size(14, 14);
             this.label4.TabIndex = 2;
             this.label4.Text = "~";
@@ -1397,6 +1625,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minDX_1.Name = "numericUpDown_minDX_1";
+            this.numericUpDown_minDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minDX_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minDX_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minDX_1.TabIndex = 3;
             this.numericUpDown_minDX_1.Value = new decimal(new int[] {
@@ -1410,6 +1641,9 @@ namespace OnlineMeasurement
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(107, 30);
             this.label18.Name = "label18";
+            this.label18.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label18.BackColor = System.Drawing.Color.Transparent;
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label18.Size = new System.Drawing.Size(14, 14);
             this.label18.TabIndex = 2;
             this.label18.Text = "~";
@@ -1419,6 +1653,9 @@ namespace OnlineMeasurement
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(9, 30);
             this.label19.Name = "label19";
+            this.label19.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label19.Size = new System.Drawing.Size(35, 14);
             this.label19.TabIndex = 2;
             this.label19.Text = "DX：";
@@ -1439,6 +1676,9 @@ namespace OnlineMeasurement
             this.groupBox黄色范围值.Controls.Add(this.label11);
             this.groupBox黄色范围值.Location = new System.Drawing.Point(463, 172);
             this.groupBox黄色范围值.Name = "groupBox黄色范围值";
+            this.groupBox黄色范围值.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox黄色范围值.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBox黄色范围值.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBox黄色范围值.Size = new System.Drawing.Size(194, 116);
             this.groupBox黄色范围值.TabIndex = 11;
             this.groupBox黄色范围值.TabStop = false;
@@ -1464,6 +1704,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minDZ_2.Name = "numericUpDown_minDZ_2";
+            this.numericUpDown_minDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minDZ_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minDZ_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minDZ_2.TabIndex = 3;
             this.numericUpDown_minDZ_2.Value = new decimal(new int[] {
@@ -1477,6 +1720,9 @@ namespace OnlineMeasurement
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(9, 84);
             this.label9.Name = "label9";
+            this.label9.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label9.Size = new System.Drawing.Size(35, 14);
             this.label9.TabIndex = 2;
             this.label9.Text = "DZ：";
@@ -1501,6 +1747,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minDY_2.Name = "numericUpDown_minDY_2";
+            this.numericUpDown_minDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minDY_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minDY_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minDY_2.TabIndex = 3;
             this.numericUpDown_minDY_2.Value = new decimal(new int[] {
@@ -1514,6 +1763,9 @@ namespace OnlineMeasurement
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(9, 57);
             this.label10.Name = "label10";
+            this.label10.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.BackColor = System.Drawing.Color.Transparent;
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label10.Size = new System.Drawing.Size(35, 14);
             this.label10.TabIndex = 2;
             this.label10.Text = "DY：";
@@ -1538,6 +1790,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxDZ_2.Name = "numericUpDown_maxDZ_2";
+            this.numericUpDown_maxDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxDZ_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxDZ_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxDZ_2.TabIndex = 3;
             this.numericUpDown_maxDZ_2.Value = new decimal(new int[] {
@@ -1566,6 +1821,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxDY_2.Name = "numericUpDown_maxDY_2";
+            this.numericUpDown_maxDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxDY_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxDY_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxDY_2.TabIndex = 3;
             this.numericUpDown_maxDY_2.Value = new decimal(new int[] {
@@ -1579,6 +1837,9 @@ namespace OnlineMeasurement
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(107, 84);
             this.label14.Name = "label14";
+            this.label14.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label14.Size = new System.Drawing.Size(14, 14);
             this.label14.TabIndex = 2;
             this.label14.Text = "~";
@@ -1603,6 +1864,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxDX_2.Name = "numericUpDown_maxDX_2";
+            this.numericUpDown_maxDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxDX_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxDX_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxDX_2.TabIndex = 3;
             this.numericUpDown_maxDX_2.Value = new decimal(new int[] {
@@ -1616,6 +1880,9 @@ namespace OnlineMeasurement
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(107, 57);
             this.label13.Name = "label13";
+            this.label13.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label13.BackColor = System.Drawing.Color.Transparent;
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label13.Size = new System.Drawing.Size(14, 14);
             this.label13.TabIndex = 2;
             this.label13.Text = "~";
@@ -1640,6 +1907,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minDX_2.Name = "numericUpDown_minDX_2";
+            this.numericUpDown_minDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minDX_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minDX_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minDX_2.TabIndex = 3;
             this.numericUpDown_minDX_2.Value = new decimal(new int[] {
@@ -1653,6 +1923,9 @@ namespace OnlineMeasurement
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(107, 30);
             this.label12.Name = "label12";
+            this.label12.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label12.Size = new System.Drawing.Size(14, 14);
             this.label12.TabIndex = 2;
             this.label12.Text = "~";
@@ -1662,6 +1935,9 @@ namespace OnlineMeasurement
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(9, 30);
             this.label11.Name = "label11";
+            this.label11.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label11.BackColor = System.Drawing.Color.Transparent;
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label11.Size = new System.Drawing.Size(35, 14);
             this.label11.TabIndex = 2;
             this.label11.Text = "DX：";
@@ -1671,6 +1947,9 @@ namespace OnlineMeasurement
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(52, 178);
             this.label5.Name = "label5";
+            this.label5.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.BackColor = System.Drawing.Color.Transparent;
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.label5.Size = new System.Drawing.Size(49, 14);
             this.label5.TabIndex = 2;
             this.label5.Text = "名称：";
@@ -1695,6 +1974,9 @@ namespace OnlineMeasurement
             this.groupBoxPointsYellowThreshold.Controls.Add(this.labelPointsDD_2);
             this.groupBoxPointsYellowThreshold.Location = new System.Drawing.Point(503, 450);
             this.groupBoxPointsYellowThreshold.Name = "groupBoxPointsYellowThreshold";
+            this.groupBoxPointsYellowThreshold.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBoxPointsYellowThreshold.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBoxPointsYellowThreshold.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBoxPointsYellowThreshold.Size = new System.Drawing.Size(235, 125);
             this.groupBoxPointsYellowThreshold.TabIndex = 32;
             this.groupBoxPointsYellowThreshold.TabStop = false;
@@ -1720,6 +2002,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDX_2.Name = "numericUpDown_maxPointsDX_2";
+            this.numericUpDown_maxPointsDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDX_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDX_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDX_2.TabIndex = 3;
             // 
@@ -1728,6 +2013,9 @@ namespace OnlineMeasurement
             this.labelPointsDXSeparator_2.AutoSize = true;
             this.labelPointsDXSeparator_2.Location = new System.Drawing.Point(152, 24);
             this.labelPointsDXSeparator_2.Name = "labelPointsDXSeparator_2";
+            this.labelPointsDXSeparator_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDXSeparator_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDXSeparator_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDXSeparator_2.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDXSeparator_2.TabIndex = 2;
             this.labelPointsDXSeparator_2.Text = "~";
@@ -1752,6 +2040,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDX_2.Name = "numericUpDown_minPointsDX_2";
+            this.numericUpDown_minPointsDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDX_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDX_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDX_2.TabIndex = 1;
             // 
@@ -1760,6 +2051,9 @@ namespace OnlineMeasurement
             this.labelPointsDX_2.AutoSize = true;
             this.labelPointsDX_2.Location = new System.Drawing.Point(7, 24);
             this.labelPointsDX_2.Name = "labelPointsDX_2";
+            this.labelPointsDX_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDX_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDX_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDX_2.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDX_2.TabIndex = 0;
             this.labelPointsDX_2.Text = "PointsDX：";
@@ -1784,6 +2078,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDY_2.Name = "numericUpDown_maxPointsDY_2";
+            this.numericUpDown_maxPointsDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDY_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDY_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDY_2.TabIndex = 7;
             // 
@@ -1792,6 +2089,9 @@ namespace OnlineMeasurement
             this.labelPointsDYSeparator_2.AutoSize = true;
             this.labelPointsDYSeparator_2.Location = new System.Drawing.Point(152, 49);
             this.labelPointsDYSeparator_2.Name = "labelPointsDYSeparator_2";
+            this.labelPointsDYSeparator_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDYSeparator_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDYSeparator_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDYSeparator_2.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDYSeparator_2.TabIndex = 6;
             this.labelPointsDYSeparator_2.Text = "~";
@@ -1816,6 +2116,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDY_2.Name = "numericUpDown_minPointsDY_2";
+            this.numericUpDown_minPointsDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDY_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDY_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDY_2.TabIndex = 5;
             // 
@@ -1824,6 +2127,9 @@ namespace OnlineMeasurement
             this.labelPointsDY_2.AutoSize = true;
             this.labelPointsDY_2.Location = new System.Drawing.Point(7, 49);
             this.labelPointsDY_2.Name = "labelPointsDY_2";
+            this.labelPointsDY_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDY_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDY_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDY_2.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDY_2.TabIndex = 4;
             this.labelPointsDY_2.Text = "PointsDY：";
@@ -1848,6 +2154,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDZ_2.Name = "numericUpDown_maxPointsDZ_2";
+            this.numericUpDown_maxPointsDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDZ_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDZ_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDZ_2.TabIndex = 11;
             // 
@@ -1856,6 +2165,9 @@ namespace OnlineMeasurement
             this.labelPointsDZSeparator_2.AutoSize = true;
             this.labelPointsDZSeparator_2.Location = new System.Drawing.Point(152, 74);
             this.labelPointsDZSeparator_2.Name = "labelPointsDZSeparator_2";
+            this.labelPointsDZSeparator_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDZSeparator_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDZSeparator_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDZSeparator_2.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDZSeparator_2.TabIndex = 10;
             this.labelPointsDZSeparator_2.Text = "~";
@@ -1880,6 +2192,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDZ_2.Name = "numericUpDown_minPointsDZ_2";
+            this.numericUpDown_minPointsDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDZ_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDZ_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDZ_2.TabIndex = 9;
             // 
@@ -1888,6 +2203,9 @@ namespace OnlineMeasurement
             this.labelPointsDZ_2.AutoSize = true;
             this.labelPointsDZ_2.Location = new System.Drawing.Point(7, 74);
             this.labelPointsDZ_2.Name = "labelPointsDZ_2";
+            this.labelPointsDZ_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDZ_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDZ_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDZ_2.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDZ_2.TabIndex = 8;
             this.labelPointsDZ_2.Text = "PointsDZ：";
@@ -1912,6 +2230,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDD_2.Name = "numericUpDown_maxPointsDD_2";
+            this.numericUpDown_maxPointsDD_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDD_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDD_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDD_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDD_2.TabIndex = 15;
             // 
@@ -1920,6 +2241,9 @@ namespace OnlineMeasurement
             this.labelPointsDDSeparator_2.AutoSize = true;
             this.labelPointsDDSeparator_2.Location = new System.Drawing.Point(152, 99);
             this.labelPointsDDSeparator_2.Name = "labelPointsDDSeparator_2";
+            this.labelPointsDDSeparator_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDDSeparator_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDDSeparator_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDDSeparator_2.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDDSeparator_2.TabIndex = 14;
             this.labelPointsDDSeparator_2.Text = "~";
@@ -1944,6 +2268,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDD_2.Name = "numericUpDown_minPointsDD_2";
+            this.numericUpDown_minPointsDD_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDD_2.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDD_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDD_2.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDD_2.TabIndex = 13;
             // 
@@ -1952,6 +2279,9 @@ namespace OnlineMeasurement
             this.labelPointsDD_2.AutoSize = true;
             this.labelPointsDD_2.Location = new System.Drawing.Point(7, 99);
             this.labelPointsDD_2.Name = "labelPointsDD_2";
+            this.labelPointsDD_2.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDD_2.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDD_2.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDD_2.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDD_2.TabIndex = 12;
             this.labelPointsDD_2.Text = "PointsDD：";
@@ -1976,6 +2306,9 @@ namespace OnlineMeasurement
             this.groupBoxPointsGreenThreshold.Controls.Add(this.labelPointsDD_1);
             this.groupBoxPointsGreenThreshold.Location = new System.Drawing.Point(263, 450);
             this.groupBoxPointsGreenThreshold.Name = "groupBoxPointsGreenThreshold";
+            this.groupBoxPointsGreenThreshold.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBoxPointsGreenThreshold.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.groupBoxPointsGreenThreshold.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.groupBoxPointsGreenThreshold.Size = new System.Drawing.Size(235, 125);
             this.groupBoxPointsGreenThreshold.TabIndex = 31;
             this.groupBoxPointsGreenThreshold.TabStop = false;
@@ -2001,6 +2334,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDX_1.Name = "numericUpDown_maxPointsDX_1";
+            this.numericUpDown_maxPointsDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDX_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDX_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDX_1.TabIndex = 3;
             // 
@@ -2009,6 +2345,9 @@ namespace OnlineMeasurement
             this.labelPointsDXSeparator_1.AutoSize = true;
             this.labelPointsDXSeparator_1.Location = new System.Drawing.Point(152, 24);
             this.labelPointsDXSeparator_1.Name = "labelPointsDXSeparator_1";
+            this.labelPointsDXSeparator_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDXSeparator_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDXSeparator_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDXSeparator_1.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDXSeparator_1.TabIndex = 2;
             this.labelPointsDXSeparator_1.Text = "~";
@@ -2033,6 +2372,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDX_1.Name = "numericUpDown_minPointsDX_1";
+            this.numericUpDown_minPointsDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDX_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDX_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDX_1.TabIndex = 1;
             // 
@@ -2041,6 +2383,9 @@ namespace OnlineMeasurement
             this.labelPointsDX_1.AutoSize = true;
             this.labelPointsDX_1.Location = new System.Drawing.Point(7, 24);
             this.labelPointsDX_1.Name = "labelPointsDX_1";
+            this.labelPointsDX_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDX_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDX_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDX_1.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDX_1.TabIndex = 0;
             this.labelPointsDX_1.Text = "PointsDX：";
@@ -2065,6 +2410,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDY_1.Name = "numericUpDown_maxPointsDY_1";
+            this.numericUpDown_maxPointsDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDY_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDY_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDY_1.TabIndex = 7;
             // 
@@ -2073,6 +2421,9 @@ namespace OnlineMeasurement
             this.labelPointsDYSeparator_1.AutoSize = true;
             this.labelPointsDYSeparator_1.Location = new System.Drawing.Point(152, 49);
             this.labelPointsDYSeparator_1.Name = "labelPointsDYSeparator_1";
+            this.labelPointsDYSeparator_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDYSeparator_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDYSeparator_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDYSeparator_1.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDYSeparator_1.TabIndex = 6;
             this.labelPointsDYSeparator_1.Text = "~";
@@ -2097,6 +2448,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDY_1.Name = "numericUpDown_minPointsDY_1";
+            this.numericUpDown_minPointsDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDY_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDY_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDY_1.TabIndex = 5;
             // 
@@ -2105,6 +2459,9 @@ namespace OnlineMeasurement
             this.labelPointsDY_1.AutoSize = true;
             this.labelPointsDY_1.Location = new System.Drawing.Point(7, 49);
             this.labelPointsDY_1.Name = "labelPointsDY_1";
+            this.labelPointsDY_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDY_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDY_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDY_1.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDY_1.TabIndex = 4;
             this.labelPointsDY_1.Text = "PointsDY：";
@@ -2129,6 +2486,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDZ_1.Name = "numericUpDown_maxPointsDZ_1";
+            this.numericUpDown_maxPointsDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDZ_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDZ_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDZ_1.TabIndex = 11;
             // 
@@ -2137,6 +2497,9 @@ namespace OnlineMeasurement
             this.labelPointsDZSeparator_1.AutoSize = true;
             this.labelPointsDZSeparator_1.Location = new System.Drawing.Point(152, 74);
             this.labelPointsDZSeparator_1.Name = "labelPointsDZSeparator_1";
+            this.labelPointsDZSeparator_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDZSeparator_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDZSeparator_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDZSeparator_1.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDZSeparator_1.TabIndex = 10;
             this.labelPointsDZSeparator_1.Text = "~";
@@ -2161,6 +2524,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDZ_1.Name = "numericUpDown_minPointsDZ_1";
+            this.numericUpDown_minPointsDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDZ_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDZ_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDZ_1.TabIndex = 9;
             // 
@@ -2169,6 +2535,9 @@ namespace OnlineMeasurement
             this.labelPointsDZ_1.AutoSize = true;
             this.labelPointsDZ_1.Location = new System.Drawing.Point(7, 74);
             this.labelPointsDZ_1.Name = "labelPointsDZ_1";
+            this.labelPointsDZ_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDZ_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDZ_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDZ_1.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDZ_1.TabIndex = 8;
             this.labelPointsDZ_1.Text = "PointsDZ：";
@@ -2193,6 +2562,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_maxPointsDD_1.Name = "numericUpDown_maxPointsDD_1";
+            this.numericUpDown_maxPointsDD_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_maxPointsDD_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_maxPointsDD_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_maxPointsDD_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_maxPointsDD_1.TabIndex = 15;
             // 
@@ -2201,6 +2573,9 @@ namespace OnlineMeasurement
             this.labelPointsDDSeparator_1.AutoSize = true;
             this.labelPointsDDSeparator_1.Location = new System.Drawing.Point(152, 99);
             this.labelPointsDDSeparator_1.Name = "labelPointsDDSeparator_1";
+            this.labelPointsDDSeparator_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDDSeparator_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDDSeparator_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDDSeparator_1.Size = new System.Drawing.Size(14, 14);
             this.labelPointsDDSeparator_1.TabIndex = 14;
             this.labelPointsDDSeparator_1.Text = "~";
@@ -2225,6 +2600,9 @@ namespace OnlineMeasurement
             0,
             -2147483648});
             this.numericUpDown_minPointsDD_1.Name = "numericUpDown_minPointsDD_1";
+            this.numericUpDown_minPointsDD_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.numericUpDown_minPointsDD_1.BackColor = System.Drawing.Color.FromArgb(54, 66, 83);
+            this.numericUpDown_minPointsDD_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.numericUpDown_minPointsDD_1.Size = new System.Drawing.Size(58, 23);
             this.numericUpDown_minPointsDD_1.TabIndex = 13;
             // 
@@ -2233,6 +2611,9 @@ namespace OnlineMeasurement
             this.labelPointsDD_1.AutoSize = true;
             this.labelPointsDD_1.Location = new System.Drawing.Point(7, 99);
             this.labelPointsDD_1.Name = "labelPointsDD_1";
+            this.labelPointsDD_1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointsDD_1.BackColor = System.Drawing.Color.Transparent;
+            this.labelPointsDD_1.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.labelPointsDD_1.Size = new System.Drawing.Size(77, 14);
             this.labelPointsDD_1.TabIndex = 12;
             this.labelPointsDD_1.Text = "PointsDD：";
@@ -2242,10 +2623,13 @@ namespace OnlineMeasurement
             this.checkBoxEnablePoints.AutoSize = true;
             this.checkBoxEnablePoints.Location = new System.Drawing.Point(52, 467);
             this.checkBoxEnablePoints.Name = "checkBoxEnablePoints";
+            this.checkBoxEnablePoints.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBoxEnablePoints.BackColor = System.Drawing.Color.FromArgb(39, 49, 63);
+            this.checkBoxEnablePoints.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
             this.checkBoxEnablePoints.Size = new System.Drawing.Size(138, 18);
             this.checkBoxEnablePoints.TabIndex = 30;
             this.checkBoxEnablePoints.Text = "启用两孔相对距离";
-            this.checkBoxEnablePoints.UseVisualStyleBackColor = true;
+            this.checkBoxEnablePoints.UseVisualStyleBackColor = false;
             // 
             // FormSet
             // 
@@ -2260,6 +2644,9 @@ namespace OnlineMeasurement
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormSet";
+            this.BackColor = System.Drawing.Color.FromArgb(31, 37, 47);
+            this.ForeColor = System.Drawing.Color.FromArgb(239, 243, 248);
+            this.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "设置";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSet_FormClosing);

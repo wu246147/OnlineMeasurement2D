@@ -48,6 +48,7 @@ namespace OnlineMeasurement
         public FormRun()
         {
             InitializeComponent();
+            AppTheme.Apply(this);
 
             原色 = button_Led.BackColor;
 
@@ -60,7 +61,7 @@ namespace OnlineMeasurement
             plcinfo.Elapsed += plcinfo_Tick;
             plcinfo.Enabled = true;
 
-            buttonRun_Click(null, null);
+            //buttonRun_Click(null, null);
         }
         private void FormRun_Load(object sender, EventArgs e)
         {
@@ -449,6 +450,7 @@ namespace OnlineMeasurement
                         {
                             lblSysStatus.Text = "等待";
                             lblSysStatus.BackColor = Color.Yellow;
+                            lblSysStatus.ForeColor = AppTheme.Window;
                         }));
 
                         ShowMessage("等待开始信号");
@@ -654,8 +656,10 @@ namespace OnlineMeasurement
                     {
                         lblSysStatus.Text = "运行";
                         lblSysStatus.BackColor = Color.Green;
+                        lblSysStatus.ForeColor = Color.White;
                         labelResult.Text = "--";
                         labelResult.BackColor = Color.Transparent;
+                        labelResult.ForeColor = AppTheme.Text;
 
                         labelCarKind.Text = carKind.ToString();
                         labelCarName.Text = 车型号转名称.ContainsKey(carKind) ? 车型号转名称[carKind] : "不存在";
@@ -765,588 +769,1257 @@ namespace OnlineMeasurement
                                 相机名_点位号.Add(item.CamName, new List<int>() { item.key });
                             }
                         }
-                        //遍历使用到的相机
-                        foreach (var camName in 相机名_点位号.Keys)
+
+                        // 改成等待拍照位
+                        while (true)
                         {
-                            tasks.Add(camName, Task.Run(() =>
+                            //等待拍照位信息
+                            ShowMessage("等待拍照位触发信号或检测完成信号");
+                            while (true)
                             {
-                                //遍历点位
-                                foreach (var 点位号 in 相机名_点位号[camName])
+                                if (stop) return;
+                                var val = ReadBool(DI.拍照触发信号);
+                                if (val.IsSuccess)
                                 {
-                                    var set = carSet.gSets[点位号];
-                                    int pointNum = set.key;
-
-                                    if (相机参数.sets.ContainsKey(camName))
+                                    if (val.Content == true)
                                     {
-                                        if (!相机参数.sets[camName].gSet.Disabled && !set.keepOK)
-                                        {
-                                            float Px0 = 0, Py0 = 0, Px1 = 0, Py1 = 0;
-                                            bool 匹配成功 = false;
-                                            // 第二孔未启用时视为不需要进行第二次定位。
-                                            bool Points匹配成功 = !set.enablePoints;
-                                            HImage hImage2D = null;
-                                            HImage hImage2D匹配 = null;
+                                        ShowMessage("收到拍照触发信号");
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    ShowMessage("拍照触发信号读取失败", Color.Red);
+                                    return;
+                                }
 
-                                            if (!checkBox相机仿真.Checked)
+                                if (stop) return;
+
+                                var finish = ReadBool(DI.检测完成);
+                                if (finish.IsSuccess)
+                                {
+                                    if (finish.Content == true)
+                                    {
+                                        ShowMessage("收到检测完成信号");
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    ShowMessage("检测完成信号读取失败", Color.Red);
+                                    return;
+                                }
+
+                                var abort = ReadBool(DI.重置);
+                                if (!abort.IsSuccess)
+                                {
+                                    ShowMessage("重置流程信号读取失败", Color.Red);
+                                    return;
+                                }
+                                if (bAbort || abort.Content)
+                                {
+                                    bAbort = true;
+                                    ShowMessage("收到重置流程信号", Color.Yellow);
+                                    break;
+                                }
+                                Thread.Sleep(50);
+                            }
+
+                            ShowMessage("读取拍照点位号信号");
+
+                            int 点位号 = -1;
+                            string camName = "";
+                            var pointID = ReadUInt16(DI.触发拍照点位ID);
+                            if (pointID.IsSuccess)
+                            {
+                                点位号 = pointID.Content;
+                            }
+                            else
+                            {
+                                ShowMessage("拍照点位号信号读取失败", Color.Red);
+                                return;
+                            }
+
+
+                            //执行拍照
+                            var set = carSet.gSets[点位号];
+                            camName = set.CamName;
+                            int pointNum = set.key;
+
+                            if (相机参数.sets.ContainsKey(camName))
+                            {
+                                if (!相机参数.sets[camName].gSet.Disabled && !set.keepOK)
+                                {
+                                    float Px0 = 0, Py0 = 0, Px1 = 0, Py1 = 0;
+                                    bool 匹配成功 = false;
+                                    // 第二孔未启用时视为不需要进行第二次定位。
+                                    bool Points匹配成功 = !set.enablePoints;
+                                    HImage hImage2D = null;
+                                    HImage hImage2D匹配 = null;
+
+                                    if (!checkBox相机仿真.Checked)
+                                    {
+                                        if (相机.ContainsKey(camName))
+                                        {
+                                            if (相机[camName].SetExposure(set.ledExposure))
                                             {
-                                                if (相机.ContainsKey(camName))
+                                                Thread.Sleep(20);
+                                                hImage2D = 相机[camName].OneShot();
+                                                if (hImage2D == null)
                                                 {
-                                                    if (相机[camName].SetExposure(set.ledExposure))
+                                                    ShowMessage(camName + "拍照失败:" + 相机[camName].ErrMsg, Color.Yellow);
+                                                    Thread.Sleep(50);
+                                                    hImage2D = 相机[camName].OneShot();
+                                                    if (hImage2D == null)
                                                     {
-                                                        Thread.Sleep(20);
-                                                        hImage2D = 相机[camName].OneShot();
-                                                        if (hImage2D == null)
-                                                        {
-                                                            ShowMessage(camName + "拍照失败:" + 相机[camName].ErrMsg, Color.Yellow);
-                                                            Thread.Sleep(50);
-                                                            hImage2D = 相机[camName].OneShot();
-                                                            if (hImage2D == null)
-                                                            {
-                                                                ShowMessage(camName + "再次拍照失败:" + 相机[camName].ErrMsg, Color.Red);
-                                                                formShow?.UpDataMessage(camName + "拍照失败", pointNum.ToString(), set.name);
-                                                                无异常 = false;
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        ShowMessage(camName + "曝光设置失败:" + 相机[camName].ErrMsg, Color.Red);
-                                                        formShow?.UpDataMessage(camName + "曝光设置失败", pointNum.ToString(), set.name);
+                                                        ShowMessage(camName + "再次拍照失败:" + 相机[camName].ErrMsg, Color.Red);
+                                                        formShow?.UpDataMessage(camName + "拍照失败", pointNum.ToString(), set.name);
                                                         无异常 = false;
                                                     }
-                                                }
-                                                else
-                                                {
-                                                    ShowMessage($"{camName}相机不存在", Color.Red);
-                                                    formShow?.UpDataMessage($"{camName}相机不存在", pointNum.ToString(), set.name);
-                                                    无异常 = false;
                                                 }
                                             }
                                             else
                                             {
-                                                string imagePath = $"test-Image\\{camName}_{pointNum:00}.bmp";
-                                                if (!File.Exists(imagePath))
-                                                {
-                                                    imagePath = $"test-Image\\{camName}_{pointNum:00}.png";
-                                                }
-                                                if (!File.Exists(imagePath))
-                                                {
-                                                    imagePath = $"test-Image\\{camName}_{pointNum:00}.hobj";
-                                                }
-                                                if (File.Exists(imagePath))
-                                                {
-                                                    try
-                                                    {
-                                                        hImage2D = new HImage(imagePath);
-                                                    }
-                                                    catch (Exception ex)
-                                                    {
-                                                        ShowMessage($"{imagePath}图片加载异常：{ex}", Color.Red);
-                                                        formShow?.UpDataMessage("图片加载异常", pointNum.ToString(), set.name);
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    ShowMessage($"{imagePath}图片不存在", Color.Red);
-                                                    formShow?.UpDataMessage("图片不存在", pointNum.ToString(), set.name);
-                                                }
+                                                ShowMessage(camName + "曝光设置失败:" + 相机[camName].ErrMsg, Color.Red);
+                                                formShow?.UpDataMessage(camName + "曝光设置失败", pointNum.ToString(), set.name);
+                                                无异常 = false;
                                             }
-
-                                            if (hImage2D != null)
+                                        }
+                                        else
+                                        {
+                                            ShowMessage($"{camName}相机不存在", Color.Red);
+                                            formShow?.UpDataMessage($"{camName}相机不存在", pointNum.ToString(), set.name);
+                                            无异常 = false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string imagePath = $"test-Image\\{camName}_{pointNum:00}.bmp";
+                                        if (!File.Exists(imagePath))
+                                        {
+                                            imagePath = $"test-Image\\{camName}_{pointNum:00}.png";
+                                        }
+                                        if (!File.Exists(imagePath))
+                                        {
+                                            imagePath = $"test-Image\\{camName}_{pointNum:00}.hobj";
+                                        }
+                                        if (File.Exists(imagePath))
+                                        {
+                                            try
                                             {
-                                                var carSetting = carSet;
-                                                formShow?.UpDataCamImage(hImage2D, pointNum.ToString());//////////////////////////
-                                                try
+                                                hImage2D = new HImage(imagePath);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                ShowMessage($"{imagePath}图片加载异常：{ex}", Color.Red);
+                                                formShow?.UpDataMessage("图片加载异常", pointNum.ToString(), set.name);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ShowMessage($"{imagePath}图片不存在", Color.Red);
+                                            formShow?.UpDataMessage("图片不存在", pointNum.ToString(), set.name);
+                                        }
+                                    }
+
+                                    if (hImage2D != null)
+                                    {
+                                        var carSetting = carSet;
+                                        formShow?.UpDataCamImage(hImage2D, pointNum.ToString());//////////////////////////
+                                        try
+                                        {
+                                            //匹配计算
+                                            if (相机参数.sets[camName].camparam != null)
+                                            {
+                                                if (carSetting.rectangle0.ContainsKey(pointNum) && carSetting.ShapeModels0.ContainsKey(pointNum))
                                                 {
-                                                    //匹配计算
-                                                    if (相机参数.sets[camName].camparam != null)
+                                                    HImage hImage;
+                                                    if (carSetting.gSets[pointNum].增强对比度)
                                                     {
-                                                        if (carSetting.rectangle0.ContainsKey(pointNum) && carSetting.ShapeModels0.ContainsKey(pointNum))
+                                                        carSetting.rectangle0[pointNum].MinMaxGray(hImage2D, 0, out double min, out double max, out double range);
+                                                        if (range > 0)
                                                         {
-                                                            HImage hImage;
-                                                            if (carSetting.gSets[pointNum].增强对比度)
-                                                            {
-                                                                carSetting.rectangle0[pointNum].MinMaxGray(hImage2D, 0, out double min, out double max, out double range);
-                                                                if (range > 0)
-                                                                {
-                                                                    double mult = 255d / range;
-                                                                    double add = -mult * min;
-                                                                    hImage = hImage2D.ScaleImage(mult, add);
-                                                                }
-                                                                else
-                                                                {
-                                                                    hImage = hImage2D.Clone();
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                hImage = hImage2D.Clone();
-                                                            }
-                                                            if (carSetting.FindPxPy(hImage, carSetting.rectangle0[pointNum], carSetting.ShapeModels0[pointNum], carSetting.gSets[pointNum].sharpenProcess,carSetting.gSets[pointNum].score0, carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, ref Px0, ref Py0, out double Pdx, out double Pdy, out double score))
-                                                            {
-                                                                匹配成功 = true;
-                                                                ShowMessage($"{camName}_{pointNum}_0 dx = {Pdx:0.000}像素, dy = {Pdy:0.000}像素，分数{score:0.000}");
-                                                            }
-                                                            else
-                                                            {
-                                                                ShowMessage($"{camName}_{pointNum} 匹配失败", Color.Red);
-                                                                formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
-                                                                无异常 = false;
-                                                            }
-                                                            // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
-                                                            if (set.enablePoints && 匹配成功)
-                                                            {
-                                                                if (!carSetting.HasDetectionData(pointNum, 1))
-                                                                {
-                                                                    ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
-                                                                    formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
-                                                                    无异常 = false;
-                                                                }
-                                                                else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
-                                                                    carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
-                                                                {
-                                                                    Points匹配成功 = true;
-                                                                    ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
-                                                                }
-                                                                else
-                                                                {
-                                                                    ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
-                                                                    formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
-                                                                    无异常 = false;
-                                                                }
-                                                            }
-                                                            if (set.enablePoints && Points匹配成功)
-                                                            {
-                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage,
-                                                                    carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
-                                                                    carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
-                                                            }
-                                                            else
-                                                            {
-                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0, carSetting.ShapeModels0[pointNum]);
-                                                            }
-                                                            formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
-                                                            hImage.Dispose();
-                                                        }
-                                                        else if (carSetting.rectangle0.ContainsKey(pointNum) && carSetting.Models0.ContainsKey(pointNum))
-                                                        {
-                                                            HImage hImage;
-                                                            if (carSetting.gSets[pointNum].增强对比度)
-                                                            {
-                                                                carSetting.rectangle0[pointNum].MinMaxGray(hImage2D, 0, out double min, out double max, out double range);
-                                                                if (range > 0)
-                                                                {
-                                                                    double mult = 255d / range;
-                                                                    double add = -mult * min;
-                                                                    hImage = hImage2D.ScaleImage(mult, add);
-                                                                }
-                                                                else
-                                                                {
-                                                                    hImage = hImage2D.Clone();
-                                                                }
-                                                            }
-                                                            else
-                                                            {
-                                                                hImage = hImage2D.Clone();
-                                                            }
-                                                            if (carSetting.FindPxPy(hImage, carSetting.rectangle0[pointNum], carSetting.Models0[pointNum], carSetting.gSets[pointNum].score0, carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, ref Px0, ref Py0, out double Pdx, out double Pdy, out double score))
-                                                            {
-                                                                匹配成功 = true;
-                                                                ShowMessage($"{camName}_{pointNum}_0 dx = {Pdx:0.000}像素, dy = {Pdy:0.000}像素，分数{score:0.000}");
-                                                            }
-                                                            else
-                                                            {
-                                                                ShowMessage($"{camName}_{pointNum} 匹配失败", Color.Red);
-                                                                formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
-                                                                无异常 = false;
-                                                            }
-                                                            // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
-                                                            if (set.enablePoints && 匹配成功)
-                                                            {
-                                                                if (!carSetting.HasDetectionData(pointNum, 1))
-                                                                {
-                                                                    ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
-                                                                    formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
-                                                                    无异常 = false;
-                                                                }
-                                                                else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
-                                                                    carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
-                                                                {
-                                                                    Points匹配成功 = true;
-                                                                    ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
-                                                                }
-                                                                else
-                                                                {
-                                                                    ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
-                                                                    formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
-                                                                    无异常 = false;
-                                                                }
-                                                            }
-                                                            if (set.enablePoints && Points匹配成功)
-                                                            {
-                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage,
-                                                                    carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
-                                                                    carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
-                                                            }
-                                                            else
-                                                            {
-                                                                hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0);
-                                                            }
-                                                            formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
+                                                            double mult = 255d / range;
+                                                            double add = -mult * min;
+                                                            hImage = hImage2D.ScaleImage(mult, add);
                                                         }
                                                         else
                                                         {
-                                                            ShowMessage($"{camName}_{pointNum} 未做参数", Color.Yellow);
-                                                            formShow?.UpDataMessage($"未做参数", pointNum.ToString(), set.name);
-                                                            无异常 = false;
-                                                        }
-
-                                                        if (匹配成功)
-                                                        {
-                                                            if (carSetting.camPose.ContainsKey(pointNum))
-                                                            {
-                                                                相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out float nx, out float ny);
-                                                                相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out float ox, out float oy);
-                                                                float dx = (float)Math.Round(nx - ox, 2);
-                                                                float dy = (float)Math.Round(ny - oy, 2);
-
-                                                                // 两孔距离默认显示为红色，只有第二孔定位、坐标转换和阈值判断全部完成后才更新颜色。
-                                                                float PointsDX = 0, PointsDY = 0, PointsDZ = 0, PointsDD = 0;
-                                                                Color PointsColorX = set.enablePoints ? Color.Red : Color.White;
-                                                                Color PointsColorY = set.enablePoints ? Color.Red : Color.White;
-                                                                Color PointsColorZ = set.enablePoints ? Color.Red : Color.White;
-                                                                Color PointsColorD = set.enablePoints ? Color.Red : Color.White;
-                                                                bool pointsDistanceOK = !set.enablePoints;
-                                                                if (set.enablePoints && Points匹配成功)
-                                                                {
-                                                                    float actual0X = 0, actual0Y = 0, actual1X = 0, actual1Y = 0;
-                                                                    float nominal0X = 0, nominal0Y = 0, nominal1X = 0, nominal1Y = 0;
-                                                                    bool pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out actual0X, out actual0Y);
-                                                                    pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px1, Py1, out actual1X, out actual1Y) && pointsCoordinateOK;
-                                                                    pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out nominal0X, out nominal0Y) && pointsCoordinateOK;
-                                                                    pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, out nominal1X, out nominal1Y) && pointsCoordinateOK;
-                                                                    if (pointsCoordinateOK)
-                                                                    {
-                                                                        Point3D actualPoint0 = ConvertXYToAxes(set, actual0X, actual0Y);
-                                                                        Point3D actualPoint1 = ConvertXYToAxes(set, actual1X, actual1Y);
-                                                                        Point3D nominalPoint0 = ConvertXYToAxes(set, nominal0X, nominal0Y);
-                                                                        Point3D nominalPoint1 = ConvertXYToAxes(set, nominal1X, nominal1Y);
-                                                                        // 先按定义计算误差向量，再对显示值和阈值值保留两位小数。
-                                                                        double pointsErrorX = Math.Abs(actualPoint1.X - actualPoint0.X) - Math.Abs(nominalPoint1.X - nominalPoint0.X);
-                                                                        double pointsErrorY = Math.Abs(actualPoint1.Y - actualPoint0.Y) - Math.Abs(nominalPoint1.Y - nominalPoint0.Y);
-                                                                        double pointsErrorZ = Math.Abs(actualPoint1.Z - actualPoint0.Z) - Math.Abs(nominalPoint1.Z - nominalPoint0.Z);
-                                                                        PointsDX = (float)Math.Round(pointsErrorX, 2);
-                                                                        PointsDY = (float)Math.Round(pointsErrorY, 2);
-                                                                        PointsDZ = (float)Math.Round(pointsErrorZ, 2);
-                                                                        PointsDD = (float)Math.Round(Math.Sqrt(pointsErrorX * pointsErrorX + pointsErrorY * pointsErrorY + pointsErrorZ * pointsErrorZ), 2);
-                                                                        pointsDistanceOK = EvaluatePointsDistance(set, PointsDX, PointsDY, PointsDZ, PointsDD,
-                                                                            out PointsColorX, out PointsColorY, out PointsColorZ, out PointsColorD);
-                                                                        if (!pointsDistanceOK)
-                                                                        {
-                                                                            无超差 = false;
-                                                                        }
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        ShowMessage($"{camName}_{pointNum} 两孔坐标转换失败", Color.Red);
-                                                                        formShow?.UpDataMessage("两孔坐标转换失败", pointNum.ToString(), set.name);
-                                                                        无异常 = false;
-                                                                    }
-                                                                }
-
-                                                                float DX = float.NaN, DY = float.NaN, DZ = float.NaN;//没测的方向显示白色
-                                                                switch (carSetting.gSets[pointNum].convertX)
-                                                                {
-                                                                    case "X": DX = dx; break;
-                                                                    case "-X": DX = -dx; break;
-                                                                    case "Y": DY = dx; break;
-                                                                    case "-Y": DY = -dx; break;
-                                                                    case "Z": DZ = dx; break;
-                                                                    case "-Z": DZ = -dx; break;
-                                                                    default: DX = dx; break;
-                                                                }
-                                                                switch (carSetting.gSets[pointNum].convertY)
-                                                                {
-                                                                    case "X": DX = dy; break;
-                                                                    case "-X": DX = -dy; break;
-                                                                    case "Y": DY = dy; break;
-                                                                    case "-Y": DY = -dy; break;
-                                                                    case "Z": DZ = dy; break;
-                                                                    case "-Z": DZ = -dy; break;
-                                                                    default: DX = dy; break;
-                                                                }
-
-                                                                //匹配成功先赋OK，超差再赋NG
-                                                                lock (olock_Dict)
-                                                                {
-                                                                    if (测点结果.ContainsKey(pointNum))
-                                                                    {
-                                                                        测点结果[pointNum] = true;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        测点结果.Add(pointNum, true);
-                                                                    }
-                                                                }
-                                                                if (set.enablePoints && !pointsDistanceOK)
-                                                                {
-                                                                    测点结果[pointNum] = false;
-                                                                }
-                                                                float L = 0, W = 0, H = 0;
-                                                                Color colorX = Color.White, colorY = Color.White, colorZ = Color.White;
-                                                                //判断X
-                                                                if (!DX.Equals(float.NaN))
-                                                                {
-                                                                    DX += carSetting.gSets[pointNum].offsetX;//补偿
-                                                                    if (DX < carSetting.gSets[pointNum].minDX_2 || DX > carSetting.gSets[pointNum].maxDX_2)
-                                                                    {
-                                                                        colorX = Color.Red;
-                                                                        无超差 = false;
-                                                                        测点结果[pointNum] = false;
-                                                                    }
-                                                                    else if (DX < carSetting.gSets[pointNum].minDX_1 || DX > carSetting.gSets[pointNum].maxDX_1)
-                                                                    {
-                                                                        colorX = Color.Yellow;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        colorX = Color.Green;
-                                                                    }
-                                                                    if (carSetting.gSets[pointNum].相对基准点)
-                                                                    {
-                                                                        重建L.Add(DX);
-                                                                    }
-                                                                    L = DX;
-                                                                }
-                                                                //判断Y
-                                                                if (!DY.Equals(float.NaN))
-                                                                {
-                                                                    DY += carSetting.gSets[pointNum].offsetY;//补偿
-                                                                    if (DY < carSetting.gSets[pointNum].minDY_2 || DY > carSetting.gSets[pointNum].maxDY_2)
-                                                                    {
-                                                                        colorY = Color.Red;
-                                                                        无超差 = false;
-                                                                        测点结果[pointNum] = false;
-                                                                    }
-                                                                    else if (DY < carSetting.gSets[pointNum].minDY_1 || DY > carSetting.gSets[pointNum].maxDY_1)
-                                                                    {
-                                                                        colorY = Color.Yellow;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        colorY = Color.Green;
-                                                                    }
-                                                                    if (carSetting.gSets[pointNum].相对基准点)
-                                                                    {
-                                                                        重建W.Add(DY);
-                                                                    }
-                                                                    W = DY;
-                                                                }
-                                                                //判断Z
-                                                                if (!DZ.Equals(float.NaN))
-                                                                {
-                                                                    DZ += carSetting.gSets[pointNum].offsetZ;//补偿
-                                                                    if (DZ < carSetting.gSets[pointNum].minDZ_2 || DZ > carSetting.gSets[pointNum].maxDZ_2)
-                                                                    {
-                                                                        colorZ = Color.Red;
-                                                                        无超差 = false;
-                                                                        测点结果[pointNum] = false;
-                                                                    }
-                                                                    else if (DZ < carSetting.gSets[pointNum].minDZ_1 || DZ > carSetting.gSets[pointNum].maxDZ_1)
-                                                                    {
-                                                                        colorZ = Color.Yellow;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        colorZ = Color.Green;
-                                                                    }
-                                                                    if (carSetting.gSets[pointNum].相对基准点)
-                                                                    {
-                                                                        重建H.Add(DZ);
-                                                                    }
-                                                                    H = DZ;
-                                                                }
-                                                                float dd = (float)Math.Round(Math.Sqrt(L * L + W * W + H * H), 2);
-
-                                                                Dictionary<string, string> 测点数据表 = new Dictionary<string, string>();
-                                                                测点数据表.Add("时间", dateTimeNow.ToString("yyyy-MM-dd HH:mm:ss"));
-                                                                测点数据表.Add("相机名", camName);
-                                                                测点数据表.Add("点位号", pointNum.ToString());
-                                                                测点数据表.Add("DX", L.ToString("0.00"));
-                                                                测点数据表.Add("DY", W.ToString("0.00"));
-                                                                测点数据表.Add("DZ", H.ToString("0.00"));
-                                                                测点数据表.Add("DD", dd.ToString("0.00"));
-                                                                if (set.enablePoints)
-                                                                {
-                                                                    // 两孔相对距离误差写入数据库；PLC仍只接收原有单孔测量数据。
-                                                                    测点数据表.Add("PointsDX", PointsDX.ToString("0.00"));
-                                                                    测点数据表.Add("PointsDY", PointsDY.ToString("0.00"));
-                                                                    测点数据表.Add("PointsDZ", PointsDZ.ToString("0.00"));
-                                                                    测点数据表.Add("PointsDD", PointsDD.ToString("0.00"));
-                                                                }
-
-                                                                lock (olock_Dict)
-                                                                {
-                                                                    if (!point3d给PLC.ContainsKey(pointNum))
-                                                                    {
-                                                                        point3d给PLC.Add(pointNum, new Point3D(L, W, H));
-                                                                        point3d原数据.Add(pointNum, new Point3D(DX, DY, DZ));
-                                                                        point3d原颜色.Add(pointNum, new Point3DColor(colorX, colorY, colorZ));
-                                                                        if (set.enablePoints)
-                                                                        {
-                                                                            points3dData.Add(pointNum, new Point3D(PointsDX, PointsDY, PointsDZ));
-                                                                            points3dColors.Add(pointNum, new Point3DColor(PointsColorX, PointsColorY, PointsColorZ));
-                                                                        }
-                                                                        sqlValuePairs.Add(pointNum, 测点数据表);
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        ShowMessage($"点位号{pointNum}重复", Color.Red);
-                                                                        无异常 = false;
-                                                                    }
-                                                                }
-
-                                                                //显示数据
-                                                                dataGridViewShow.BeginInvoke(new Action(() =>
-                                                                {
-                                                                    int index = dataGridViewShow.Rows.Add();
-                                                                    dataGridViewShow.Rows[index].Cells["pointNum"].Value = pointNum;
-                                                                    dataGridViewShow.Rows[index].Cells["cam"].Value = carSetting.gSets[pointNum].CamName;
-                                                                    dataGridViewShow.Rows[index].Cells["name"].Value = carSetting.gSets[pointNum].name;
-                                                                    dataGridViewShow.Rows[index].Cells["dx"].Value = L.ToString("0.00");
-                                                                    dataGridViewShow.Rows[index].Cells["dy"].Value = W.ToString("0.00");
-                                                                    dataGridViewShow.Rows[index].Cells["dz"].Value = H.ToString("0.00");
-                                                                    dataGridViewShow.Rows[index].Cells["dd"].Value = dd.ToString("0.00");
-
-                                                                    dataGridViewShow.Rows[index].Cells["dx"].Style.BackColor = colorX;
-                                                                    dataGridViewShow.Rows[index].Cells["dy"].Style.BackColor = colorY;
-                                                                    dataGridViewShow.Rows[index].Cells["dz"].Style.BackColor = colorZ;
-                                                                    if (set.enablePoints)
-                                                                    {
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDX"].Value = PointsDX.ToString("0.00");
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDY"].Value = PointsDY.ToString("0.00");
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDZ"].Value = PointsDZ.ToString("0.00");
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDD"].Value = PointsDD.ToString("0.00");
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDX"].Style.BackColor = PointsColorX;
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDY"].Style.BackColor = PointsColorY;
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDZ"].Style.BackColor = PointsColorZ;
-                                                                        dataGridViewShow.Rows[index].Cells["PointsDD"].Style.BackColor = PointsColorD;
-                                                                    }
-                                                                }));
-
-                                                                formShow?.UpDataXYZ(
-                                                                    point3d给PLC[pointNum],
-                                                                    point3d原颜色[pointNum],
-                                                                    pointNum.ToString(),
-                                                                    carSetting.gSets[pointNum].name,
-                                                                    set.enablePoints ? new Point3D(PointsDX, PointsDY, PointsDZ) : null,
-                                                                    set.enablePoints ? new Point3DColor(PointsColorX, PointsColorY, PointsColorZ) : null);////////////////////////////////////
-                                                            }
-                                                            else
-                                                            {
-                                                                ShowMessage($"{camName}_{pointNum} 未做位姿标定", Color.Red);
-                                                                formShow?.UpDataMessage($"未做位姿标定", pointNum.ToString(), set.name);
-                                                                无异常 = false;
-                                                            }
+                                                            hImage = hImage2D.Clone();
                                                         }
                                                     }
                                                     else
                                                     {
-                                                        ShowMessage($"{camName}相机未做标定", Color.Red);
-                                                        formShow?.UpDataMessage($"{camName}相机未标定", pointNum.ToString(), set.name);
+                                                        hImage = hImage2D.Clone();
+                                                    }
+                                                    if (carSetting.FindPxPy(hImage, carSetting.rectangle0[pointNum], carSetting.ShapeModels0[pointNum], carSetting.gSets[pointNum].sharpenProcess, carSetting.gSets[pointNum].score0, carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, ref Px0, ref Py0, out double Pdx, out double Pdy, out double score))
+                                                    {
+                                                        匹配成功 = true;
+                                                        ShowMessage($"{camName}_{pointNum}_0 dx = {Pdx:0.000}像素, dy = {Pdy:0.000}像素，分数{score:0.000}");
+                                                    }
+                                                    else
+                                                    {
+                                                        ShowMessage($"{camName}_{pointNum} 匹配失败", Color.Red);
+                                                        formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
                                                         无异常 = false;
                                                     }
+                                                    // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
+                                                    if (set.enablePoints && 匹配成功)
+                                                    {
+                                                        if (!carSetting.HasDetectionData(pointNum, 1))
+                                                        {
+                                                            ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
+                                                            formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
+                                                            无异常 = false;
+                                                        }
+                                                        else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
+                                                            carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
+                                                        {
+                                                            Points匹配成功 = true;
+                                                            ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
+                                                        }
+                                                        else
+                                                        {
+                                                            ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
+                                                            formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
+                                                            无异常 = false;
+                                                        }
+                                                    }
+                                                    if (set.enablePoints && Points匹配成功)
+                                                    {
+                                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage,
+                                                            carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
+                                                            carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
+                                                    }
+                                                    else
+                                                    {
+                                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0, carSetting.ShapeModels0[pointNum]);
+                                                    }
+                                                    formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
+                                                    hImage.Dispose();
                                                 }
-                                                catch (Exception ex)
+                                                else if (carSetting.rectangle0.ContainsKey(pointNum) && carSetting.Models0.ContainsKey(pointNum))
                                                 {
-                                                    ShowMessage($"{camName}_{pointNum} 匹配异常:{ex}", Color.Red);
-                                                    formShow?.UpDataMessage("匹配异常", pointNum.ToString(), set.name);
+                                                    HImage hImage;
+                                                    if (carSetting.gSets[pointNum].增强对比度)
+                                                    {
+                                                        carSetting.rectangle0[pointNum].MinMaxGray(hImage2D, 0, out double min, out double max, out double range);
+                                                        if (range > 0)
+                                                        {
+                                                            double mult = 255d / range;
+                                                            double add = -mult * min;
+                                                            hImage = hImage2D.ScaleImage(mult, add);
+                                                        }
+                                                        else
+                                                        {
+                                                            hImage = hImage2D.Clone();
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        hImage = hImage2D.Clone();
+                                                    }
+                                                    if (carSetting.FindPxPy(hImage, carSetting.rectangle0[pointNum], carSetting.Models0[pointNum], carSetting.gSets[pointNum].score0, carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, ref Px0, ref Py0, out double Pdx, out double Pdy, out double score))
+                                                    {
+                                                        匹配成功 = true;
+                                                        ShowMessage($"{camName}_{pointNum}_0 dx = {Pdx:0.000}像素, dy = {Pdy:0.000}像素，分数{score:0.000}");
+                                                    }
+                                                    else
+                                                    {
+                                                        ShowMessage($"{camName}_{pointNum} 匹配失败", Color.Red);
+                                                        formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
+                                                        无异常 = false;
+                                                    }
+                                                    // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
+                                                    if (set.enablePoints && 匹配成功)
+                                                    {
+                                                        if (!carSetting.HasDetectionData(pointNum, 1))
+                                                        {
+                                                            ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
+                                                            formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
+                                                            无异常 = false;
+                                                        }
+                                                        else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
+                                                            carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
+                                                        {
+                                                            Points匹配成功 = true;
+                                                            ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
+                                                        }
+                                                        else
+                                                        {
+                                                            ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
+                                                            formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
+                                                            无异常 = false;
+                                                        }
+                                                    }
+                                                    if (set.enablePoints && Points匹配成功)
+                                                    {
+                                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage,
+                                                            carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
+                                                            carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
+                                                    }
+                                                    else
+                                                    {
+                                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0);
+                                                    }
+                                                    formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
+                                                }
+                                                else
+                                                {
+                                                    ShowMessage($"{camName}_{pointNum} 未做参数", Color.Yellow);
+                                                    formShow?.UpDataMessage($"未做参数", pointNum.ToString(), set.name);
                                                     无异常 = false;
                                                 }
 
-                                                //存图
-                                                if (!checkBox相机仿真.Checked)
+                                                if (匹配成功)
                                                 {
-                                                    if (otherSet.isSaveImage && !bDry_mode)
+                                                    if (carSetting.camPose.ContainsKey(pointNum))
                                                     {
-                                                        lock (lockSaveImage)
+                                                        相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out float nx, out float ny);
+                                                        相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out float ox, out float oy);
+                                                        float dx = (float)Math.Round(nx - ox, 2);
+                                                        float dy = (float)Math.Round(ny - oy, 2);
+
+                                                        // 两孔距离默认显示为红色，只有第二孔定位、坐标转换和阈值判断全部完成后才更新颜色。
+                                                        float PointsDX = 0, PointsDY = 0, PointsDZ = 0, PointsDD = 0;
+                                                        Color PointsColorX = set.enablePoints ? Color.Red : Color.White;
+                                                        Color PointsColorY = set.enablePoints ? Color.Red : Color.White;
+                                                        Color PointsColorZ = set.enablePoints ? Color.Red : Color.White;
+                                                        Color PointsColorD = set.enablePoints ? Color.Red : Color.White;
+                                                        bool pointsDistanceOK = !set.enablePoints;
+                                                        if (set.enablePoints && Points匹配成功)
                                                         {
-                                                            if (ListImageKeys.Count < 120)
+                                                            float actual0X = 0, actual0Y = 0, actual1X = 0, actual1Y = 0;
+                                                            float nominal0X = 0, nominal0Y = 0, nominal1X = 0, nominal1Y = 0;
+                                                            bool pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out actual0X, out actual0Y);
+                                                            pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px1, Py1, out actual1X, out actual1Y) && pointsCoordinateOK;
+                                                            pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out nominal0X, out nominal0Y) && pointsCoordinateOK;
+                                                            pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, out nominal1X, out nominal1Y) && pointsCoordinateOK;
+                                                            if (pointsCoordinateOK)
                                                             {
+                                                                Point3D actualPoint0 = ConvertXYToAxes(set, actual0X, actual0Y);
+                                                                Point3D actualPoint1 = ConvertXYToAxes(set, actual1X, actual1Y);
+                                                                Point3D nominalPoint0 = ConvertXYToAxes(set, nominal0X, nominal0Y);
+                                                                Point3D nominalPoint1 = ConvertXYToAxes(set, nominal1X, nominal1Y);
+                                                                // 先按定义计算误差向量，再对显示值和阈值值保留两位小数。
+                                                                double pointsErrorX = Math.Abs(actualPoint1.X - actualPoint0.X) - Math.Abs(nominalPoint1.X - nominalPoint0.X);
+                                                                double pointsErrorY = Math.Abs(actualPoint1.Y - actualPoint0.Y) - Math.Abs(nominalPoint1.Y - nominalPoint0.Y);
+                                                                double pointsErrorZ = Math.Abs(actualPoint1.Z - actualPoint0.Z) - Math.Abs(nominalPoint1.Z - nominalPoint0.Z);
+                                                                PointsDX = (float)Math.Round(pointsErrorX, 2);
+                                                                PointsDY = (float)Math.Round(pointsErrorY, 2);
+                                                                PointsDZ = (float)Math.Round(pointsErrorZ, 2);
+                                                                PointsDD = (float)Math.Round(Math.Sqrt(pointsErrorX * pointsErrorX + pointsErrorY * pointsErrorY + pointsErrorZ * pointsErrorZ), 2);
+                                                                pointsDistanceOK = EvaluatePointsDistance(set, PointsDX, PointsDY, PointsDZ, PointsDD,
+                                                                    out PointsColorX, out PointsColorY, out PointsColorZ, out PointsColorD);
+                                                                if (!pointsDistanceOK)
                                                                 {
-                                                                    string key = $"{path}\\{camName}_{pointNum:00}.png";
-                                                                    ListImageKeys.Add(key);
-                                                                    DicImages.Add(key, hImage2D);
-                                                                }
-                                                                {
-                                                                    string key = $"{path}\\{camName}_{pointNum:00}p.jpg";
-                                                                    ListImageKeys.Add(key);
-                                                                    DicImages.Add(key, hImage2D匹配);
+                                                                    无超差 = false;
                                                                 }
                                                             }
                                                             else
                                                             {
-                                                                ShowMessage($"{camName}_{pointNum:00} 内存中有{ListImageKeys.Count}张图未存进硬盘，跳过本次存图", Color.Yellow);
+                                                                ShowMessage($"{camName}_{pointNum} 两孔坐标转换失败", Color.Red);
+                                                                formShow?.UpDataMessage("两孔坐标转换失败", pointNum.ToString(), set.name);
+                                                                无异常 = false;
                                                             }
                                                         }
+
+                                                        float DX = float.NaN, DY = float.NaN, DZ = float.NaN;//没测的方向显示白色
+                                                        switch (carSetting.gSets[pointNum].convertX)
+                                                        {
+                                                            case "X": DX = dx; break;
+                                                            case "-X": DX = -dx; break;
+                                                            case "Y": DY = dx; break;
+                                                            case "-Y": DY = -dx; break;
+                                                            case "Z": DZ = dx; break;
+                                                            case "-Z": DZ = -dx; break;
+                                                            default: DX = dx; break;
+                                                        }
+                                                        switch (carSetting.gSets[pointNum].convertY)
+                                                        {
+                                                            case "X": DX = dy; break;
+                                                            case "-X": DX = -dy; break;
+                                                            case "Y": DY = dy; break;
+                                                            case "-Y": DY = -dy; break;
+                                                            case "Z": DZ = dy; break;
+                                                            case "-Z": DZ = -dy; break;
+                                                            default: DX = dy; break;
+                                                        }
+
+                                                        //匹配成功先赋OK，超差再赋NG
+                                                        lock (olock_Dict)
+                                                        {
+                                                            if (测点结果.ContainsKey(pointNum))
+                                                            {
+                                                                测点结果[pointNum] = true;
+                                                            }
+                                                            else
+                                                            {
+                                                                测点结果.Add(pointNum, true);
+                                                            }
+                                                        }
+                                                        if (set.enablePoints && !pointsDistanceOK)
+                                                        {
+                                                            测点结果[pointNum] = false;
+                                                        }
+                                                        float L = 0, W = 0, H = 0;
+                                                        Color colorX = Color.White, colorY = Color.White, colorZ = Color.White;
+                                                        //判断X
+                                                        if (!DX.Equals(float.NaN))
+                                                        {
+                                                            DX += carSetting.gSets[pointNum].offsetX;//补偿
+                                                            if (DX < carSetting.gSets[pointNum].minDX_2 || DX > carSetting.gSets[pointNum].maxDX_2)
+                                                            {
+                                                                colorX = Color.Red;
+                                                                无超差 = false;
+                                                                测点结果[pointNum] = false;
+                                                            }
+                                                            else if (DX < carSetting.gSets[pointNum].minDX_1 || DX > carSetting.gSets[pointNum].maxDX_1)
+                                                            {
+                                                                colorX = Color.Yellow;
+                                                            }
+                                                            else
+                                                            {
+                                                                colorX = Color.Green;
+                                                            }
+                                                            if (carSetting.gSets[pointNum].相对基准点)
+                                                            {
+                                                                重建L.Add(DX);
+                                                            }
+                                                            L = DX;
+                                                        }
+                                                        //判断Y
+                                                        if (!DY.Equals(float.NaN))
+                                                        {
+                                                            DY += carSetting.gSets[pointNum].offsetY;//补偿
+                                                            if (DY < carSetting.gSets[pointNum].minDY_2 || DY > carSetting.gSets[pointNum].maxDY_2)
+                                                            {
+                                                                colorY = Color.Red;
+                                                                无超差 = false;
+                                                                测点结果[pointNum] = false;
+                                                            }
+                                                            else if (DY < carSetting.gSets[pointNum].minDY_1 || DY > carSetting.gSets[pointNum].maxDY_1)
+                                                            {
+                                                                colorY = Color.Yellow;
+                                                            }
+                                                            else
+                                                            {
+                                                                colorY = Color.Green;
+                                                            }
+                                                            if (carSetting.gSets[pointNum].相对基准点)
+                                                            {
+                                                                重建W.Add(DY);
+                                                            }
+                                                            W = DY;
+                                                        }
+                                                        //判断Z
+                                                        if (!DZ.Equals(float.NaN))
+                                                        {
+                                                            DZ += carSetting.gSets[pointNum].offsetZ;//补偿
+                                                            if (DZ < carSetting.gSets[pointNum].minDZ_2 || DZ > carSetting.gSets[pointNum].maxDZ_2)
+                                                            {
+                                                                colorZ = Color.Red;
+                                                                无超差 = false;
+                                                                测点结果[pointNum] = false;
+                                                            }
+                                                            else if (DZ < carSetting.gSets[pointNum].minDZ_1 || DZ > carSetting.gSets[pointNum].maxDZ_1)
+                                                            {
+                                                                colorZ = Color.Yellow;
+                                                            }
+                                                            else
+                                                            {
+                                                                colorZ = Color.Green;
+                                                            }
+                                                            if (carSetting.gSets[pointNum].相对基准点)
+                                                            {
+                                                                重建H.Add(DZ);
+                                                            }
+                                                            H = DZ;
+                                                        }
+                                                        float dd = (float)Math.Round(Math.Sqrt(L * L + W * W + H * H), 2);
+
+                                                        Dictionary<string, string> 测点数据表 = new Dictionary<string, string>();
+                                                        测点数据表.Add("时间", dateTimeNow.ToString("yyyy-MM-dd HH:mm:ss"));
+                                                        测点数据表.Add("相机名", camName);
+                                                        测点数据表.Add("点位号", pointNum.ToString());
+                                                        测点数据表.Add("DX", L.ToString("0.00"));
+                                                        测点数据表.Add("DY", W.ToString("0.00"));
+                                                        测点数据表.Add("DZ", H.ToString("0.00"));
+                                                        测点数据表.Add("DD", dd.ToString("0.00"));
+                                                        if (set.enablePoints)
+                                                        {
+                                                            // 两孔相对距离误差写入数据库；PLC仍只接收原有单孔测量数据。
+                                                            测点数据表.Add("PointsDX", PointsDX.ToString("0.00"));
+                                                            测点数据表.Add("PointsDY", PointsDY.ToString("0.00"));
+                                                            测点数据表.Add("PointsDZ", PointsDZ.ToString("0.00"));
+                                                            测点数据表.Add("PointsDD", PointsDD.ToString("0.00"));
+                                                        }
+
+                                                        lock (olock_Dict)
+                                                        {
+                                                            if (!point3d给PLC.ContainsKey(pointNum))
+                                                            {
+                                                                point3d给PLC.Add(pointNum, new Point3D(L, W, H));
+                                                                point3d原数据.Add(pointNum, new Point3D(DX, DY, DZ));
+                                                                point3d原颜色.Add(pointNum, new Point3DColor(colorX, colorY, colorZ));
+                                                                if (set.enablePoints)
+                                                                {
+                                                                    points3dData.Add(pointNum, new Point3D(PointsDX, PointsDY, PointsDZ));
+                                                                    points3dColors.Add(pointNum, new Point3DColor(PointsColorX, PointsColorY, PointsColorZ));
+                                                                }
+                                                                sqlValuePairs.Add(pointNum, 测点数据表);
+                                                            }
+                                                            else
+                                                            {
+                                                                ShowMessage($"点位号{pointNum}重复", Color.Red);
+                                                                无异常 = false;
+                                                            }
+                                                        }
+
+                                                        //显示数据
+                                                        dataGridViewShow.BeginInvoke(new Action(() =>
+                                                        {
+                                                            int index = dataGridViewShow.Rows.Add();
+                                                            dataGridViewShow.Rows[index].Cells["pointNum"].Value = pointNum;
+                                                            dataGridViewShow.Rows[index].Cells["cam"].Value = carSetting.gSets[pointNum].CamName;
+                                                            dataGridViewShow.Rows[index].Cells["name"].Value = carSetting.gSets[pointNum].name;
+                                                            dataGridViewShow.Rows[index].Cells["dx"].Value = L.ToString("0.00");
+                                                            dataGridViewShow.Rows[index].Cells["dy"].Value = W.ToString("0.00");
+                                                            dataGridViewShow.Rows[index].Cells["dz"].Value = H.ToString("0.00");
+                                                            dataGridViewShow.Rows[index].Cells["dd"].Value = dd.ToString("0.00");
+
+                                                            dataGridViewShow.Rows[index].Cells["dx"].Style.BackColor = colorX;
+                                                            dataGridViewShow.Rows[index].Cells["dy"].Style.BackColor = colorY;
+                                                            dataGridViewShow.Rows[index].Cells["dz"].Style.BackColor = colorZ;
+                                                            if (set.enablePoints)
+                                                            {
+                                                                dataGridViewShow.Rows[index].Cells["PointsDX"].Value = PointsDX.ToString("0.00");
+                                                                dataGridViewShow.Rows[index].Cells["PointsDY"].Value = PointsDY.ToString("0.00");
+                                                                dataGridViewShow.Rows[index].Cells["PointsDZ"].Value = PointsDZ.ToString("0.00");
+                                                                dataGridViewShow.Rows[index].Cells["PointsDD"].Value = PointsDD.ToString("0.00");
+                                                                dataGridViewShow.Rows[index].Cells["PointsDX"].Style.BackColor = PointsColorX;
+                                                                dataGridViewShow.Rows[index].Cells["PointsDY"].Style.BackColor = PointsColorY;
+                                                                dataGridViewShow.Rows[index].Cells["PointsDZ"].Style.BackColor = PointsColorZ;
+                                                                dataGridViewShow.Rows[index].Cells["PointsDD"].Style.BackColor = PointsColorD;
+                                                            }
+                                                        }));
+
+                                                        formShow?.UpDataXYZ(
+                                                            point3d给PLC[pointNum],
+                                                            point3d原颜色[pointNum],
+                                                            pointNum.ToString(),
+                                                            carSetting.gSets[pointNum].name,
+                                                            set.enablePoints ? new Point3D(PointsDX, PointsDY, PointsDZ) : null,
+                                                            set.enablePoints ? new Point3DColor(PointsColorX, PointsColorY, PointsColorZ) : null);////////////////////////////////////
+                                                    }
+                                                    else
+                                                    {
+                                                        ShowMessage($"{camName}_{pointNum} 未做位姿标定", Color.Red);
+                                                        formShow?.UpDataMessage($"未做位姿标定", pointNum.ToString(), set.name);
+                                                        无异常 = false;
                                                     }
                                                 }
-                                                else
+                                            }
+                                            else
+                                            {
+                                                ShowMessage($"{camName}相机未做标定", Color.Red);
+                                                formShow?.UpDataMessage($"{camName}相机未标定", pointNum.ToString(), set.name);
+                                                无异常 = false;
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            ShowMessage($"{camName}_{pointNum} 匹配异常:{ex}", Color.Red);
+                                            formShow?.UpDataMessage("匹配异常", pointNum.ToString(), set.name);
+                                            无异常 = false;
+                                        }
+
+                                        //存图
+                                        if (!checkBox相机仿真.Checked)
+                                        {
+                                            if (otherSet.isSaveImage && !bDry_mode)
+                                            {
+                                                lock (lockSaveImage)
                                                 {
-                                                    try
+                                                    if (ListImageKeys.Count < 120)
                                                     {
-                                                        hImage2D匹配?.WriteImage("jpeg 80", 0, $"test-Image\\{camName}_{pointNum:00}p.jpg");
+                                                        {
+                                                            string key = $"{path}\\{camName}_{pointNum:00}.png";
+                                                            ListImageKeys.Add(key);
+                                                            DicImages.Add(key, hImage2D);
+                                                        }
+                                                        {
+                                                            string key = $"{path}\\{camName}_{pointNum:00}p.jpg";
+                                                            ListImageKeys.Add(key);
+                                                            DicImages.Add(key, hImage2D匹配);
+                                                        }
                                                     }
-                                                    catch (Exception ex)
+                                                    else
                                                     {
-                                                        ShowMessage("仿真存图异常" + ex.ToString(), Color.Red);
+                                                        ShowMessage($"{camName}_{pointNum:00} 内存中有{ListImageKeys.Count}张图未存进硬盘，跳过本次存图", Color.Yellow);
                                                     }
                                                 }
                                             }
                                         }
                                         else
                                         {
-                                            lock (olock_Dict)
+                                            try
                                             {
-                                                if (测点结果.ContainsKey(pointNum))
-                                                {
-                                                    测点结果[pointNum] = true;
-                                                }
-                                                else
-                                                {
-                                                    测点结果.Add(pointNum, true);
-                                                }
+                                                hImage2D匹配?.WriteImage("jpeg 80", 0, $"test-Image\\{camName}_{pointNum:00}p.jpg");
                                             }
-
-                                            if (相机参数.sets[camName].gSet.Disabled)
+                                            catch (Exception ex)
                                             {
-                                                ShowMessage($"车型{carKind}-{TRnum} 相机{camName} 已屏蔽", Color.Yellow);
-                                                formShow?.UpDataMessage("相机已屏蔽", pointNum.ToString(), set.name, false);
+                                                ShowMessage("仿真存图异常" + ex.ToString(), Color.Red);
                                             }
-                                            else if (set.keepOK)
-                                            {
-                                                ShowMessage($"车型{carKind}-{TRnum} 点位{pointNum} 已屏蔽", Color.Yellow);
-                                                formShow?.UpDataMessage("测点已屏蔽", pointNum.ToString(), set.name, false);
-                                            }
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ShowMessage($"车型{carKind}-{TRnum} 相机{camName} 不存在", Color.Red);
-                                        formShow?.UpDataMessage("相机不存在", pointNum.ToString(), set.name);
-                                    }
-
-                                    //数据排序写入，必须要有
-                                    lock (olock_Dict)
-                                    {
-                                        if (!point3d给PLC.ContainsKey(pointNum))
-                                        {
-                                            point3d给PLC.Add(pointNum, new Point3D(0, 0, 0));
                                         }
                                     }
                                 }
-                            }));
+                                else
+                                {
+                                    lock (olock_Dict)
+                                    {
+                                        if (测点结果.ContainsKey(pointNum))
+                                        {
+                                            测点结果[pointNum] = true;
+                                        }
+                                        else
+                                        {
+                                            测点结果.Add(pointNum, true);
+                                        }
+                                    }
+
+                                    if (相机参数.sets[camName].gSet.Disabled)
+                                    {
+                                        ShowMessage($"车型{carKind}-{TRnum} 相机{camName} 已屏蔽", Color.Yellow);
+                                        formShow?.UpDataMessage("相机已屏蔽", pointNum.ToString(), set.name, false);
+                                    }
+                                    else if (set.keepOK)
+                                    {
+                                        ShowMessage($"车型{carKind}-{TRnum} 点位{pointNum} 已屏蔽", Color.Yellow);
+                                        formShow?.UpDataMessage("测点已屏蔽", pointNum.ToString(), set.name, false);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                ShowMessage($"车型{carKind}-{TRnum} 相机{camName} 不存在", Color.Red);
+                                formShow?.UpDataMessage("相机不存在", pointNum.ToString(), set.name);
+                            }
+
+                            //数据排序写入，必须要有
+                            lock (olock_Dict)
+                            {
+                                if (!point3d给PLC.ContainsKey(pointNum))
+                                {
+                                    point3d给PLC.Add(pointNum, new Point3D(0, 0, 0));
+                                }
+                            }
+
+                            //输出检测完成信号
+
+
+                            if (!Write(DO.单次拍照完成, true).IsSuccess)
+                            {
+                                ShowMessage("单次拍照完成写入失败", Color.Red);
+                            }
+                            ShowMessage("输出单次拍照完成信号");
+
+
+                            ////判断是否所有都拍完了
+
+                            //if (point3d给PLC.Count == carSet.gSets.Count)
+                            //{
+                            //    //所有点都检测完
+                            //    ShowMessage("所有点都检测完");
+                            //    break;
+                            //}
+
                         }
+
+                        ////遍历使用到的相机
+                        //foreach (var camName in 相机名_点位号.Keys)
+                        //{
+                        //    tasks.Add(camName, Task.Run(() =>
+                        //    {
+                        //        //遍历点位
+                        //        foreach (var 点位号 in 相机名_点位号[camName])
+                        //        {
+                        //            var set = carSet.gSets[点位号];
+                        //            int pointNum = set.key;
+
+                        //            if (相机参数.sets.ContainsKey(camName))
+                        //            {
+                        //                if (!相机参数.sets[camName].gSet.Disabled && !set.keepOK)
+                        //                {
+                        //                    float Px0 = 0, Py0 = 0, Px1 = 0, Py1 = 0;
+                        //                    bool 匹配成功 = false;
+                        //                    // 第二孔未启用时视为不需要进行第二次定位。
+                        //                    bool Points匹配成功 = !set.enablePoints;
+                        //                    HImage hImage2D = null;
+                        //                    HImage hImage2D匹配 = null;
+
+                        //                    if (!checkBox相机仿真.Checked)
+                        //                    {
+                        //                        if (相机.ContainsKey(camName))
+                        //                        {
+                        //                            if (相机[camName].SetExposure(set.ledExposure))
+                        //                            {
+                        //                                Thread.Sleep(20);
+                        //                                hImage2D = 相机[camName].OneShot();
+                        //                                if (hImage2D == null)
+                        //                                {
+                        //                                    ShowMessage(camName + "拍照失败:" + 相机[camName].ErrMsg, Color.Yellow);
+                        //                                    Thread.Sleep(50);
+                        //                                    hImage2D = 相机[camName].OneShot();
+                        //                                    if (hImage2D == null)
+                        //                                    {
+                        //                                        ShowMessage(camName + "再次拍照失败:" + 相机[camName].ErrMsg, Color.Red);
+                        //                                        formShow?.UpDataMessage(camName + "拍照失败", pointNum.ToString(), set.name);
+                        //                                        无异常 = false;
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                            else
+                        //                            {
+                        //                                ShowMessage(camName + "曝光设置失败:" + 相机[camName].ErrMsg, Color.Red);
+                        //                                formShow?.UpDataMessage(camName + "曝光设置失败", pointNum.ToString(), set.name);
+                        //                                无异常 = false;
+                        //                            }
+                        //                        }
+                        //                        else
+                        //                        {
+                        //                            ShowMessage($"{camName}相机不存在", Color.Red);
+                        //                            formShow?.UpDataMessage($"{camName}相机不存在", pointNum.ToString(), set.name);
+                        //                            无异常 = false;
+                        //                        }
+                        //                    }
+                        //                    else
+                        //                    {
+                        //                        string imagePath = $"test-Image\\{camName}_{pointNum:00}.bmp";
+                        //                        if (!File.Exists(imagePath))
+                        //                        {
+                        //                            imagePath = $"test-Image\\{camName}_{pointNum:00}.png";
+                        //                        }
+                        //                        if (!File.Exists(imagePath))
+                        //                        {
+                        //                            imagePath = $"test-Image\\{camName}_{pointNum:00}.hobj";
+                        //                        }
+                        //                        if (File.Exists(imagePath))
+                        //                        {
+                        //                            try
+                        //                            {
+                        //                                hImage2D = new HImage(imagePath);
+                        //                            }
+                        //                            catch (Exception ex)
+                        //                            {
+                        //                                ShowMessage($"{imagePath}图片加载异常：{ex}", Color.Red);
+                        //                                formShow?.UpDataMessage("图片加载异常", pointNum.ToString(), set.name);
+                        //                            }
+                        //                        }
+                        //                        else
+                        //                        {
+                        //                            ShowMessage($"{imagePath}图片不存在", Color.Red);
+                        //                            formShow?.UpDataMessage("图片不存在", pointNum.ToString(), set.name);
+                        //                        }
+                        //                    }
+
+                        //                    if (hImage2D != null)
+                        //                    {
+                        //                        var carSetting = carSet;
+                        //                        formShow?.UpDataCamImage(hImage2D, pointNum.ToString());//////////////////////////
+                        //                        try
+                        //                        {
+                        //                            //匹配计算
+                        //                            if (相机参数.sets[camName].camparam != null)
+                        //                            {
+                        //                                if (carSetting.rectangle0.ContainsKey(pointNum) && carSetting.ShapeModels0.ContainsKey(pointNum))
+                        //                                {
+                        //                                    HImage hImage;
+                        //                                    if (carSetting.gSets[pointNum].增强对比度)
+                        //                                    {
+                        //                                        carSetting.rectangle0[pointNum].MinMaxGray(hImage2D, 0, out double min, out double max, out double range);
+                        //                                        if (range > 0)
+                        //                                        {
+                        //                                            double mult = 255d / range;
+                        //                                            double add = -mult * min;
+                        //                                            hImage = hImage2D.ScaleImage(mult, add);
+                        //                                        }
+                        //                                        else
+                        //                                        {
+                        //                                            hImage = hImage2D.Clone();
+                        //                                        }
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        hImage = hImage2D.Clone();
+                        //                                    }
+                        //                                    if (carSetting.FindPxPy(hImage, carSetting.rectangle0[pointNum], carSetting.ShapeModels0[pointNum], carSetting.gSets[pointNum].sharpenProcess,carSetting.gSets[pointNum].score0, carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, ref Px0, ref Py0, out double Pdx, out double Pdy, out double score))
+                        //                                    {
+                        //                                        匹配成功 = true;
+                        //                                        ShowMessage($"{camName}_{pointNum}_0 dx = {Pdx:0.000}像素, dy = {Pdy:0.000}像素，分数{score:0.000}");
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        ShowMessage($"{camName}_{pointNum} 匹配失败", Color.Red);
+                        //                                        formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
+                        //                                        无异常 = false;
+                        //                                    }
+                        //                                    // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
+                        //                                    if (set.enablePoints && 匹配成功)
+                        //                                    {
+                        //                                        if (!carSetting.HasDetectionData(pointNum, 1))
+                        //                                        {
+                        //                                            ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
+                        //                                            formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
+                        //                                            无异常 = false;
+                        //                                        }
+                        //                                        else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
+                        //                                            carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
+                        //                                        {
+                        //                                            Points匹配成功 = true;
+                        //                                            ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
+                        //                                        }
+                        //                                        else
+                        //                                        {
+                        //                                            ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
+                        //                                            formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
+                        //                                            无异常 = false;
+                        //                                        }
+                        //                                    }
+                        //                                    if (set.enablePoints && Points匹配成功)
+                        //                                    {
+                        //                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage,
+                        //                                            carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
+                        //                                            carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0, carSetting.ShapeModels0[pointNum]);
+                        //                                    }
+                        //                                    formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
+                        //                                    hImage.Dispose();
+                        //                                }
+                        //                                else if (carSetting.rectangle0.ContainsKey(pointNum) && carSetting.Models0.ContainsKey(pointNum))
+                        //                                {
+                        //                                    HImage hImage;
+                        //                                    if (carSetting.gSets[pointNum].增强对比度)
+                        //                                    {
+                        //                                        carSetting.rectangle0[pointNum].MinMaxGray(hImage2D, 0, out double min, out double max, out double range);
+                        //                                        if (range > 0)
+                        //                                        {
+                        //                                            double mult = 255d / range;
+                        //                                            double add = -mult * min;
+                        //                                            hImage = hImage2D.ScaleImage(mult, add);
+                        //                                        }
+                        //                                        else
+                        //                                        {
+                        //                                            hImage = hImage2D.Clone();
+                        //                                        }
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        hImage = hImage2D.Clone();
+                        //                                    }
+                        //                                    if (carSetting.FindPxPy(hImage, carSetting.rectangle0[pointNum], carSetting.Models0[pointNum], carSetting.gSets[pointNum].score0, carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, ref Px0, ref Py0, out double Pdx, out double Pdy, out double score))
+                        //                                    {
+                        //                                        匹配成功 = true;
+                        //                                        ShowMessage($"{camName}_{pointNum}_0 dx = {Pdx:0.000}像素, dy = {Pdy:0.000}像素，分数{score:0.000}");
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        ShowMessage($"{camName}_{pointNum} 匹配失败", Color.Red);
+                        //                                        formShow?.UpDataMessage("匹配失败", pointNum.ToString(), set.name);
+                        //                                        无异常 = false;
+                        //                                    }
+                        //                                    // 第二孔使用同一张图片和同一标定，但使用独立的模型和搜索区域。
+                        //                                    if (set.enablePoints && 匹配成功)
+                        //                                    {
+                        //                                        if (!carSetting.HasDetectionData(pointNum, 1))
+                        //                                        {
+                        //                                            ShowMessage($"{camName}_{pointNum}_1 未做参数", Color.Red);
+                        //                                            formShow?.UpDataMessage("第二孔未做参数", pointNum.ToString(), set.name);
+                        //                                            无异常 = false;
+                        //                                        }
+                        //                                        else if (carSetting.FindPxPy(hImage, pointNum, 1, carSetting.gSets[pointNum].sharpenProcess,
+                        //                                            carSetting.gSets[pointNum].score0, ref Px1, ref Py1, out double Pdx1, out double Pdy1, out double score1))
+                        //                                        {
+                        //                                            Points匹配成功 = true;
+                        //                                            ShowMessage($"{camName}_{pointNum}_1 dx = {Pdx1:0.000}像素, dy = {Pdy1:0.000}像素，分数{score1:0.000}");
+                        //                                        }
+                        //                                        else
+                        //                                        {
+                        //                                            ShowMessage($"{camName}_{pointNum}_1 匹配失败", Color.Red);
+                        //                                            formShow?.UpDataMessage("第二孔匹配失败", pointNum.ToString(), set.name);
+                        //                                            无异常 = false;
+                        //                                        }
+                        //                                    }
+                        //                                    if (set.enablePoints && Points匹配成功)
+                        //                                    {
+                        //                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage,
+                        //                                            carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0,
+                        //                                            carSetting.rectangle1[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, Px1, Py1);
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        hImage2D匹配 = carSetting.GetShowHIamge(hImage, carSetting.rectangle0[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, Px0, Py0);
+                        //                                    }
+                        //                                    formShow?.UpDataCamImage(hImage2D匹配, pointNum.ToString());/////////////////////////
+                        //                                }
+                        //                                else
+                        //                                {
+                        //                                    ShowMessage($"{camName}_{pointNum} 未做参数", Color.Yellow);
+                        //                                    formShow?.UpDataMessage($"未做参数", pointNum.ToString(), set.name);
+                        //                                    无异常 = false;
+                        //                                }
+
+                        //                                if (匹配成功)
+                        //                                {
+                        //                                    if (carSetting.camPose.ContainsKey(pointNum))
+                        //                                    {
+                        //                                        相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out float nx, out float ny);
+                        //                                        相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out float ox, out float oy);
+                        //                                        float dx = (float)Math.Round(nx - ox, 2);
+                        //                                        float dy = (float)Math.Round(ny - oy, 2);
+
+                        //                                        // 两孔距离默认显示为红色，只有第二孔定位、坐标转换和阈值判断全部完成后才更新颜色。
+                        //                                        float PointsDX = 0, PointsDY = 0, PointsDZ = 0, PointsDD = 0;
+                        //                                        Color PointsColorX = set.enablePoints ? Color.Red : Color.White;
+                        //                                        Color PointsColorY = set.enablePoints ? Color.Red : Color.White;
+                        //                                        Color PointsColorZ = set.enablePoints ? Color.Red : Color.White;
+                        //                                        Color PointsColorD = set.enablePoints ? Color.Red : Color.White;
+                        //                                        bool pointsDistanceOK = !set.enablePoints;
+                        //                                        if (set.enablePoints && Points匹配成功)
+                        //                                        {
+                        //                                            float actual0X = 0, actual0Y = 0, actual1X = 0, actual1Y = 0;
+                        //                                            float nominal0X = 0, nominal0Y = 0, nominal1X = 0, nominal1Y = 0;
+                        //                                            bool pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px0, Py0, out actual0X, out actual0Y);
+                        //                                            pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], Px1, Py1, out actual1X, out actual1Y) && pointsCoordinateOK;
+                        //                                            pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter0[pointNum].X, carSetting.modeCenter0[pointNum].Y, out nominal0X, out nominal0Y) && pointsCoordinateOK;
+                        //                                            pointsCoordinateOK = 相机参数.sets[camName].GetXY(carSetting.camPose[pointNum], carSetting.modeCenter1[pointNum].X, carSetting.modeCenter1[pointNum].Y, out nominal1X, out nominal1Y) && pointsCoordinateOK;
+                        //                                            if (pointsCoordinateOK)
+                        //                                            {
+                        //                                                Point3D actualPoint0 = ConvertXYToAxes(set, actual0X, actual0Y);
+                        //                                                Point3D actualPoint1 = ConvertXYToAxes(set, actual1X, actual1Y);
+                        //                                                Point3D nominalPoint0 = ConvertXYToAxes(set, nominal0X, nominal0Y);
+                        //                                                Point3D nominalPoint1 = ConvertXYToAxes(set, nominal1X, nominal1Y);
+                        //                                                // 先按定义计算误差向量，再对显示值和阈值值保留两位小数。
+                        //                                                double pointsErrorX = Math.Abs(actualPoint1.X - actualPoint0.X) - Math.Abs(nominalPoint1.X - nominalPoint0.X);
+                        //                                                double pointsErrorY = Math.Abs(actualPoint1.Y - actualPoint0.Y) - Math.Abs(nominalPoint1.Y - nominalPoint0.Y);
+                        //                                                double pointsErrorZ = Math.Abs(actualPoint1.Z - actualPoint0.Z) - Math.Abs(nominalPoint1.Z - nominalPoint0.Z);
+                        //                                                PointsDX = (float)Math.Round(pointsErrorX, 2);
+                        //                                                PointsDY = (float)Math.Round(pointsErrorY, 2);
+                        //                                                PointsDZ = (float)Math.Round(pointsErrorZ, 2);
+                        //                                                PointsDD = (float)Math.Round(Math.Sqrt(pointsErrorX * pointsErrorX + pointsErrorY * pointsErrorY + pointsErrorZ * pointsErrorZ), 2);
+                        //                                                pointsDistanceOK = EvaluatePointsDistance(set, PointsDX, PointsDY, PointsDZ, PointsDD,
+                        //                                                    out PointsColorX, out PointsColorY, out PointsColorZ, out PointsColorD);
+                        //                                                if (!pointsDistanceOK)
+                        //                                                {
+                        //                                                    无超差 = false;
+                        //                                                }
+                        //                                            }
+                        //                                            else
+                        //                                            {
+                        //                                                ShowMessage($"{camName}_{pointNum} 两孔坐标转换失败", Color.Red);
+                        //                                                formShow?.UpDataMessage("两孔坐标转换失败", pointNum.ToString(), set.name);
+                        //                                                无异常 = false;
+                        //                                            }
+                        //                                        }
+
+                        //                                        float DX = float.NaN, DY = float.NaN, DZ = float.NaN;//没测的方向显示白色
+                        //                                        switch (carSetting.gSets[pointNum].convertX)
+                        //                                        {
+                        //                                            case "X": DX = dx; break;
+                        //                                            case "-X": DX = -dx; break;
+                        //                                            case "Y": DY = dx; break;
+                        //                                            case "-Y": DY = -dx; break;
+                        //                                            case "Z": DZ = dx; break;
+                        //                                            case "-Z": DZ = -dx; break;
+                        //                                            default: DX = dx; break;
+                        //                                        }
+                        //                                        switch (carSetting.gSets[pointNum].convertY)
+                        //                                        {
+                        //                                            case "X": DX = dy; break;
+                        //                                            case "-X": DX = -dy; break;
+                        //                                            case "Y": DY = dy; break;
+                        //                                            case "-Y": DY = -dy; break;
+                        //                                            case "Z": DZ = dy; break;
+                        //                                            case "-Z": DZ = -dy; break;
+                        //                                            default: DX = dy; break;
+                        //                                        }
+
+                        //                                        //匹配成功先赋OK，超差再赋NG
+                        //                                        lock (olock_Dict)
+                        //                                        {
+                        //                                            if (测点结果.ContainsKey(pointNum))
+                        //                                            {
+                        //                                                测点结果[pointNum] = true;
+                        //                                            }
+                        //                                            else
+                        //                                            {
+                        //                                                测点结果.Add(pointNum, true);
+                        //                                            }
+                        //                                        }
+                        //                                        if (set.enablePoints && !pointsDistanceOK)
+                        //                                        {
+                        //                                            测点结果[pointNum] = false;
+                        //                                        }
+                        //                                        float L = 0, W = 0, H = 0;
+                        //                                        Color colorX = Color.White, colorY = Color.White, colorZ = Color.White;
+                        //                                        //判断X
+                        //                                        if (!DX.Equals(float.NaN))
+                        //                                        {
+                        //                                            DX += carSetting.gSets[pointNum].offsetX;//补偿
+                        //                                            if (DX < carSetting.gSets[pointNum].minDX_2 || DX > carSetting.gSets[pointNum].maxDX_2)
+                        //                                            {
+                        //                                                colorX = Color.Red;
+                        //                                                无超差 = false;
+                        //                                                测点结果[pointNum] = false;
+                        //                                            }
+                        //                                            else if (DX < carSetting.gSets[pointNum].minDX_1 || DX > carSetting.gSets[pointNum].maxDX_1)
+                        //                                            {
+                        //                                                colorX = Color.Yellow;
+                        //                                            }
+                        //                                            else
+                        //                                            {
+                        //                                                colorX = Color.Green;
+                        //                                            }
+                        //                                            if (carSetting.gSets[pointNum].相对基准点)
+                        //                                            {
+                        //                                                重建L.Add(DX);
+                        //                                            }
+                        //                                            L = DX;
+                        //                                        }
+                        //                                        //判断Y
+                        //                                        if (!DY.Equals(float.NaN))
+                        //                                        {
+                        //                                            DY += carSetting.gSets[pointNum].offsetY;//补偿
+                        //                                            if (DY < carSetting.gSets[pointNum].minDY_2 || DY > carSetting.gSets[pointNum].maxDY_2)
+                        //                                            {
+                        //                                                colorY = Color.Red;
+                        //                                                无超差 = false;
+                        //                                                测点结果[pointNum] = false;
+                        //                                            }
+                        //                                            else if (DY < carSetting.gSets[pointNum].minDY_1 || DY > carSetting.gSets[pointNum].maxDY_1)
+                        //                                            {
+                        //                                                colorY = Color.Yellow;
+                        //                                            }
+                        //                                            else
+                        //                                            {
+                        //                                                colorY = Color.Green;
+                        //                                            }
+                        //                                            if (carSetting.gSets[pointNum].相对基准点)
+                        //                                            {
+                        //                                                重建W.Add(DY);
+                        //                                            }
+                        //                                            W = DY;
+                        //                                        }
+                        //                                        //判断Z
+                        //                                        if (!DZ.Equals(float.NaN))
+                        //                                        {
+                        //                                            DZ += carSetting.gSets[pointNum].offsetZ;//补偿
+                        //                                            if (DZ < carSetting.gSets[pointNum].minDZ_2 || DZ > carSetting.gSets[pointNum].maxDZ_2)
+                        //                                            {
+                        //                                                colorZ = Color.Red;
+                        //                                                无超差 = false;
+                        //                                                测点结果[pointNum] = false;
+                        //                                            }
+                        //                                            else if (DZ < carSetting.gSets[pointNum].minDZ_1 || DZ > carSetting.gSets[pointNum].maxDZ_1)
+                        //                                            {
+                        //                                                colorZ = Color.Yellow;
+                        //                                            }
+                        //                                            else
+                        //                                            {
+                        //                                                colorZ = Color.Green;
+                        //                                            }
+                        //                                            if (carSetting.gSets[pointNum].相对基准点)
+                        //                                            {
+                        //                                                重建H.Add(DZ);
+                        //                                            }
+                        //                                            H = DZ;
+                        //                                        }
+                        //                                        float dd = (float)Math.Round(Math.Sqrt(L * L + W * W + H * H), 2);
+
+                        //                                        Dictionary<string, string> 测点数据表 = new Dictionary<string, string>();
+                        //                                        测点数据表.Add("时间", dateTimeNow.ToString("yyyy-MM-dd HH:mm:ss"));
+                        //                                        测点数据表.Add("相机名", camName);
+                        //                                        测点数据表.Add("点位号", pointNum.ToString());
+                        //                                        测点数据表.Add("DX", L.ToString("0.00"));
+                        //                                        测点数据表.Add("DY", W.ToString("0.00"));
+                        //                                        测点数据表.Add("DZ", H.ToString("0.00"));
+                        //                                        测点数据表.Add("DD", dd.ToString("0.00"));
+                        //                                        if (set.enablePoints)
+                        //                                        {
+                        //                                            // 两孔相对距离误差写入数据库；PLC仍只接收原有单孔测量数据。
+                        //                                            测点数据表.Add("PointsDX", PointsDX.ToString("0.00"));
+                        //                                            测点数据表.Add("PointsDY", PointsDY.ToString("0.00"));
+                        //                                            测点数据表.Add("PointsDZ", PointsDZ.ToString("0.00"));
+                        //                                            测点数据表.Add("PointsDD", PointsDD.ToString("0.00"));
+                        //                                        }
+
+                        //                                        lock (olock_Dict)
+                        //                                        {
+                        //                                            if (!point3d给PLC.ContainsKey(pointNum))
+                        //                                            {
+                        //                                                point3d给PLC.Add(pointNum, new Point3D(L, W, H));
+                        //                                                point3d原数据.Add(pointNum, new Point3D(DX, DY, DZ));
+                        //                                                point3d原颜色.Add(pointNum, new Point3DColor(colorX, colorY, colorZ));
+                        //                                                if (set.enablePoints)
+                        //                                                {
+                        //                                                    points3dData.Add(pointNum, new Point3D(PointsDX, PointsDY, PointsDZ));
+                        //                                                    points3dColors.Add(pointNum, new Point3DColor(PointsColorX, PointsColorY, PointsColorZ));
+                        //                                                }
+                        //                                                sqlValuePairs.Add(pointNum, 测点数据表);
+                        //                                            }
+                        //                                            else
+                        //                                            {
+                        //                                                ShowMessage($"点位号{pointNum}重复", Color.Red);
+                        //                                                无异常 = false;
+                        //                                            }
+                        //                                        }
+
+                        //                                        //显示数据
+                        //                                        dataGridViewShow.BeginInvoke(new Action(() =>
+                        //                                        {
+                        //                                            int index = dataGridViewShow.Rows.Add();
+                        //                                            dataGridViewShow.Rows[index].Cells["pointNum"].Value = pointNum;
+                        //                                            dataGridViewShow.Rows[index].Cells["cam"].Value = carSetting.gSets[pointNum].CamName;
+                        //                                            dataGridViewShow.Rows[index].Cells["name"].Value = carSetting.gSets[pointNum].name;
+                        //                                            dataGridViewShow.Rows[index].Cells["dx"].Value = L.ToString("0.00");
+                        //                                            dataGridViewShow.Rows[index].Cells["dy"].Value = W.ToString("0.00");
+                        //                                            dataGridViewShow.Rows[index].Cells["dz"].Value = H.ToString("0.00");
+                        //                                            dataGridViewShow.Rows[index].Cells["dd"].Value = dd.ToString("0.00");
+
+                        //                                            dataGridViewShow.Rows[index].Cells["dx"].Style.BackColor = colorX;
+                        //                                            dataGridViewShow.Rows[index].Cells["dy"].Style.BackColor = colorY;
+                        //                                            dataGridViewShow.Rows[index].Cells["dz"].Style.BackColor = colorZ;
+                        //                                            if (set.enablePoints)
+                        //                                            {
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDX"].Value = PointsDX.ToString("0.00");
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDY"].Value = PointsDY.ToString("0.00");
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDZ"].Value = PointsDZ.ToString("0.00");
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDD"].Value = PointsDD.ToString("0.00");
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDX"].Style.BackColor = PointsColorX;
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDY"].Style.BackColor = PointsColorY;
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDZ"].Style.BackColor = PointsColorZ;
+                        //                                                dataGridViewShow.Rows[index].Cells["PointsDD"].Style.BackColor = PointsColorD;
+                        //                                            }
+                        //                                        }));
+
+                        //                                        formShow?.UpDataXYZ(
+                        //                                            point3d给PLC[pointNum],
+                        //                                            point3d原颜色[pointNum],
+                        //                                            pointNum.ToString(),
+                        //                                            carSetting.gSets[pointNum].name,
+                        //                                            set.enablePoints ? new Point3D(PointsDX, PointsDY, PointsDZ) : null,
+                        //                                            set.enablePoints ? new Point3DColor(PointsColorX, PointsColorY, PointsColorZ) : null);////////////////////////////////////
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        ShowMessage($"{camName}_{pointNum} 未做位姿标定", Color.Red);
+                        //                                        formShow?.UpDataMessage($"未做位姿标定", pointNum.ToString(), set.name);
+                        //                                        无异常 = false;
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                            else
+                        //                            {
+                        //                                ShowMessage($"{camName}相机未做标定", Color.Red);
+                        //                                formShow?.UpDataMessage($"{camName}相机未标定", pointNum.ToString(), set.name);
+                        //                                无异常 = false;
+                        //                            }
+                        //                        }
+                        //                        catch (Exception ex)
+                        //                        {
+                        //                            ShowMessage($"{camName}_{pointNum} 匹配异常:{ex}", Color.Red);
+                        //                            formShow?.UpDataMessage("匹配异常", pointNum.ToString(), set.name);
+                        //                            无异常 = false;
+                        //                        }
+
+                        //                        //存图
+                        //                        if (!checkBox相机仿真.Checked)
+                        //                        {
+                        //                            if (otherSet.isSaveImage && !bDry_mode)
+                        //                            {
+                        //                                lock (lockSaveImage)
+                        //                                {
+                        //                                    if (ListImageKeys.Count < 120)
+                        //                                    {
+                        //                                        {
+                        //                                            string key = $"{path}\\{camName}_{pointNum:00}.png";
+                        //                                            ListImageKeys.Add(key);
+                        //                                            DicImages.Add(key, hImage2D);
+                        //                                        }
+                        //                                        {
+                        //                                            string key = $"{path}\\{camName}_{pointNum:00}p.jpg";
+                        //                                            ListImageKeys.Add(key);
+                        //                                            DicImages.Add(key, hImage2D匹配);
+                        //                                        }
+                        //                                    }
+                        //                                    else
+                        //                                    {
+                        //                                        ShowMessage($"{camName}_{pointNum:00} 内存中有{ListImageKeys.Count}张图未存进硬盘，跳过本次存图", Color.Yellow);
+                        //                                    }
+                        //                                }
+                        //                            }
+                        //                        }
+                        //                        else
+                        //                        {
+                        //                            try
+                        //                            {
+                        //                                hImage2D匹配?.WriteImage("jpeg 80", 0, $"test-Image\\{camName}_{pointNum:00}p.jpg");
+                        //                            }
+                        //                            catch (Exception ex)
+                        //                            {
+                        //                                ShowMessage("仿真存图异常" + ex.ToString(), Color.Red);
+                        //                            }
+                        //                        }
+                        //                    }
+                        //                }
+                        //                else
+                        //                {
+                        //                    lock (olock_Dict)
+                        //                    {
+                        //                        if (测点结果.ContainsKey(pointNum))
+                        //                        {
+                        //                            测点结果[pointNum] = true;
+                        //                        }
+                        //                        else
+                        //                        {
+                        //                            测点结果.Add(pointNum, true);
+                        //                        }
+                        //                    }
+
+                        //                    if (相机参数.sets[camName].gSet.Disabled)
+                        //                    {
+                        //                        ShowMessage($"车型{carKind}-{TRnum} 相机{camName} 已屏蔽", Color.Yellow);
+                        //                        formShow?.UpDataMessage("相机已屏蔽", pointNum.ToString(), set.name, false);
+                        //                    }
+                        //                    else if (set.keepOK)
+                        //                    {
+                        //                        ShowMessage($"车型{carKind}-{TRnum} 点位{pointNum} 已屏蔽", Color.Yellow);
+                        //                        formShow?.UpDataMessage("测点已屏蔽", pointNum.ToString(), set.name, false);
+                        //                    }
+                        //                }
+                        //            }
+                        //            else
+                        //            {
+                        //                ShowMessage($"车型{carKind}-{TRnum} 相机{camName} 不存在", Color.Red);
+                        //                formShow?.UpDataMessage("相机不存在", pointNum.ToString(), set.name);
+                        //            }
+
+                        //            //数据排序写入，必须要有
+                        //            lock (olock_Dict)
+                        //            {
+                        //                if (!point3d给PLC.ContainsKey(pointNum))
+                        //                {
+                        //                    point3d给PLC.Add(pointNum, new Point3D(0, 0, 0));
+                        //                }
+                        //            }
+                                
+                                
+                        //        }
+                        //    }));
+                        //}
                     }
                     else
                     {
@@ -1658,8 +2331,10 @@ namespace OnlineMeasurement
                     {
                         lblSysStatus.Text = "完成";
                         lblSysStatus.BackColor = Color.White;
+                        lblSysStatus.ForeColor = AppTheme.Window;
                         labelResult.Text = bResult ? "OK" : "NG";
                         labelResult.BackColor = bResult ? Color.Green : Color.Red;
+                        labelResult.ForeColor = Color.White;
                     }));
 
                     if (!checkBoxPLC仿真.Checked)
@@ -2253,6 +2928,7 @@ namespace OnlineMeasurement
             {
                 lblSysStatus.Text = "停止";
                 lblSysStatus.BackColor = Color.Red;
+                lblSysStatus.ForeColor = Color.White;
                 buttonRun.Enabled = true;
                 buttonStop.Enabled = false;
                 groupBox1.Enabled = true;
@@ -2262,7 +2938,7 @@ namespace OnlineMeasurement
         List<string> listLogs = new List<string>();
         void ShowMessage(string message)
         {
-            ShowMessage(message, Color.White);
+            ShowMessage(message, AppTheme.Surface);
         }
         void ShowMessage(string message, Color backColor)
         {
@@ -2499,7 +3175,7 @@ namespace OnlineMeasurement
             if (control.ClientRectangle.Width > 0 && control.ClientRectangle.Height > 0)
             {
                 graphicsPath.AddRectangle(control.ClientRectangle);
-                LinearGradientBrush brush = new LinearGradientBrush(control.ClientRectangle, Color.FromArgb(100, 212, 225), Color.FromArgb(100, 162, 225), LinearGradientMode.BackwardDiagonal);
+                LinearGradientBrush brush = new LinearGradientBrush(control.ClientRectangle, AppTheme.RaisedSurface, AppTheme.Window, LinearGradientMode.BackwardDiagonal);
                 g.FillPath(brush, graphicsPath);
             }
         }
