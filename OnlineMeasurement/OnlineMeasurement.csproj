@@ -122,6 +122,7 @@
       <DependentUpon>FormName.cs</DependentUpon>
     </Compile>
     <Compile Include="FormTool.cs" />
+    <Compile Include="AppTheme.cs" />
     <Compile Include="FormShow.cs">
       <SubType>Form</SubType>
     </Compile>

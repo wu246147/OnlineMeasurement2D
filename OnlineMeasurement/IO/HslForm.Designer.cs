@@ -219,7 +219,7 @@ namespace OnlineMeasurement.IO
             this.textBoxLog.Multiline = true;
             this.textBoxLog.Name = "textBoxLog";
             this.textBoxLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxLog.Size = new System.Drawing.Size(212, 605);
+            this.textBoxLog.Size = new System.Drawing.Size(212, 705);
             this.textBoxLog.TabIndex = 27;
             // 
             // labelOutAddress
@@ -322,7 +322,7 @@ namespace OnlineMeasurement.IO
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(37)))), ((int)(((byte)(47)))));
-            this.ClientSize = new System.Drawing.Size(879, 761);
+            this.ClientSize = new System.Drawing.Size(879, 861);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelOutValue);
